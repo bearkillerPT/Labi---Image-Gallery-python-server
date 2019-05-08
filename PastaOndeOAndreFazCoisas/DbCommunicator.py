@@ -65,8 +65,8 @@ class DbCommunicator:
     cropper = Image.open(io.BytesIO(image))
     for i in caracts:
       cropped = cropper.crop((
-        i['box']['y'],i['box']['x'],
-        i['box']['y1'],i['box']['x1'],)
+        i['box']['x'],i['box']['y'],
+        i['box']['x1'],i['box']['y1'],)
         )
       imgByteArr = io.BytesIO()
       cropped.save(imgByteArr, 'png')
@@ -109,15 +109,48 @@ class DbCommunicator:
 
   def request(self, request_obj: dict):
     data = []
-    if('type' in request_obj):
-      pass
-    if('name' in request_obj):
-      pass
-    if('color' in request_obj):
-      pass
+    db = sqlite3.connect(self.db_name)
+    result = "Bad Call"
+    if('type' in request_obj and 'name' in request_obj and 'color' in request_obj and request_obj['type'] == 'detected'):
+      return("")
+
+    elif('type' in request_obj and 'name' in request_obj and request_obj['type'] == 'detected'):
+      results = db.execute(
+      "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract where CaractName = ? ",
+      (request_obj['name'],) 
+      ).fetchall()
+      result = {request_obj['name']:[{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
+    
+    elif('type' in request_obj):
+      if(request_obj['type'] == 'names'):
+        result = db.execute("select distinct CaractName from RelImgCaract").fetchall()
+        result = [i[0] for i in result]
+      elif(request_obj['type'] == 'detected'):
+        names = db.execute("select distinct CaractName from RelImgCaract").fetchall()
+        names = [i[0] for i in names]
+        result = {}
+        for name in names:
+          results = db.execute(
+          "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract where CaractName = ? ",
+          (name,) 
+          ).fetchall()
+          result[name] = [{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]
+    db.commit()
+    db.close()
+    return(result)
+
+  def __clear_all_caution__(self):
+    db = sqlite3.connect('app_db.db')
+    db.execute('delete from RelImgCaract where true')
+    db.execute('delete from Imagens where true')
+    db.commit()
+    db.close()
+
+
 if __name__ == '__main__':
   comm = DbCommunicator('app_db.db')
-  print(comm.remove({'image' : open('image2.jpg', 'rb').read()}))
+  # comm.__clear_all_caution__()
+  print(comm.add(open('image.jpg', 'rb').read()))
   print(comm.add(open('image2.jpg', 'rb').read()))
   print(comm.add(open('image3.jpeg', 'rb').read()))
-  print(comm.remove({'image_name': 'f203b83e1ffa6aa0cd63ce13efc17ca0'}))
+  print(comm.request({'type' : 'detected', 'name' : 'person'}))
