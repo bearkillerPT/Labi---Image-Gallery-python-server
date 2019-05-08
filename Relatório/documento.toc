@@ -1,0 +1,20 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {portuguese}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Metodologia}{2}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Defini\IeC {\c c}\IeC {\~a}o de tarefas}{2}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Exemplos}{2}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.1}Utiliza\IeC {\c c}\IeC {\~a}o de acr\IeC {\'o}nimos}{2}{subsection.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.2}Refer\IeC {\^e}ncias bibliogr\IeC {\'a}ficas}{2}{subsection.2.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Resultados}{3}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}An\IeC {\'a}lise}{4}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Conclus\IeC {\~o}es}{5}{chapter.5}
