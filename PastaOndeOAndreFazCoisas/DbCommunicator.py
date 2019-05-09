@@ -5,6 +5,7 @@ import sys
 from PIL import Image
 import io
 from os import remove 
+from urllib.request import Request, urlretrieve 
 class DbCommunicator:
   def __init__(self, db_name: str) -> None:
     self.db_name = db_name
@@ -23,7 +24,7 @@ class DbCommunicator:
     avg_color['r'] = round(avg_color['r'])
     avg_color['g'] = round(avg_color['g'])
     avg_color['b'] = round(avg_color['b'])
-    return (height, width, "(" + str(avg_color['r']) + "," + str(avg_color['g']) + "," + str(avg_color['b']) + ")")
+    return (height, width, (avg_color['r'], avg_color['g'], avg_color['b']))
 
 
   def request_caracteristics(self, image: bytearray, name, threshold) -> dict:
@@ -35,8 +36,7 @@ class DbCommunicator:
     if r.status_code == 200:
       img_dict= r.json()
     else:
-      pass
-      # logError("Ocorreu um erro")
+      return('Connection Failed')
     caracts = []
     for i in img_dict:
       caracts.append({'name' :name, 'class': i['class'],
@@ -61,7 +61,7 @@ class DbCommunicator:
     f1.write(image)
     f1.close()
     height, width, color = self.get_dims_and_color("./images/" + name)
-    db.execute("insert into Imagens values (?, ?, ?, ?);", (name, height, width, color,))
+    db.execute("insert into Imagens values (?, ?, ?, ?, ?, ?);", (name, height, width, color[0],color[1],color[2],))
     cropper = Image.open(io.BytesIO(image))
     for i in caracts:
       cropped = cropper.crop((
@@ -76,7 +76,8 @@ class DbCommunicator:
       f.write(imgByteArr)
       f.close()
       cropped_width, cropped_height, cropped_color = self.get_dims_and_color("./images/" + cropped_name)
-      db.execute("insert into Imagens values (?, ?, ?, ?);", (cropped_name, cropped_height, cropped_width, cropped_color,))
+      db.execute("insert into Imagens values (?, ?, ?, ?, ?, ?);",
+                (cropped_name, cropped_height, cropped_width, cropped_color[0],cropped_color[1],cropped_color[2],))
       db.execute('insert into RelImgCaract (FKOriginalImageName, FKCroppedImageName,'+ 
                 'CaractName , Box, Confidence) values (?,?,?,?,?);'
                 ,(name, cropped_name, i['class'],
@@ -111,9 +112,31 @@ class DbCommunicator:
     data = []
     db = sqlite3.connect(self.db_name)
     result = "Bad Call"
-    if('type' in request_obj and 'name' in request_obj and 'color' in request_obj and request_obj['type'] == 'detected'):
-      return("")
-
+    if('put' in request_obj):
+      if('image' in request_obj['put']):
+        self.add(request_obj['put']['image'])
+      elif('uri' in request_obj['put']):
+        req = Request(request_obj['put']['uri'], headers={'User-Agent': 'Mozilla/5.0'})
+        f = urlretrieve(req)
+        self.add(open(f, 'rb').read())
+    elif('type' in request_obj and 'name' in request_obj and 'color' in request_obj and request_obj['type'] == 'detected'):
+      results = db.execute(
+      "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract "+
+      "inner join Imagens on RelImgCaract.FKCroppedImageName = Imagens.image_path where CaractName = ?  and "+
+      "(R - ?) * (R - ?) + (G - ?) * (G - ?) + (B - ?) * (B - ?) < ?" ,
+      (
+        request_obj['name'],
+        request_obj['color']['R'],
+        request_obj['color']['R'],
+        request_obj['color']['G'],
+        request_obj['color']['G'],
+        request_obj['color']['B'],
+        request_obj['color']['B'],
+        request_obj['color']['tol'] * 195075, #denormalização , numero max 
+      ) 
+      ).fetchall()
+      result = {request_obj['name']:[{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
+    
     elif('type' in request_obj and 'name' in request_obj and request_obj['type'] == 'detected'):
       results = db.execute(
       "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract where CaractName = ? ",
@@ -153,4 +176,14 @@ if __name__ == '__main__':
   print(comm.add(open('image.jpg', 'rb').read()))
   print(comm.add(open('image2.jpg', 'rb').read()))
   print(comm.add(open('image3.jpeg', 'rb').read()))
-  print(comm.request({'type' : 'detected', 'name' : 'person'}))
+  print(comm.request(
+    {
+      'put' : {
+        #'image': open('image.jpg', 'rb').read(), 
+        'uri' : 'https://webcuriosos.com.br/wp-content/uploads/2017/06/DESAFIO-Voc%C3%AA-consegue-encontrar-os-erros-nestas-fotos-768x399.jpg'
+        },
+      'type' : 'detected', 
+      'name' : 'person', 
+      'color' : {'R':255,'G':255,'B':255,'tol':0,}
+    }
+  ))
