@@ -5,7 +5,7 @@ import sys
 from PIL import Image
 import io
 from os import remove 
-from urllib.request import Request, urlretrieve 
+from urllib.request import urlretrieve 
 class DbCommunicator:
   def __init__(self, db_name: str) -> None:
     self.db_name = db_name
@@ -116,9 +116,11 @@ class DbCommunicator:
       if('image' in request_obj['put']):
         self.add(request_obj['put']['image'])
       elif('uri' in request_obj['put']):
-        req = Request(request_obj['put']['uri'], headers={'User-Agent': 'Mozilla/5.0'})
-        f = urlretrieve(req)
-        self.add(open(f, 'rb').read())
+        try:
+          f = urlretrieve(request_obj['put']['uri'])[0]
+          self.add(open(f, 'rb').read())
+        except:
+          result = "required link is forbiden"
     elif('type' in request_obj and 'name' in request_obj and 'color' in request_obj and request_obj['type'] == 'detected'):
       results = db.execute(
       "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract "+
