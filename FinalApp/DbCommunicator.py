@@ -108,26 +108,51 @@ class DbCommunicator:
     db.close()
     return("Image removed successfully")
 
+  def get(self, id):
+    db = sqlite3.connect(self.db_name)
+    db_request = db.execute("select FKOriginalImageName, FKCroppedImageName, CaractName , Box, Confidence from RelImgCaract"+
+    " where FKOriginalImageName = ? or FKOriginalImageName = ?;",
+    (id,id,)).fetchall()
+    if(len(db_request) == 0): result = "Image Not Found"
+    else:
+      result = [{
+        'original':i[0],
+        'image':i[1],
+        'class':i[2],
+        'box':{
+          'x':i[3].split(',')[0],
+          'y':i[3].split(',')[1],
+          'x1':i[3].split(',')[2],
+          'y1':i[3].split(',')[3]
+        },
+        'confidence':round(i[4]*100)} for i in db_request]
+    db.commit()
+    db.close()
+    return(result)
+
   def request(self, request_obj: dict):
     data = []
     db = sqlite3.connect(self.db_name)
     result = "Bad Call"
     if('put' in request_obj):
       if('image' in request_obj['put']):
-        self.add(request_obj['put']['image'])
+        result = self.add(request_obj['put']['image'])
       elif('uri' in request_obj['put']):
         try:
           f = urlretrieve(request_obj['put']['uri'])[0]
-          self.add(open(f, 'rb').read())
+          result = self.add(open(f, 'rb').read())
         except:
           result = "required link is forbiden"
     elif('type' in request_obj and 'name' in request_obj and 'color' in request_obj and request_obj['type'] == 'detected'):
+      if ('thr' in request_obj): thr = request_obj['thr'];  
+      else: thr = 0
       results = db.execute(
       "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract "+
-      "inner join Imagens on RelImgCaract.FKCroppedImageName = Imagens.image_path where CaractName = ?  and "+
+      "inner join Imagens on RelImgCaract.FKCroppedImageName = Imagens.image_path where CaractName = ? and Confidence > ? and "+
       "(R - ?) * (R - ?) + (G - ?) * (G - ?) + (B - ?) * (B - ?) < ?" ,
       (
         request_obj['name'],
+        thr,
         request_obj['color']['R'],
         request_obj['color']['R'],
         request_obj['color']['G'],
@@ -140,10 +165,14 @@ class DbCommunicator:
       result = {request_obj['name']:[{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
     
     elif('type' in request_obj and 'name' in request_obj and request_obj['type'] == 'detected'):
+      if ('thr' in request_obj): thr = request_obj['thr'];  
+      else: thr = 0
       results = db.execute(
-      "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract where CaractName = ? ",
-      (request_obj['name'],) 
-      ).fetchall()
+      "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract where CaractName = ? and Confidence > ?",
+      (
+        request_obj['name'],
+        thr
+      )).fetchall()
       result = {request_obj['name']:[{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
     
     elif('type' in request_obj):
@@ -174,18 +203,18 @@ class DbCommunicator:
 
 if __name__ == '__main__':
   comm = DbCommunicator('app_db.db')
-  # comm.__clear_all_caution__()
-  print(comm.add(open('image.jpg', 'rb').read()))
-  print(comm.add(open('image2.jpg', 'rb').read()))
-  print(comm.add(open('image3.jpeg', 'rb').read()))
-  print(comm.request(
-    {
-      'put' : {
-        #'image': open('image.jpg', 'rb').read(), 
-        'uri' : 'https://webcuriosos.com.br/wp-content/uploads/2017/06/DESAFIO-Voc%C3%AA-consegue-encontrar-os-erros-nestas-fotos-768x399.jpg'
-        },
-      'type' : 'detected', 
-      'name' : 'person', 
-      'color' : {'R':255,'G':255,'B':255,'tol':0,}
-    }
-  ))
+  comm.__clear_all_caution__()
+  # print(comm.add(open('image.jpg', 'rb').read()))
+  # print(comm.add(open('image2.jpg', 'rb').read()))
+  # print(comm.add(open('image3.jpeg', 'rb').read()))
+  # print(comm.request(
+  #   {
+  #     'put' : {
+  #       #'image': open('image.jpg', 'rb').read(), 
+  #       'uri' : 'https://webcuriosos.com.br/wp-content/uploads/2017/06/DESAFIO-Voc%C3%AA-consegue-encontrar-os-erros-nestas-fotos-768x399.jpg'
+  #       },
+  #     'type' : 'detected', 
+  #     'name' : 'person', 
+  #     'color' : {'R':255,'G':255,'B':255,'tol':0,}
+  #   }
+  # ))
