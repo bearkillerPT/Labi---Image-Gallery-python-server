@@ -36,13 +36,21 @@ class app(object):
 
     @cherrypy.expose
     def index(self):
-        return open("./../PastaOndeOGilFazCoisas/teste.html")
+        return open("./../PastaOndeOGilFazCoisas/index.html")
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 config = {
     '/images':{
         'tools.staticdir.on' : True,
         'tools.staticdir.dir' : os.path.join(PATH, "images")
+    },
+	'/js':{
+        'tools.staticdir.on' : True,
+        'tools.staticdir.dir' : os.path.join(PATH, "js")
+    },
+	'/css':{
+        'tools.staticdir.on' : True,
+        'tools.staticdir.dir' : os.path.join(PATH, "css")
     }
 }
 cherrypy.quickstart(app(),'/',config=config)
