@@ -2,6 +2,7 @@ import cherrypy
 from cherrypy import tools
 import os
 from DbCommunicator import DbCommunicator 
+import json
 comm = DbCommunicator('app_db.db')
 class app(object):
     @cherrypy.expose
@@ -13,7 +14,7 @@ class app(object):
         if(name):
             request_body['name'] = name
         if(color):
-            request_body['color'] = color.json()
+            request_body['color'] = json.loads(color)
         result = comm.request(request_body)
         print(result)
         return result
