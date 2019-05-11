@@ -14,17 +14,11 @@ class DbCommunicator:
     img = Image.open(image_path)
     width, height = img.size
     total_pixel_count = width * height
-    avg_color = {'r':0,'g':0,'b':0}
-    for x in range(width):
-      for y in range(height):
-        p = img.getpixel((x,y))
-        avg_color['r'] += p[0]/total_pixel_count
-        avg_color['g'] += p[1]/total_pixel_count
-        avg_color['b'] += p[2]/total_pixel_count
-    avg_color['r'] = round(avg_color['r'])
-    avg_color['g'] = round(avg_color['g'])
-    avg_color['b'] = round(avg_color['b'])
+    img2 = img.resize((1, 1))
+    color = img2.getpixel((0, 0))
+    avg_color = {'r':color[0],'g':color[1],'b':color[2]}
     return (height, width, (avg_color['r'], avg_color['g'], avg_color['b']))
+
 
 
   def request_caracteristics(self, image: bytearray, name, threshold) -> dict:
@@ -201,20 +195,13 @@ class DbCommunicator:
     db.close()
 
 
+
+def populate(comm):
+  for filename in os.listdir("./images_to_populate_initial_db"):
+    print(filename)
+    print(comm.add(open('./images_to_populate_initial_db/'+filename, 'rb').read()))
+    
 if __name__ == '__main__':
   comm = DbCommunicator('app_db.db')
   comm.__clear_all_caution__()
-  # print(comm.add(open('image.jpg', 'rb').read()))
-  # print(comm.add(open('image2.jpg', 'rb').read()))
-  # print(comm.add(open('image3.jpeg', 'rb').read()))
-  # print(comm.request(
-  #   {
-  #     'put' : {
-  #       #'image': open('image.jpg', 'rb').read(), 
-  #       'uri' : 'https://webcuriosos.com.br/wp-content/uploads/2017/06/DESAFIO-Voc%C3%AA-consegue-encontrar-os-erros-nestas-fotos-768x399.jpg'
-  #       },
-  #     'type' : 'detected', 
-  #     'name' : 'person', 
-  #     'color' : {'R':255,'G':255,'B':255,'tol':0,}
-  #   }
-  # ))
+  populate(comm)
