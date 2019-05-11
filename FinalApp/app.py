@@ -36,7 +36,7 @@ class app(object):
 
     @cherrypy.expose
     def index(self):
-        return "Hello World!"
+        return open("./../PastaOndeOGilFazCoisas/teste.html")
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 config = {

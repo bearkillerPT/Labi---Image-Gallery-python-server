@@ -4,22 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <script>
+        funcaodogil()
+        funcaodogil = function() {
+            var xhttp = new XMLHttpRequest();
+            let type = 'person'
+            xhttp.open("GET", "http://127.0.0.1:8080/list?type=detected&name=" + type, false)
+            xhttp.send(null)
+            let res = xhttp.responseText
+            res = JSON.parse(res)
+            console.log(res)
+            let a = ""
+            for (let i = 0; i < res[type].length; i++) {
+                a += "<img src='http://127.0.0.1:8080/images/" + res.person[i].image + "'/>"
+            }
+            document.write(a)
+        }
+    </script>
 </head>
 
 <body>
     <script>
-        fetch("127.0.0.1:8080/list?type=detected")
-            .then(res => {
-                console.log(res)
-                return res.json()})
-            .then((res) => {
-                console.log(res)
-                let a = ""
-                for (let i = 0; i < res.length; i++) {
-                    a += "\n<img src='127.0.0.1:8080/images/" + res[i].image + "'/>"
-                }
-                document.write(a)
-            }).catch(e => console.log(e))
+        var xhttp = new XMLHttpRequest();
+        let type = 'person'
+        xhttp.open("GET", "http://127.0.0.1:8080/list?type=detected&name=" + type, false)
+        xhttp.send(null)
+        let res = xhttp.responseText
+        res = JSON.parse(res)
+        console.log(res)
+        let a = ""
+        for (let i = 0; i < res[type].length; i++) {
+            a += "<img src='http://127.0.0.1:8080/images/" + res.person[i].image + "'/>"
+        }
+        document.write(a)
     </script>
 </body>
 
