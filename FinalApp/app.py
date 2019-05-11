@@ -7,7 +7,7 @@ comm = DbCommunicator('app_db.db')
 class app(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
-    def list(self, type = None, name = None, color = None):
+    def list(self, type = None, name = None, color = None, thr = None):
         request_body = {} # this form of create dict request will leave all unused parameter empty
         if(type):
             request_body['type'] = type

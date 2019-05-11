@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        fetch("127.0.0.1:8080/list?type=detected")
+            .then(res => {
+                console.log(res)
+                return res.json()})
+            .then((res) => {
+                console.log(res)
+                let a = ""
+                for (let i = 0; i < res.length; i++) {
+                    a += "\n<img src='127.0.0.1:8080/images/" + res[i].image + "'/>"
+                }
+                document.write(a)
+            }).catch(e => console.log(e))
+    </script>
+</body>
+
+</html>
