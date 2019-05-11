@@ -197,7 +197,7 @@ class DbCommunicator:
 
 
 def populate(comm):
-  for filename in os.listdir("./images_to_populate_initial_db"):
+  for filename in os.listdir("./images_to_populate_db"):
     print(filename)
     print(comm.add(open('./images_to_populate_initial_db/'+filename, 'rb').read()))
     
