@@ -15,6 +15,8 @@ class app(object):
             request_body['name'] = name
         if(color):
             request_body['color'] = json.loads(color)
+        if(thr):
+            request_body['thr'] = thr
         result = comm.request(request_body)
         print(result)
         return result
