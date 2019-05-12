@@ -6,6 +6,7 @@ from PIL import Image
 import io
 from os import remove 
 from urllib.request import urlretrieve 
+import os
 class DbCommunicator:
   def __init__(self, db_name: str) -> None:
     self.db_name = db_name
@@ -199,7 +200,7 @@ class DbCommunicator:
 def populate(comm):
   for filename in os.listdir("./images_to_populate_db"):
     print(filename)
-    print(comm.add(open('./images_to_populate_initial_db/'+filename, 'rb').read()))
+    print(comm.add(open('./images_to_populate_db/'+filename, 'rb').read()))
     
 if __name__ == '__main__':
   comm = DbCommunicator('app_db.db')
