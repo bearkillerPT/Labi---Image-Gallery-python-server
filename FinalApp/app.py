@@ -4,6 +4,8 @@ import os
 from DbCommunicator import DbCommunicator 
 import json
 comm = DbCommunicator('app_db.db')
+
+
 class app(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
@@ -38,19 +40,22 @@ class app(object):
     def index(self):
         return open("./../PastaOndeOGilFazCoisas/index.html")
 
+
 PATH = os.path.abspath(os.path.dirname(__file__))
 config = {
-    '/images':{
-        'tools.staticdir.on' : True,
-        'tools.staticdir.dir' : os.path.join(PATH, "images")
+    '/images': {
+        'tools.staticdir.on': True,
+        'tools.staticdir.dir': os.path.join(PATH, "images")
     },
-	'/js':{
-        'tools.staticdir.on' : True,
-        'tools.staticdir.dir' : os.path.join(PATH, "js")
+    '/js': {
+        'tools.staticdir.on': True,
+        'tools.staticdir.dir': os.path.join(PATH, "./../PastaOndeOGilFazCoisas/js")
     },
-	'/css':{
-        'tools.staticdir.on' : True,
-        'tools.staticdir.dir' : os.path.join(PATH, "css")
+    '/css': {
+        'tools.staticdir.on': True,
+        'tools.staticdir.dir': os.path.join(PATH, "./../PastaOndeOGilFazCoisas/css")
     }
 }
+
+
 cherrypy.quickstart(app(),'/',config=config)

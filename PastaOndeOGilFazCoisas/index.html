@@ -22,48 +22,82 @@
       <p>Biblioteca de imagens com suporte para procura e identificação de objetos contidos nas
         imagens!</p>
     </div>
+
+
+
     <div class="container">
-      <div class="filter">
-        <h1>Filtering</h1>
-        <button data-name='*' class="btn btn-info active">All</button>
-        <button data-name=".car" class="btn btn-primary">Cars</button>
-        <button data-name=".flower" class="btn btn-danger">Flowers</button>
-        <button data-name=".person" class="btn btn-success">People</button>
+      <div class="filter" id ="filter">
+        <script>
+          getAll = function() {
+            var filter = document.getElementById("filter")
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "http://127.0.0.1:8080/list?type=detected", false)
+            xhttp.send(null)
+            let res = xhttp.responseText
+            res = JSON.parse(res)
+            console.log(res)
+            let a = ""
+            filter.insertAdjacentHTML('afterbegin', "<select id=\"list\">")
+            var div = document.getElementById("list")
+            div.insertAdjacentHTML('beforeend', "<option data-name=\".\">all</option>")
+            for(let type in res){
+              div.insertAdjacentHTML('beforeend', "<option data-name=\"" + type + "\">" + type + "</option>")
+            }
+            div.insertAdjacentHTML('afterbegin', "</select>")
+          }
+          getAll()
+        </script>
       </div>
       <div class="grid" id="nice">
 
+        <script>
 
+          getByType = function(type) {
+            var div = document.getElementById("nice")
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "http://127.0.0.1:8080/list?type=detected&name=" + type, false)
+            xhttp.send(null)
+            let res = xhttp.responseText
+            res = JSON.parse(res)
+            console.log(res)
+            let a = ""
+            for (let i = 0; i < res[type].length; i++) {
+              div.insertAdjacentHTML('beforeend', "<div class=\"grid-item " + type + "\"><img src='http://127.0.0.1:8080/images/" + res[type][i].image + "' width=\"250\"/></div>")
+            }
+          }
+
+
+          getAll = function() {
+            var div = document.getElementById("nice")
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "http://127.0.0.1:8080/list?type=detected", false)
+            xhttp.send(null)
+            let res = xhttp.responseText
+            res = JSON.parse(res)
+            console.log(res)
+            let a = ""
+            for(let type in res){
+              a +=  getByType(type)
+            }
+
+          }
+
+          getAll()
+        </script>
 
       </div>
     </div>
     
-    <script>
-	
-      
-funcaodogil = function(type) {
-	var div = document.getElementById("nice")
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "http://127.0.0.1:8080/list?type=detected&name=" + type, false)
-    xhttp.send(null)
-    let res = xhttp.responseText
-    res = JSON.parse(res)
-    console.log(res)
-    let a = ""
-    for (let i = 0; i < res[type].length; i++) {
-        a +=  "<div class=\"grid-item \">   <img src='http://127.0.0.1:8080/images/" + res.person[i].image + "'/> </div>"
-    }
-    div.innerHTML += a
-}
-	funcaodogil("person")
-    </script>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"> <!-- integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" --></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"> <!-- integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"--> ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"> <!--integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"--> ></script>
     <script src="js/isotope.pkgd.min.js"></script>
 
     <script>
       var $grid = $('.grid').isotope({
+
         itemSelector: '.grid-item',
         masonry: {
           columnWidth: 260
