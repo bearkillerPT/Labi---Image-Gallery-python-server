@@ -9,7 +9,7 @@ comm = DbCommunicator('app_db.db')
 class app(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
-    def list(self, type = None, name = None, color = None, thr = None):
+    def list(self, type = None, name = None, color = None, thr = None, page = None, per_page = None):
         request_body = {} # this form of create dict request will leave all unused parameter empty
         if(type):
             request_body['type'] = type
@@ -19,6 +19,10 @@ class app(object):
             request_body['color'] = json.loads(color)
         if(thr):
             request_body['thr'] = thr
+        if(page):
+            request_body['page'] = page
+        if(per_page):
+            request_body['per_page'] = per_page
         result = comm.request(request_body)
         print(result)
         return result

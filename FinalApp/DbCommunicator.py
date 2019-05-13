@@ -9,9 +9,11 @@ from urllib.request import urlretrieve
 import os
 class DbCommunicator:
   def __init__(self, db_name: str) -> None:
+    """Initializes the object that will connect to the given database"""
     self.db_name = db_name
 
   def get_dims_and_color(self, image_path: str) -> tuple:
+    """Collects image average color and dimensions that will be added to the database"""
     img = Image.open(image_path)
     width, height = img.size
     total_pixel_count = width * height
@@ -22,7 +24,8 @@ class DbCommunicator:
 
 
 
-  def request_caracteristics(self, image: bytearray, name, threshold) -> dict:
+  def request_caracteristics(self, image: bytearray, name: str) -> dict:
+    """Requests caracteristics of image from the given api"""
     session = requests.Session()
     url = "http://image-dnn-sgh-jpbarraca.ws.atnog.av.it.pt/process"
     file = {'img': image}
@@ -40,6 +43,8 @@ class DbCommunicator:
     return caracts
 
   def add(self, image: bytearray):
+    """Adds a new item item to database collection of images, the image provided can generate multiple new images stored
+    if there are multiple classes found in it, the respective bounding box will also be stored"""
     db = sqlite3.connect(self.db_name)
     name = md5(image).hexdigest()
     already_in_db = db.execute(
@@ -47,11 +52,10 @@ class DbCommunicator:
     ).fetchall()
     if(already_in_db):
       return("Image Already in Database")
-    caracts = self.request_caracteristics(image, name, '')
+    caracts = self.request_caracteristics(image, name)
     if(len(caracts) == 0):
       return("Any class detected")
     
-
     f1 = open("./images/" + name, 'wb+')
     f1.write(image)
     f1.close()
@@ -83,6 +87,7 @@ class DbCommunicator:
     return("Image Added successfully")
 
   def remove(self, img_object: dict):
+    """Removes an item from the database, either a child image or a parent, if it is a parent image all childs will be deleted"""
     db = sqlite3.connect(self.db_name)
     img_name = ""
     if('image' in img_object):
@@ -103,7 +108,8 @@ class DbCommunicator:
     db.close()
     return("Image removed successfully")
 
-  def get(self, id):
+  def get(self, id: str):
+    """Retrieves an image based on an id specified on the request"""
     db = sqlite3.connect(self.db_name)
     db_request = db.execute("select FKOriginalImageName, FKCroppedImageName, CaractName , Box, Confidence from RelImgCaract"+
     " where FKOriginalImageName = ? or FKOriginalImageName = ?;",
@@ -126,9 +132,18 @@ class DbCommunicator:
     return(result)
 
   def request(self, request_obj: dict):
+    """Parses the request made via GET and retrieves the asked data"""
     data = []
     db = sqlite3.connect(self.db_name)
     result = "Bad Call"
+    per_page = 10
+    page = 1
+    if('per_page' in request_obj):
+      per_page = int(request_obj['per_page'])
+    
+    if('page' in request_obj):
+      page = int(request_obj['page'])
+
     if('put' in request_obj):
       if('image' in request_obj['put']):
         result = self.add(request_obj['put']['image'])
@@ -144,7 +159,7 @@ class DbCommunicator:
       results = db.execute(
       "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract "+
       "inner join Imagens on RelImgCaract.FKCroppedImageName = Imagens.image_path where CaractName = ? and Confidence > ? and "+
-      "(R - ?) * (R - ?) + (G - ?) * (G - ?) + (B - ?) * (B - ?) < ?" ,
+      "(R - ?) * (R - ?) + (G - ?) * (G - ?) + (B - ?) * (B - ?) < ? limit ? offset ?" ,
       (
         request_obj['name'],
         thr,
@@ -155,6 +170,8 @@ class DbCommunicator:
         request_obj['color']['B'],
         request_obj['color']['B'],
         request_obj['color']['tol'] * 195075, #denormalização , numero max 
+        per_page,
+        (page - 1) * per_page,
       ) 
       ).fetchall()
       result = {request_obj['name']:[{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
@@ -163,10 +180,12 @@ class DbCommunicator:
       if ('thr' in request_obj): thr = request_obj['thr'];  
       else: thr = 0
       results = db.execute(
-      "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract where CaractName = ? and Confidence > ?",
+      "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract where CaractName = ? and Confidence > ? limit ? offset ?",
       (
         request_obj['name'],
-        thr
+        thr,
+        per_page,
+        (page - 1) * per_page,
       )).fetchall()
       result = {request_obj['name']:[{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
     
@@ -188,21 +207,28 @@ class DbCommunicator:
     db.close()
     return(result)
 
-  def __clear_all_caution__(self):
-    db = sqlite3.connect('app_db.db')
-    db.execute('delete from RelImgCaract where true')
-    db.execute('delete from Imagens where true')
-    db.commit()
-    db.close()
 
+"""Both functions bellow are for debugging purposes and will not be exported to app.py"""
+
+def __clear_all_caution__():
+  """Clears database, used for upload size purposes"""
+  db = sqlite3.connect('app_db.db')
+  db.execute('delete from RelImgCaract where true')
+  db.execute('delete from Imagens where true')
+  db.commit()
+  db.close()
+  for filename in os.listdir("./images"):
+    remove("./images/" + filename)
 
 
 def populate(comm):
+  """Repopulate database with some predefined images, used for deploy purposes"""
   for filename in os.listdir("./images_to_populate_db"):
     print(filename)
     print(comm.add(open('./images_to_populate_db/'+filename, 'rb').read()))
-    
+
+
+"""Deploy code"""
 if __name__ == '__main__':
-  comm = DbCommunicator('app_db.db')
-  comm.__clear_all_caution__()
-  populate(comm)
+  __clear_all_caution__()
+  #populate(DbCommunicator('app_db.db'))
