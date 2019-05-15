@@ -30,6 +30,7 @@
 \begin{titlepage}
 
 \begin{center}
+\centering
 %
 \vspace*{50mm}
 %
@@ -41,12 +42,12 @@
 %
 \vspace{10mm}
 %
-{\LARGE \autores}\\ 
+{\large \autores}\\ 
 %
 \vspace{30mm}
 %
 \begin{figure}[h]
-\center
+\centering
 \includegraphics{\logotipo}
 \end{figure}
 %
@@ -65,19 +66,20 @@
 }
 %
 \author{%
-    \autores \\
-    \autorescontactos
+    \autores 
 }
 %
 \date{\data}
 %
 \maketitle
 
+
 \pagenumbering{roman}
 
 %%%%%% RESUMO %%%%%%
 \begin{abstract}
-Resumo de 200-300 palavras.
+Este relatório pretende descrever uma biblioteca de imagens pesquisável desenvolvida. 
+Nesta, insere-se o tipo de imagem que se procura, que por sua vez é um dos dados da base de dados que tem todas as imagens. Depois, as imagens pedidas pelo utilizador são apresentadas por ordem de relevância.
 \end{abstract}
 
 %%%%%% Agradecimentos %%%%%%
@@ -102,11 +104,11 @@ Comentar bloco caso não existam agradecimentos a fazer.
 \chapter{Introdução}
 \label{chap.introducao}
 
-Introduz o tema, apresenta a motivação e finalmente a estrutura.
-
+O frontend da aplicação foi feito em HMTL, CSS e JavaScript, enquanto que o backend foi feito em python3. Esta aplicação foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
+A adicionar às especificações básicas pedidas, segundo o guião sobre regras do segundo projeto, construiu-se ainda suporte para pydocs, para haja uma explicação mais detalhada de cada classe e método do nosso projeto.
 Este documento está dividido em quatro capítulos.
 Depois desta introdução,
-no \autoref{chap.metodologia} é apresentada a metodologia seguida,
+no \autoref{chap.metodologia} é apresentada a metodologia seguida, tendo em conta o trabalho faseado de cada um, 
 no \autoref{chap.resultados} são apresentados os resultados obtidos,
 sendo estes discutidos no \autoref{chap.analise}.
 Finalmente, no \autoref{chap.conclusao} são apresentadas
@@ -124,9 +126,9 @@ Esta fase consistiu em, antes de começar sequer a trabalhar, definir quais memb
 \hline
 \multicolumn{1}{|l|}{Aluno} & \multicolumn{1}{l|}{Tarefa Atribuída} \\ \hline
             André Patacas   & backend                               \\ 
-            Gil Teixeira    & HTML                                  \\
-            Sofia Vaz       & relatório                             \\
-            Luis Andrade    & testes unitários                      
+            Gil Teixeira      & frontend                               \\
+            Sofia Vaz         & relatório                                \\
+            Luis Andrade    & testes unitários e funcionais                     
 \end{tabular}
 \end{center}
 \end{table}
