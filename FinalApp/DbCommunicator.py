@@ -7,6 +7,7 @@ import io
 from os import remove 
 from urllib.request import urlretrieve 
 import os
+import random
 class DbCommunicator:
   def __init__(self, db_name: str) -> None:
     """Initializes the object that will connect to the given database"""
@@ -175,7 +176,7 @@ class DbCommunicator:
       ) 
       ).fetchall()
       result = {request_obj['name']:[{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
-    
+      
     elif('type' in request_obj and 'name' in request_obj and request_obj['type'] == 'detected'):
       if ('thr' in request_obj): thr = request_obj['thr'];  
       else: thr = 0
@@ -194,15 +195,16 @@ class DbCommunicator:
         result = db.execute("select distinct CaractName from RelImgCaract").fetchall()
         result = [i[0] for i in result]
       elif(request_obj['type'] == 'detected'):
-        names = db.execute("select distinct CaractName from RelImgCaract").fetchall()
-        names = [i[0] for i in names]
+        
         result = {}
-        for name in names:
-          results = db.execute(
-          "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract where CaractName = ? ",
-          (name,) 
-          ).fetchall()
-          result[name] = [{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]
+        results = db.execute(
+        "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract limit ? offset ?",
+        (
+          per_page,
+          (page - 1) * per_page,
+        )
+        ).fetchall()
+        result = [{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]
     db.commit()
     db.close()
     return(result)

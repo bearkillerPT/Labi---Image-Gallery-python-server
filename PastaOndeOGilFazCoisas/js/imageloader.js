@@ -13,9 +13,9 @@ getImagesByName = function(self) {
     if (!(listOfClasses.includes(name)) && name != "") return
     let request
     if (name == "")
-        request = "http://127.0.0.1:8080/list?type=detected&page=1&per_page=16"
+        request = "http://127.0.0.1:8080/list?type=detected&page=1&per_page=10"
     else
-        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=16"
+        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=10"
     var div = document.getElementById("grid")
     console.log(request)
     var xhttp = new XMLHttpRequest();
@@ -24,21 +24,18 @@ getImagesByName = function(self) {
     var res = xhttp.responseText
     res = JSON.parse(res)
     var imageArray = ""
-    if (name = "") {
+    if (name != "") {
         for (var i = 0; i < res[name].length; i++) {
             imageArray += "<div class=\"grid-item " + name + "\"><img src='http://127.0.0.1:8080/images/" + res[name][i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>"
         }
     } else {
-        for (let classes of Object.keys(res)) {
-            {
-                for (var i = 0; i < res[classes].length; i++) {
-                    imageArray += "<div class=\"grid-item " + classes + "\"><img src='http://127.0.0.1:8080/images/" + res[classes][i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>"
-                }
-            }
+        for (var i = 0; i < res.length; i++) {
+            imageArray += "<div class=\"grid-item \"><img src='http://127.0.0.1:8080/images/" + res[i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>"
         }
     }
+
     div.innerHTML = imageArray
-    setTimeout(filter, 200)
+    setTimeout(filter, 400)
 }
 
 filter = function() {
