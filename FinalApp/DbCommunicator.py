@@ -215,8 +215,8 @@ class DbCommunicator:
 def __clear_all_caution__():
   """Clears database, used for upload size purposes"""
   db = sqlite3.connect('app_db.db')
-  db.execute('delete from RelImgCaract where true')
-  db.execute('delete from Imagens where true')
+  db.execute('delete from RelImgCaract')
+  db.execute('delete from Imagens')
   db.commit()
   db.close()
   for filename in os.listdir("./images"):
