@@ -225,7 +225,7 @@ def populate(comm):
   """Repopulate database with some predefined images, used for deploy purposes"""
   for filename in os.listdir("./images_to_populate_db"):
     print(filename)
-    print(comm.add(open('./images_to_populate_db/'+filename, 'rb').read()))
+    print(comm.add(open('./images_to_populate_db/' + filename, 'rb').read()))
 
 
 """Deploy code"""

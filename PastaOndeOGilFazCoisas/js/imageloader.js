@@ -28,7 +28,7 @@ window.onload = function () {
             imageArray += "<div class=\"grid-item " + name + "\"><img src='http://127.0.0.1:8080/images/" + res[name][i].image + "' width=\"250\"/></div>"
         }
         div.innerHTML = imageArray
-        setTimeout(filter, 100)
+        setTimeout(filter, 200)
 
 
 
