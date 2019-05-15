@@ -221,7 +221,7 @@ def __clear_all_caution__():
   db.close()
   for filename in os.listdir("./images"):
     remove("./images/" + filename)
-  f = open("fileParaOGitNApagarAPasta.kmn", 'w')
+  f = open("./images/fileParaOGitNApagarAPasta.kmn", 'w')
   f.write("yhey")
   f.close()
 
