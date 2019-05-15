@@ -1,5 +1,5 @@
 import unittest
-from FinalApp import DbCommunicator
+from DbCommunicator import DbCommunicator
 
 class TestDb(unittest.TestCase):
 
@@ -8,4 +8,4 @@ class TestDb(unittest.TestCase):
         self.assertIs(result,'./images_to_populate_initial_db/OOIkfjMdmdQ')
 
 if __name__ == '__main__':
-        unittest.main()
+    unittest.main()
