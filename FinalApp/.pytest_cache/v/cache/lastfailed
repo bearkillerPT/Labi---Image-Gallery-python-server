@@ -1,0 +1,4 @@
+{
+  "put_test.py": true,
+  "test_DbCommunicator.py::TestDb::test_add": true
+}

@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
         <!-- integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" -->
     </script>
+    <script src="https://unpkg.com/vanilla-picker@2"></script>
 
     <script src="js/imageloader.js"></script>
     <!-- Bootstrap CSS -->
@@ -17,7 +18,7 @@
     <link rel="stylesheet" href="css/costumstyle.css">
 </head>
 
-<body>
+<br>
     <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#news">News</a></li>
@@ -31,14 +32,27 @@
     </div>
 
 
-    <div class="container">
-        <form autocomplete="off" action="" id="form">
-            <div class="autocomplete" style="width:300px;">
-                <input id="filter" type="text" name="" placeholder="search" onkeydown="getImagesByName(this)">
-            </div>
-        </form>
+    <div class="row">
+        <div class="column" align="right">
+            <form autocomplete="off" action="" id="form">
+                <div class="autocomplete" style="width:300px;">
+                    <input id="filter" type="text" name="" placeholder="search" onkeydown="getImagesByName(this)">
+                </div>
+            </form>
+        </div>
+        <div class="column">
+            <button class="colorButton" id="parent">Pick a colour!</button>
+        </div>
     </div>
 
+    </br>
+    <div class="row">
+        <div class="column"></div>
+        <div class="column">
+            <input type="checkbox" id="checkbox"  onclick="colorSearch()"> Search with colour!<br>
+        </div>
+    </div>
+    </br>
     <div class="grid" id="grid">
 
 
@@ -46,6 +60,13 @@
     </div>
 
     <script>
+        var parent = document.getElementById("parent");
+        var picker = new Picker(parent);
+        picker.onDone = function(color) {
+            parent.style.background = color.rgbaString;
+            parent.text = "Color picked!"
+            defColor(color.rgba)
+        };
         document.getElementById('form').addEventListener('submit', function(e) {
             //search(document.getElementById('searchText'));
             e.preventDefault();
