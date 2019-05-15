@@ -68,7 +68,14 @@ filter = function() {
 };
 
 defColor = function (colorArr) {
-    color = "{\"R\": " + colorArr[0] + ", \"G\": " + colorArr[1] + ", \"B\" :" + colorArr[2] + ", \"tol\" : 0.3}";
+    var nameAfter = document.getElementById("filter").value;
+    if(!checkBoxStatus){
+        document.getElementById("parent").style.background = "#b5bfb8";
+        alert("Please check the checkbox before selecting a color!")
+    }
+    if(name != nameAfter && nameAfter != "")
+        name = nameAfter;
+    color = "{\"R\": " + colorArr[0] + ", \"G\": " + colorArr[1] + ", \"B\" :" + colorArr[2] + ", \"tol\" : 0.2}";
     if(checkBoxStatus){
         getImagesByName({ value: "", opc: "start" });
     }
@@ -76,6 +83,9 @@ defColor = function (colorArr) {
 
 colorSearch = function(){
     checkBoxStatus = document.getElementById("checkbox").checked;
+    if(!checkBoxStatus){
+        document.getElementById("parent").style.background = "#b5bfb8";
+    }
 };
 
 window.onload = function() {
