@@ -230,6 +230,8 @@ def populate(comm):
 
 """Deploy code"""
 if __name__ == '__main__':
-  __clear_all_caution__()
-  #populate(DbCommunicator('app_db.db'))
+  if(sys.argv[1] == 'c'):
+    __clear_all_caution__()
+  elif(sys.argv[1] == 'p'):
+    populate(DbCommunicator('app_db.db'))
   #populate(DbCommunicator('app_db.db'))

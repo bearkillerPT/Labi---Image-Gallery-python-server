@@ -1,154 +1,70 @@
 var listOfClasses
-
-
-
-window.onload = function () {
-
-    getList = function () {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://127.0.0.1:8080/list?type=detected", false)
-        xhttp.send(null)
-        var res = xhttp.responseText
-        listOfClasses = JSON.parse(res)
-    }
-
-
-    getImagesByName = function (self) {
-        autocomplete(document.getElementById("filter"))
-        if (event.key !== 'Enter') return
-        let name = self.value
-        var div = document.getElementById("grid")
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=10", false)
-        xhttp.send(null)
-        var res = xhttp.responseText
-        res = JSON.parse(res)
-        var imageArray = ""
-        for (var i = 0; i < res[name].length; i++) {
-            imageArray += "<div class=\"grid-item " + name + "\"><img src='http://127.0.0.1:8080/images/" + res[name][i].image + "' width=\"250\"/></div>"
-        }
-        div.innerHTML = imageArray
-        setTimeout(filter, 200)
-
-
-
-
-    }
-
-
-    filter = function(){
-        var msnry = new Masonry( '.grid', {
-            columnWidth: 260,
-            itemSelector: '.grid-item'
-        });
-    }
-
-    function autocomplete(inp) {
-        var arr = []
-        for (tipo in listOfClasses) {
-            arr.push(tipo)
-        }
-        console.log(arr)
-        /*the autocomplete function takes two arguments,
-        the text field element and an array of possible autocompleted values:*/
-        var currentFocus;
-        /*execute a function when someone writes in the text field:*/
-        inp.addEventListener("input", function(e) {
-            var a, b, i, val = this.value;
-            /*close any already open lists of autocompleted values*/
-            closeAllLists();
-            if (!val) { return false;}
-            currentFocus = -1;
-            /*create a DIV element that will contain the items (values):*/
-            a = document.createElement("DIV");
-            a.setAttribute("id", this.id + "autocomplete-list");
-            a.setAttribute("class", "autocomplete-items");
-            /*append the DIV element as a child of the autocomplete container:*/
-            this.parentNode.appendChild(a);
-            /*for each item in the array...*/
-            for (i = 0; i < arr.length; i++) {
-                /*check if the item starts with the same letters as the text field value:*/
-                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                    /*create a DIV element for each matching element:*/
-                    b = document.createElement("DIV");
-                    /*make the matching letters bold:*/
-                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                    b.innerHTML += arr[i].substr(val.length);
-                    /*insert a input field that will hold the current array item's value:*/
-                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                    /*execute a function when someone clicks on the item value (DIV element):*/
-                    b.addEventListener("click", function(e) {
-                        /*insert the value for the autocomplete text field:*/
-                        inp.value = this.getElementsByTagName("input")[0].value;
-                        /*close the list of autocompleted values,
-                        (or any other open lists of autocompleted values:*/
-                        closeAllLists();
-                    });
-                    a.appendChild(b);
-                }
-            }
-        });
-        /*execute a function presses a key on the keyboard:*/
-        inp.addEventListener("keydown", function(e) {
-            var x = document.getElementById(this.id + "autocomplete-list");
-            if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) {
-                /*If the arrow DOWN key is pressed,
-                increase the currentFocus variable:*/
-                currentFocus++;
-                /*and and make the current item more visible:*/
-                addActive(x);
-            } else if (e.keyCode == 38) { //up
-                /*If the arrow UP key is pressed,
-                decrease the currentFocus variable:*/
-                currentFocus--;
-                /*and and make the current item more visible:*/
-                addActive(x);
-            } else if (e.keyCode == 13) {
-                /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                e.preventDefault();
-                if (currentFocus > -1) {
-                    /*and simulate a click on the "active" item:*/
-                    if (x) x[currentFocus].click();
-                }
-            }
-        });
-        function addActive(x) {
-            /*a function to classify an item as "active":*/
-            if (!x) return false;
-            /*start by removing the "active" class on all items:*/
-            removeActive(x);
-            if (currentFocus >= x.length) currentFocus = 0;
-            if (currentFocus < 0) currentFocus = (x.length - 1);
-            /*add class "autocomplete-active":*/
-            x[currentFocus].classList.add("autocomplete-active");
-        }
-        function removeActive(x) {
-            /*a function to remove the "active" class from all autocomplete items:*/
-            for (var i = 0; i < x.length; i++) {
-                x[i].classList.remove("autocomplete-active");
-            }
-        }
-        function closeAllLists(elmnt) {
-            /*close all autocomplete lists in the document,
-            except the one passed as an argument:*/
-            var x = document.getElementsByClassName("autocomplete-items");
-            for (var i = 0; i < x.length; i++) {
-                if (elmnt != x[i] && elmnt != inp) {
-                    x[i].parentNode.removeChild(x[i]);
-                }
-            }
-        }
-        /*execute a function when someone clicks in the document:*/
-        document.addEventListener("click", function (e) {
-            closeAllLists(e.target);
-        });
-    }
-
-
-
-    getList();
-
-
+getList = function() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "http://127.0.0.1:8080/list?type=names", false)
+    xhttp.send(null)
+    var res = xhttp.responseText
+    listOfClasses = JSON.parse(res)
 }
 
+getImagesByName = function(self) {
+    if (event.key !== 'Enter' && self.opc != "start") return
+    let name = self.value
+    if (!(listOfClasses.includes(name)) && name != "") return
+    let request
+    if (name == "")
+        request = "http://127.0.0.1:8080/list?type=detected&page=1&per_page=16"
+    else
+        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=16"
+    var div = document.getElementById("grid")
+    console.log(request)
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", request, false)
+    xhttp.send(null)
+    var res = xhttp.responseText
+    res = JSON.parse(res)
+    var imageArray = ""
+    if (name = "") {
+        for (var i = 0; i < res[name].length; i++) {
+            imageArray += "<div class=\"grid-item " + name + "\"><img src='http://127.0.0.1:8080/images/" + res[name][i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>"
+        }
+    } else {
+        for (let classes of Object.keys(res)) {
+            {
+                for (var i = 0; i < res[classes].length; i++) {
+                    imageArray += "<div class=\"grid-item " + classes + "\"><img src='http://127.0.0.1:8080/images/" + res[classes][i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>"
+                }
+            }
+        }
+    }
+    div.innerHTML = imageArray
+    setTimeout(filter, 200)
+}
+
+filter = function() {
+    var msnry = new Masonry('.grid', {
+        columnWidth: Math.round($(window).width() / 4),
+        itemSelector: '.grid-item'
+    });
+}
+
+window.onload = function() {
+    getList();
+    getImagesByName({ value: "", opc: "start" });
+    autocomplete(document.getElementById("filter"), listOfClasses)
+}
+
+//Função importada do site w3schools para autocomplete com lista user defined, minificada para melhor gestao de codigo
+
+function autocomplete(e, t) {
+    var n;
+
+    function i(e) { if (!e) return !1;! function(e) { for (var t = 0; t < e.length; t++) e[t].classList.remove("autocomplete-active") }(e), n >= e.length && (n = 0), n < 0 && (n = e.length - 1), e[n].classList.add("autocomplete-active") }
+
+    function a(t) { for (var n = document.getElementsByClassName("autocomplete-items"), i = 0; i < n.length; i++) t != n[i] && t != e && n[i].parentNode.removeChild(n[i]) }
+    e.addEventListener("input", function(i) { var o, l, s, r = this.value; if (a(), !r) return !1; for (n = -1, (o = document.createElement("DIV")).setAttribute("id", this.id + "autocomplete-list"), o.setAttribute("class", "autocomplete-items"), this.parentNode.appendChild(o), s = 0; s < t.length; s++) t[s].substr(0, r.length).toUpperCase() == r.toUpperCase() && ((l = document.createElement("DIV")).innerHTML = "<strong>" + t[s].substr(0, r.length) + "</strong>", l.innerHTML += t[s].substr(r.length), l.innerHTML += "<input type='hidden' value='" + t[s] + "'>", l.addEventListener("click", function(t) { e.value = this.getElementsByTagName("input")[0].value, a() }), o.appendChild(l)) }), e.addEventListener("keydown", function(e) {
+        var t = document.getElementById(this.id + "autocomplete-list");
+        t && (t = t.getElementsByTagName("div")), 40 == e.keyCode ? (n++, i(t)) : 38 == e.keyCode ? (n--, i(t)) : 13 == e.keyCode && (e.preventDefault(), n > -1 && t && t[n].click())
+    }), document.addEventListener("click", function(e) { a(e.target) })
+}
+//fim da funcção importada
