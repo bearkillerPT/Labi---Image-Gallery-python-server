@@ -5,7 +5,7 @@ from DbCommunicator import DbCommunicator
 import json
 comm = DbCommunicator('app_db.db')
 
-
+"""This class will not be documented because it's pretty self explanatory"""
 class app(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
