@@ -13,30 +13,14 @@ getList = function() {
 
 getImagesByName = function(self) {
     if (event.key !== 'Enter' && self.opc !== "start") return;
-    if(self.value != "")
+    if (self.value != "")
         name = self.value;
     if (!(listOfClasses.includes(name)) && name !== "") return;
     var request;
-    if(checkBoxStatus){
-        if(color == ""){
-            if (name === "")
-                request = "http://127.0.0.1:8080/list?type=detected&page=1&per_page=10";
-            else
-                request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=10";
-        }
-        else{
-            if (name !== "")
-                console.log("check: " + checkBoxStatus);
-                console.log("name: " + name);
-                console.log("color: " + color);
-                request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&color=" + color + "&page=1&per_page=10";
-        }
-    }
-    else{
-        if (name == "")
-            request = "http://127.0.0.1:8080/list?type=detected&page=1&per_page=10";
-        else
-            request = "http://127.0.0.1:8080/list?type=detected&name=" + name  + "&page=1&per_page=10";
+    if (checkBoxStatus) {
+        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&color=" + color + "&page=1&per_page=10";
+    } else {
+        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=10";
     }
     var div = document.getElementById("grid");
     console.log(request);
@@ -67,23 +51,23 @@ filter = function() {
     });
 };
 
-defColor = function (colorArr) {
+defColor = function(colorArr) {
     var nameAfter = document.getElementById("filter").value;
-    if(!checkBoxStatus){
+    if (!checkBoxStatus) {
         document.getElementById("parent").style.background = "#b5bfb8";
         alert("Please check the checkbox before selecting a color!")
     }
-    if(name != nameAfter && nameAfter != "")
+    if (name != nameAfter && nameAfter != "")
         name = nameAfter;
-    color = "{\"R\": " + colorArr[0] + ", \"G\": " + colorArr[1] + ", \"B\" :" + colorArr[2] + ", \"tol\" : 0.2}";
-    if(checkBoxStatus){
+    color = "{\"R\": " + colorArr[0] + ", \"G\": " + colorArr[1] + ", \"B\" :" + colorArr[2] + ", \"tol\" : 0.15}";
+    if (checkBoxStatus) {
         getImagesByName({ value: "", opc: "start" });
     }
 };
 
-colorSearch = function(){
+colorSearch = function() {
     checkBoxStatus = document.getElementById("checkbox").checked;
-    if(!checkBoxStatus){
+    if (!checkBoxStatus) {
         document.getElementById("parent").style.background = "#b5bfb8";
     }
 };
