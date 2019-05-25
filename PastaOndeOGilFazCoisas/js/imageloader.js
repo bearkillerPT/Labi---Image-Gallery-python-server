@@ -2,6 +2,8 @@ var name = ""
 var listOfClasses;
 var color = "";
 var checkBoxStatus;
+var tol = 0.15;
+var thr = 50;
 
 getList = function() {
     var xhttp = new XMLHttpRequest();
@@ -12,15 +14,17 @@ getList = function() {
 };
 
 getImagesByName = function(self) {
+    sliderobj(document.getElementById("sliderobj"));
+    slidertol(document.getElementById("slidertol"));
     if (event.key !== 'Enter' && self.opc !== "start") return;
     if (self.value != "")
         name = self.value;
     if (!(listOfClasses.includes(name)) && name !== "") return;
     var request;
     if (checkBoxStatus) {
-        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&color=" + color + "&page=1&per_page=10";
+        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&color=" + color + "&page=1&per_page=10&thr=" + thr;
     } else {
-        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=10";
+        request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=10&thr=" + thr;
     }
     var div = document.getElementById("grid");
     console.log(request);
@@ -59,11 +63,19 @@ defColor = function(colorArr) {
     }
     if (name != nameAfter && nameAfter != "")
         name = nameAfter;
-    color = "{\"R\": " + colorArr[0] + ", \"G\": " + colorArr[1] + ", \"B\" :" + colorArr[2] + ", \"tol\" : 0.15}";
+    color = "{\"R\": " + colorArr[0] + ", \"G\": " + colorArr[1] + ", \"B\" :" + colorArr[2] + ", \"tol\" : " + tol + "}";
     if (checkBoxStatus) {
         getImagesByName({ value: "", opc: "start" });
     }
 };
+
+sliderobj = function(self) {
+    thr = self.value;
+}
+
+slidertol = function(self) {
+    tol = self.value * 0.01;
+}
 
 colorSearch = function() {
     checkBoxStatus = document.getElementById("checkbox").checked;
@@ -72,11 +84,17 @@ colorSearch = function() {
     }
 };
 
+presetsliders = function() {
+    document.getElementById("sliderobj").value = thr;
+    document.getElementById("slidertol").value = tol;
+}
+
 window.onload = function() {
     document.getElementById("checkbox").checked = false;
     getList();
     getImagesByName({ value: "", opc: "start" });
     autocomplete(document.getElementById("filter"), listOfClasses)
+    presetsliders();
 };
 
 
@@ -93,4 +111,4 @@ function autocomplete(e, t) {
         t && (t = t.getElementsByTagName("div")), 40 == e.keyCode ? (n++, i(t)) : 38 == e.keyCode ? (n--, i(t)) : 13 == e.keyCode && (e.preventDefault(), n > -1 && t && t[n].click())
     }), document.addEventListener("click", function(e) { a(e.target) })
 };
-//fim da funcção importada
+//fim da funcção importada;

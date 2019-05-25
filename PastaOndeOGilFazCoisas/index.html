@@ -46,10 +46,22 @@
     </div>
 
     </br>
-    <div class="row">
-        <div class="column"></div>
-        <div class="column">
-            <input type="checkbox" id="checkbox"  onclick="colorSearch()"> Search with colour!<br>
+    <div class="container">
+        <div class="row" style="text-align: center">
+            <div class="col-sm">Percentagem de confiança na deteção do objeto</div>
+            <div class="col-sm">Threshold da pesquisa por cor</div>
+            <div class="col-sm"></div>
+        </div>
+        <div class="row" style="text-align: center">
+            <div class="col-sm slider" style="text-align: left">
+                <input type="range" min="1" max="100" value="50" class="slider" onmousedown="sliderobj(this)" id="sliderobj">
+            </div>
+            <div class="col-sm slidecontainer" style="display: inline-block">
+                <input type="range" min="0" max="100" value="15" class="slider" onmousedown="slidertol(this)" id="slidertol">
+            </div>
+            <div class="col-sm" style="text-align: left">
+                <input type="checkbox" id="checkbox"  onclick="colorSearch()"> Search with colour!<br>
+            </div>
         </div>
     </div>
     </br>
