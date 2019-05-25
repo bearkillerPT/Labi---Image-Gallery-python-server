@@ -41,63 +41,54 @@
             </form>
         </div>
         <div class="col-sm">
-            <button class="colorButton" id="parent">Pick a colour!</button>
         </div>
     </div>
 
     </br>
-    <div class="container">
-        <div class="row" style="text-align: left">
-            
-            <div class="col-sm">Percentagem de confiança na deteção do objeto</div>
-            <div class="col-sm">Threshold da pesquisa por cor</div>
-            <div class="col-sm">
-                <input type="checkbox" id="checkbox"  onclick="colorSearch()"> Search with colour!<br>
-            </div>
-            <div class="col-sm">
-            </div>
-        </div>
-        <div class="row" style="text-align: left">
-            
-            <div class="col-sm slider" >
-                <input type="range" min="1" max="100" value="50" class="slider" onmousedown="sliderobj(this)" id="sliderobj">
-            </div>
-            <div class="col-sm slidecontainer">
-                <input type="range" min="0" max="100" value="15" class="slider" onmousedown="slidertol(this)" id="slidertol">
-            </div>
-            <div class="col-sm">
-            </div>
-            <div class="col-sm">
-            </div>
-        </div>
-    </div>
-    </br>
+    
+<div class="parent-container">
+    <ul class="faq" id="dropdown">
+        <!--<li>
+        <h3 class="question">Frequently Asked Question?
+            <div class="plus-minus-toggle collapsed"></div>
+        </h3>
+        <div class="answer">Answer. Donec vitae tellus risus. Aenean sed fermentum risus. Phasellus venenatis 
+            ultricies dignissim. Nunc ante lectus, accumsan non porta at. Donec vitae tellus risus. Aenean sed 
+            fermentum risus. Phasellus venenatis ultricies dignissim.</div>
+        </li>
+        <li>
+        <h3 class="question">Frequently Asked Question?
+            <div class="plus-minus-toggle collapsed"></div>
+        </h3>
+        <div class="answer">Answer. Donec vitae tellus risus. Aenean sed fermentum risus. Phasellus venenatis 
+            ultricies dignissim. Nunc ante lectus, accumsan non porta at. Donec vitae tellus risus. Aenean sed 
+            fermentum risus. Phasellus venenatis ultricies dignissim.</div>
+        </li> -->
+    </ul>
+</div>  
+
     <div class="grid" id="grid">
 
 
     </div>
     </div>
-
     <script>
         window.onload = function(){
             getList();
-            document.getElementById("checkbox").checked = false;
-            presetsliders();
-            getImagesByName({ value: "", opc: "start" });
+            createDropdown();
+            $('.faq li .question').click(function () {
+                if($(this).parent()[0].classList.value == ""){
+                    foo("active", $(this).parent().prevObject[0].firstChild.data)
+                }
+                else{
+                    foo("", "")
+                }
+                $(this).find('.plus-minus-toggle').toggleClass('collapsed');
+                $(this).parent().toggleClass('active');
+            });
         }
-        var parent = document.getElementById("parent");
-        var picker = new Picker(parent);
-        picker.onDone = function(color) {
-            parent.style.background = color.rgbaString;
-            parent.text = "Color picked!"
-            defColor(color.rgba)
-        };
-        document.getElementById('form').addEventListener('submit', function(e) {
-            //search(document.getElementById('searchText'));
-            e.preventDefault();
-        }, false);
-    </script>
 
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js">
         <!-- integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"--> >
     </script>

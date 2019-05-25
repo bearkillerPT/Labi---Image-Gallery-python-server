@@ -13,9 +13,23 @@ getList = function() {
     listOfClasses = JSON.parse(res)
 };
 
-getImagesByName = function(self) {
-    sliderobj(document.getElementById("sliderobj"));
-    slidertol(document.getElementById("slidertol"));
+foo = function(state, current) {
+    var grid;
+    if (state == "active") {
+        getImagesByName({ value: current, opc: "start" }, "grid" + current)
+    }
+}
+
+createDropdown = function() {
+    var dropdown = document.getElementById("dropdown");
+    var dropdownin = ""
+    for (var category of listOfClasses) {
+        dropdownin += "<li class=\"\"><h3 class=\"question\">" + category + "<div class=\"plus-minus-toggle collapsed\"></div></h3><div class=\"answer\"> <div class=\"grid\" id=\"grid" + category + "\">The images are being loaded! Please wait for the server to respond!</div></div></li>"
+    }
+    dropdown.innerHTML += dropdownin;
+}
+
+getImagesByName = function(self, divname) {
     if (event.key !== 'Enter' && self.opc !== "start") return;
     if (self.value != "")
         name = self.value;
@@ -26,7 +40,12 @@ getImagesByName = function(self) {
     } else {
         request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=10&thr=" + thr;
     }
-    var div = document.getElementById("grid");
+    var div;
+    if (divname) {
+        div = document.getElementById(divname);
+    } else {
+        var div = document.getElementById("grid");
+    }
     console.log(request);
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", request, false);
@@ -70,11 +89,13 @@ defColor = function(colorArr) {
 };
 
 sliderobj = function(self) {
-    thr = self.value;
+    if (self)
+        thr = self.value;
 }
 
 slidertol = function(self) {
-    tol = self.value * 0.01;
+    if (self)
+        tol = self.value * 0.01;
 }
 
 colorSearch = function() {
@@ -90,11 +111,8 @@ presetsliders = function() {
 }
 
 window.onload = function() {
-    document.getElementById("checkbox").checked = false;
     getList();
-    getImagesByName({ value: "", opc: "start" });
     autocomplete(document.getElementById("filter"), listOfClasses)
-    presetsliders();
 };
 
 
