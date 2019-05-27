@@ -42,7 +42,22 @@ class app(object):
 
     @cherrypy.expose
     def index(self):
-        return open("./../PastaOndeOGilFazCoisas/index.html")
+        return open("./../PastaOndeOGilFazCoisas/class_list.html")
+    @cherrypy.expose
+    def class_list(self):
+        return open("./../PastaOndeOGilFazCoisas/images_list.html")
+    @cherrypy.expose
+    def images_list(self):
+        return open("./../PastaOndeOGilFazCoisas/images_list.html")
+    @cherrypy.expose
+    def send_images(self):
+        return open("./../PastaOndeOGilFazCoisas/send_images.html")
+    @cherrypy.expose
+    def search_images(self):
+        return open("./../PastaOndeOGilFazCoisas/search_images.html")
+    @cherrypy.expose
+    def about(self):
+        return open("./../PastaOndeOGilFazCoisas/about.html")
 
 
 PATH = os.path.abspath(os.path.dirname(__file__))
