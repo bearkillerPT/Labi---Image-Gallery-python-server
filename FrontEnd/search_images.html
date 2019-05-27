@@ -37,7 +37,7 @@
         <div class="col-sm" align="right">
             <form autocomplete="off" action="" id="form">
                 <div class="autocomplete" style="width:300px;">
-                    <input id="filter" type="text" name="" placeholder="search" onkeydown="getImagesByName(this)">
+                    <input id="filter" type="text" name="" placeholder="search" onkeydown="getImagesByName(this, 'gridAll')">
                 </div>
             </form>
         </div>
@@ -61,10 +61,10 @@
         <div class="row" style="text-align: left">
             
             <div class="col-sm slider" >
-                <input type="range" min="1" max="100" value="50" class="slider" onmousedown="sliderobj(this)" id="sliderobj">
+                <input type="range" min="1" max="100" value="50" class="slider" onchange="sliderobj(this)" id="sliderobj">
             </div>
-            <div class="col-sm slidecontainer">
-                <input type="range" min="0" max="100" value="15" class="slider" onmousedown="slidertol(this)" id="slidertol">
+            <div class="col-sm slider">
+                <input type="range" min="0" max="100" value="15" class="slider" onchange="slidertol(this)" id="slidertol">
             </div>
             <div class="col-sm">
             </div>
@@ -73,7 +73,7 @@
         </div>
     </div>
     </br>
-    <div class="grid" id="grid">
+    <div class="grid" id="gridAll">
 
 
     </div>
@@ -84,7 +84,7 @@
             getList();
             document.getElementById("checkbox").checked = false;
             presetsliders();
-            getImagesByName({ value: "", opc: "start" });
+            getImagesByName({ value: "", opc: "start" }, "gridAll");
         }
         var parent = document.getElementById("parent");
         var picker = new Picker(parent);

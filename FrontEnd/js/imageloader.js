@@ -1,6 +1,6 @@
 var name = ""
 var listOfClasses;
-var color = "";
+var colorinfo = [];
 var checkBoxStatus;
 var tol = 0.15;
 var thr = 50;
@@ -35,7 +35,8 @@ getImagesByName = function(self, divname) {
         name = self.value;
     if (!(listOfClasses.includes(name)) && name !== "") return;
     var request;
-    if (checkBoxStatus) {
+    if (checkBoxStatus && colorinfo) {
+        var color = "{\"R\": " + colorinfo[0] + ", \"G\": " + colorinfo[1] + ", \"B\" :" + colorinfo[2] + ", \"tol\" : " + tol + "}"
         request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&color=" + color + "&page=1&per_page=10&thr=" + thr;
     } else {
         request = "http://127.0.0.1:8080/list?type=detected&name=" + name + "&page=1&per_page=10&thr=" + thr;
@@ -78,19 +79,20 @@ defColor = function(colorArr) {
     var nameAfter = document.getElementById("filter").value;
     if (!checkBoxStatus) {
         document.getElementById("parent").style.background = "#b5bfb8";
-        alert("Please check the checkbox before selecting a color!")
     }
     if (name != nameAfter && nameAfter != "")
         name = nameAfter;
-    color = "{\"R\": " + colorArr[0] + ", \"G\": " + colorArr[1] + ", \"B\" :" + colorArr[2] + ", \"tol\" : " + tol + "}";
+    for (var i = 0; i < colorArr.length - 1; i++) {
+        colorinfo[i] = colorArr[i];
+    }
     if (checkBoxStatus) {
-        getImagesByName({ value: "", opc: "start" });
+        getImagesByName({ value: "", opc: "start" }, "gridAll");
     }
 };
 
 sliderobj = function(self) {
     if (self)
-        thr = self.value;
+        thr = self.value * 0.01;
 }
 
 slidertol = function(self) {
