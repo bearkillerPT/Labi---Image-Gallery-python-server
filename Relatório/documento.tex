@@ -8,6 +8,7 @@
 \usepackage[printonlyused]{acronym}
 \usepackage{hyperref} % para autoref
 \usepackage{graphicx}
+\usepackage{titlesec}
 
 \bibliography{bibliografia}
 
@@ -24,6 +25,7 @@
 \def\departamento{DETI}
 \def\empresa{LABI}
 \def\logotipo{ua.pdf}
+
 %
 %%%%%% CAPA %%%%%%
 %
@@ -84,15 +86,9 @@ Nesta, insere-se o tipo de imagem que se procura, que por sua vez é um dos dado
 
 %%%%%% Agradecimentos %%%%%%
 % Segundo glisc deveria aparecer após conclusão...
-\renewcommand{\abstractname}{Agradecimentos}
-\begin{abstract}
-Eventuais agradecimentos.
-Comentar bloco caso não existam agradecimentos a fazer.
-\end{abstract}
-
 
 \tableofcontents
-% \listoftables     % descomentar se necessário
+ %\listoftables     % descomentar se necessário
 % \listoffigures    % descomentar se necessário
 
 
@@ -133,21 +129,48 @@ Esta fase consistiu em, antes de começar sequer a trabalhar, definir quais memb
 \end{center}
 \end{table}
 
-Neste esqueleto de relatório aproveitamos este capítulo para exemplificar
-como se usam alguns elementos de {\LaTeX}.
+\section{Backend}
+\subsection{DbCommunicator.py}
+\paragraph{\_\_init\_\_}
+Este método inicializa o objeto que será adicionado à base de dados.
 
-\section{Exemplos}
+\paragraph{get\_dims\_and\_color}
+Este método devolve os dados da imagem à base de dados, sendo estes a cor e as dimensões, como o nome indica. Estes dados serão, depois, adicionados à base de dados.
 
-\subsection{Utilização de acrónimos}
-Esta é a primeira invocação do acrónimo \ac{ua}.
-E esta é a segunda: \ac{ua}.
+\paragraph{request\_caracteristics}
+Este método liga-se ao \textit{website} fornecido pelos docentes, devolvendo um array em que cada posição é um dicionário que tem os seguintes atributos:
+\begin{itemize}
+\item nome
+\item classe
+\item \textit{bounding box}, ou seja, a "caixa" pela qual a imagem será cortada 
+\item "confiança" com a qual o servidor conseguiu classificar a imagem, isto é, de 0 a 1, sendo 1 o valor máximo, a certeza de que a imagem foi classificada corretamente. 
+\end{itemize}
 
-Outras duas referências a \ac{miect}
-e \ac{miect}.
+\paragraph{add}
+Este método adiciona cada imagem que foi adicionada até agora à base de dados. É de notar que se uma imagem tiver várias classes, isto é, se uma imagem tiver mais do que um objeto que consta na lista, então a imagem ficará replicada na base de dados, cada uma da base de dados tendo uma classe diferente. Assim, a base de dados terá os seguintes dados para cada objeto:
+\begin{itemize}
+\item nome
+\item altura
+\item largura
+\item quantidade de vermelho
+\item quantidade de verde
+\item quantidade de azul
+\item \textit{boundig box}
+\item chance, de 0 a 1, da imagem ter sido classificada corretamente
+\end{itemize}
+É de notar que alguns destes dados são guardados no seu formato original e num formato \textit{cropped}, sendo este \textit{cropping} feito com uma codificação em md5 e um \textit{digest}.
 
-\subsection{Referências bibliográficas}
-Informação relativa à estrutura formal de um relatório pode ser obtida
-na página do \ac{glisc}\cite{glisc}.
+\paragraph{remove}
+Ao executar este método, uma imagem dada será removida da base de dados.
+
+\paragraph{get}
+Este método devolte uma imagem baseado nos dados pelos quais a imagem for procurada. É de notar que a imagem apenas poderá ser removida da base de dados se esta existir.
+
+\paragraph{request}
+Faz com que os dados obtidos no método request\_caracteristics sejam inseridos num \textit{arrray}, sendo que este já não terá nenhum dicionário associado. É importante fazer isto pois será mais fácil adicionar dados via \textit{array} a uma base de dados do que via dicionário.
+
+\paragraph{debugging}
+Ambos os métodos \_\_clear\_all\_caution\_\_ e  populate são usados para efeitos de \textit{debugging}, não sendo usados na aplicação em si.
 
 \chapter{Resultados}
 \label{chap.resultados}
