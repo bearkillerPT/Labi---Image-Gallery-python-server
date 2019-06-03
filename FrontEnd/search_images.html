@@ -12,13 +12,14 @@
     </script>
     <script src="https://unpkg.com/vanilla-picker@2"></script>
 
-    <script src="js/imageloader.js"></script>
+    <script src="/js/imageloader.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="css/costumstyle.css">
 </head>
+
 <body>
-<br>
+    <br>
     <ul>
         <li><a href="/index">Class List</a></li>
         <li><a href="/images_list">Images List</a></li>
@@ -49,18 +50,18 @@
     </br>
     <div class="container">
         <div class="row" style="text-align: left">
-            
+
             <div class="col-sm">Percentagem de confiança na deteção do objeto</div>
             <div class="col-sm">Threshold da pesquisa por cor</div>
             <div class="col-sm">
-                <input type="checkbox" id="checkbox"  onclick="colorSearch()"> Search with colour!<br>
+                <input type="checkbox" id="checkbox" onclick="colorSearch()"> Search with colour!<br>
             </div>
             <div class="col-sm">
             </div>
         </div>
         <div class="row" style="text-align: left">
-            
-            <div class="col-sm slider" >
+
+            <div class="col-sm slider">
                 <input type="range" min="1" max="100" value="50" class="slider" onchange="sliderobj(this)" id="sliderobj">
             </div>
             <div class="col-sm slider">
@@ -80,12 +81,15 @@
     </div>
 
     <script>
-        window.onload = function(){
+        window.onload = function() {
             getList();
             autocomplete();
             document.getElementById("checkbox").checked = false;
             presetsliders();
-            getImagesByName({ value: "", opc: "start" }, "gridAll");
+            getImagesByName({
+                value: "",
+                opc: "start"
+            }, "gridAll");
         }
         var parent = document.getElementById("parent");
         var picker = new Picker(parent);
@@ -100,7 +104,7 @@
         }, false);
     </script>
 
-<h1>Este é o ficheiro search_images</h1>
+    <h1>Este é o ficheiro search_images</h1>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js">
         <!-- integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"--> >

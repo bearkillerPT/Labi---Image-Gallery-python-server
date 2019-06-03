@@ -12,31 +12,32 @@
     </script>
     <script src="https://unpkg.com/vanilla-picker@2"></script>
 
-    <script src="js/imageloader.js"></script>
+    <script src="/js/imageloader.js"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/costumstyle.css">
+    <link rel="stylesheet" href="/css/costumstyle.css">
 </head>
+
 <body>
-<br>
+    <br>
     <ul>
-      <li><a href="/index">Class List</a></li>
-      <li><a href="/images_list">Images List</a></li>
-      <li><a href="/send_images">Send Image</a></li>
-      <li><a href="/search_images">Search Images</a></li>
-      <li><a href="/about">about</a></li>
+        <li><a href="/index">Class List</a></li>
+        <li><a href="/images_list">Images List</a></li>
+        <li><a href="/send_images">Send Image</a></li>
+        <li><a href="/search_images">Search Images</a></li>
+        <li><a href="/about">about</a></li>
     </ul>
     <div class="jumbotron text-center">
         <h1>Image Repository</h1>
         <p>Image Repository with support to image identification !!
         </p>
     </div>
-    
+
     <input type="file" id="files" name="files[]" multiple />
     <output id="list"></output>
 
     <script>
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);       
+        document.getElementById('files').addEventListener('change', handleFileSelect, false);
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js">
         <!-- integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"--> >
