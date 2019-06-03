@@ -32,10 +32,11 @@ class app(object):
     @cherrypy.expose
     def put(self, image):
         img = image.file.read()
-        result = comm.request({'put':{'image':img}})
+        result = [comm.request({'put':{'image':img}})]
         print(result)
         name = md5(img).hexdigest()
-        return comm.get(name)
+        result.append(comm.get(name))
+        return result
 
     @cherrypy.tools.json_out()
     @cherrypy.expose
