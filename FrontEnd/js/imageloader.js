@@ -21,13 +21,46 @@ foo = function(state, current) {
 }
 
 createDropdown = function() {
-    var dropdown = document.getElementById("dropdown");
-    var dropdownin = ""
+    var dropdown = document.getElementById("dropdowns");
+    var dropdownin = "";
+    var i = 1;
     for (var category of listOfClasses) {
-        dropdownin += "<li class=\"\"><h3 class=\"question\">" + category + "<div class=\"plus-minus-toggle collapsed\"></div></h3><div class=\"answer\"> <div class=\"grid\" id=\"grid" + category + "\">The images are being loaded! Please wait for the server to respond!</div></div></li>"
+        dropdownin += "<input class='animate' type='radio' name='question' id='q" + i + "'/><label class='animate' for='q1'>" + category + "</label><p class='response animate'><div class=\"grid\" id=\"grid" + category + "\">The images are being loaded! Please wait for the server to respond!</div>"
+        i += 1;
     }
     dropdown.innerHTML += dropdownin;
 }
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+            continue;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+            return function(e) {
+                // Render thumbnail.
+                var span = document.createElement('span');
+                span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                    '" title="', escape(theFile.name), '"/>'
+                ].join('');
+                document.getElementById('list').insertBefore(span, null);
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
+    }
+}
+
 
 getImagesByName = function(self, divname) {
     if (event.key !== 'Enter' && self.opc !== "start") return;
@@ -114,13 +147,15 @@ presetsliders = function() {
 
 window.onload = function() {
     getList();
-    autocomplete(document.getElementById("filter"), listOfClasses)
+
 };
 
 
 //Função importada do site w3schools para autocomplete com lista user defined, minificada para melhor gestao de codigo
 
-function autocomplete(e, t) {
+function autocomplete() {
+    var e = document.getElementById("filter");
+    var t = listOfClasses;
     var n;
 
     function i(e) { if (!e) return !1;! function(e) { for (var t = 0; t < e.length; t++) e[t].classList.remove("autocomplete-active") }(e), n >= e.length && (n = 0), n < 0 && (n = e.length - 1), e[n].classList.add("autocomplete-active") }

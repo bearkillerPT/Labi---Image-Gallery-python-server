@@ -82,6 +82,7 @@
     <script>
         window.onload = function(){
             getList();
+            autocomplete();
             document.getElementById("checkbox").checked = false;
             presetsliders();
             getImagesByName({ value: "", opc: "start" }, "gridAll");

@@ -32,8 +32,12 @@
         </p>
     </div>
     
-    <h1>Este é o ficheiro send_images</h1>
+    <input type="file" id="files" name="files[]" multiple />
+    <output id="list"></output>
 
+    <script>
+    document.getElementById('files').addEventListener('change', handleFileSelect, false);       
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js">
         <!-- integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"--> >
     </script>

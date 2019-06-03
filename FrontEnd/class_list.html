@@ -47,10 +47,8 @@
 
     </br>
     
-    <div class="parent-container">
-        <ul class="faq" id="dropdown">
-        </ul>
-    </div> 
+    <section id = "dropdowns">
+    </section> 
 
     <div class="grid" id="grid">
 
@@ -60,19 +58,27 @@
     <script>
         window.onload = function(){
             getList();
-            createDropdown();
-            $('.faq li .question').click(function () {
-                if($(this).parent()[0].classList.value == ""){
-                    foo("active", $(this).parent().prevObject[0].firstChild.data)
-                }
-                else{
-                    foo("", "")
-                }
-                $(this).find('.plus-minus-toggle').toggleClass('collapsed');
-                $(this).parent().toggleClass('active');
-            });
+            autocomplete();
+            createDropdown(); 
         }
-
+    $(function() {
+            function setHeight() {
+                $(".response").each(function(index, element) {
+                var target = $(element);
+                target.removeClass("fixed-height");
+                var height = target.innerHeight();
+                target.attr("data-height", height).addClass("fixed-height");
+            }); <!-- Source = https://codepen.io/daniesy/pen/KeCDL?editors=0010 -->
+            }
+            $("input[name=question]").on("change", function() {
+                $("p.response").removeAttr("style");
+                var target = $(this)
+                .next()
+                .next();
+                target.height(target.attr("data-height"));
+            });
+            setHeight();
+            });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js">
         <!-- integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"--> >
