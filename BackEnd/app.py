@@ -1,4 +1,5 @@
 import cherrypy
+from hashlib import md5
 from cherrypy import tools
 import os
 from DbCommunicator import DbCommunicator 
@@ -27,11 +28,14 @@ class app(object):
         print(result)
         return result
 
+    @cherrypy.tools.json_out()
     @cherrypy.expose
     def put(self, image):
-        result = comm.request({'put':{'image':image.file.read()}})
+        img = image.file.read()
+        result = comm.request({'put':{'image':img}})
         print(result)
-        return result
+        name = md5(img).hexdigest()
+        return comm.get(name)
 
     @cherrypy.tools.json_out()
     @cherrypy.expose
