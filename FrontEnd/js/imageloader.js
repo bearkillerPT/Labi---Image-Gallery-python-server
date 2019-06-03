@@ -3,7 +3,7 @@ var listOfClasses;
 var colorinfo = [];
 var checkBoxStatus;
 var tol = 0.15;
-var thr = 50;
+var thr = .5;
 
 getList = function() {
     var xhttp = new XMLHttpRequest();
@@ -98,7 +98,7 @@ getImagesByName = function(self, divname) {
     }
 
     div.innerHTML = imageArray;
-    setTimeout(filter, 400);
+    setTimeout(filter, 1000);
 };
 
 filter = function() {
