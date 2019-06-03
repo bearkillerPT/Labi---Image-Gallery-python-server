@@ -7,7 +7,7 @@ var thr = 50;
 
 getList = function() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "http://193.136.92.147:8080/list?type=names", false);
+    xhttp.open("GET", "http://xcoa.av.it.pt/labi2019-p2-g2/list?type=names", false);
     xhttp.send(null);
     var res = xhttp.responseText;
     listOfClasses = JSON.parse(res)
@@ -70,9 +70,9 @@ getImagesByName = function(self, divname) {
     var request;
     if (checkBoxStatus && colorinfo) {
         var color = "{\"R\": " + colorinfo[0] + ", \"G\": " + colorinfo[1] + ", \"B\" :" + colorinfo[2] + ", \"tol\" : " + tol + "}"
-        request = "http://193.136.92.147:8080/list?type=detected&name=" + name + "&color=" + color + "&page=1&per_page=10&thr=" + thr;
+        request = "http://xcoa.av.it.pt/labi2019-p2-g2/list?type=detected&name=" + name + "&color=" + color + "&page=1&per_page=10&thr=" + thr;
     } else {
-        request = "http://193.136.92.147:8080/list?type=detected&name=" + name + "&page=1&per_page=10&thr=" + thr;
+        request = "http://xcoa.av.it.pt/labi2019-p2-g2/list?type=detected&name=" + name + "&page=1&per_page=10&thr=" + thr;
     }
     var div;
     if (divname) {
@@ -89,11 +89,11 @@ getImagesByName = function(self, divname) {
     var imageArray = "";
     if (name !== "") {
         for (var i = 0; i < res[name].length; i++) {
-            imageArray += "<div class=\"grid-item " + name + "\"><img src='http://193.136.92.147:8080/images/" + res[name][i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>";
+            imageArray += "<div class=\"grid-item " + name + "\"><img src='http://xcoa.av.it.pt/labi2019-p2-g2/images/" + res[name][i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>";
         }
     } else {
         for (var i = 0; i < res.length; i++) {
-            imageArray += "<div class=\"grid-item \"><img src='http://193.136.92.147:8080/images/" + res[i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>";
+            imageArray += "<div class=\"grid-item \"><img src='http://xcoa.av.it.pt/labi2019-p2-g2/images/" + res[i].image + "' width=\"" + Math.round($(window).width() / 4.2) + "\"/></div>";
         }
     }
 
