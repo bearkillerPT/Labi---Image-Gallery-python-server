@@ -198,7 +198,6 @@ function autocomplete() {
   var e = document.getElementById("filter");
   var t = listOfClasses;
   var n;
-
   function i(e) {
     if (!e) return !1;
     !(function(e) {
