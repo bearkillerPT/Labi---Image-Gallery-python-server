@@ -19,7 +19,7 @@ class app(object):
         if(color):
             request_body['color'] = json.loads(color)
         if(thr):
-            request_body['thr'] = thr
+            request_body['thr'] = float(thr)
         if(page):
             request_body['page'] = page
         if(per_page):

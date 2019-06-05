@@ -187,7 +187,8 @@ class DbCommunicator:
         thr,
         per_page,
         (page - 1) * per_page,
-      )).fetchall()
+      ))
+      results = results.fetchall()
       result = {request_obj['name']:[{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
     
     elif('type' in request_obj):
