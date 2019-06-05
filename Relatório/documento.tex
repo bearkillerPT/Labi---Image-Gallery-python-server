@@ -100,7 +100,7 @@ Nesta, insere-se o tipo de imagem que se procura, que por sua vez é um dos dado
 \chapter{Introdução}
 \label{chap.introducao}
 
-O frontend da aplicação foi feito em HMTL, CSS e JavaScript, enquanto que o backend foi feito em python3. Esta aplicação foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
+O frontend da aplicação foi feito em HMTL, CSS e JavaScript, enquanto que o backend foi feito em Python 3. Esta aplicação foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
 A adicionar às especificações básicas pedidas, segundo o guião sobre regras do segundo projeto, construiu-se ainda suporte para pydocs, para haja uma explicação mais detalhada de cada classe e método do nosso projeto.
 Este documento está dividido em quatro capítulos.
 Depois desta introdução,
@@ -132,45 +132,50 @@ Esta fase consistiu em, antes de começar sequer a trabalhar, definir quais memb
 \section{Backend}
 \subsection{DbCommunicator.py}
 \paragraph{\_\_init\_\_}
-Este método inicializa o objeto que será adicionado à base de dados.
+Este método inicializa o objeto que será conectado à base de dados.
 
 \paragraph{get\_dims\_and\_color}
-Este método devolve os dados da imagem à base de dados, sendo estes a cor e as dimensões, como o nome indica. Estes dados serão, depois, adicionados à base de dados.
+Este método devolve os dados da imagem, sendo estes a cor média e as dimensões, como o nome indica. 
 
 \paragraph{request\_caracteristics}
-Este método liga-se ao \textit{website} fornecido pelos docentes, devolvendo um array em que cada posição é um dicionário que tem os seguintes atributos:
+Este método liga-se ao \textit{website} fornecido pelos docentes, devolvendo um array em que cada elemento é um json que tem os seguintes atributos:
 \begin{itemize}
-\item nome
+\item nome,sendo que este passa pelo processo de \textit{hashing} para evitar imagens replicadas
 \item classe
-\item \textit{bounding box}, ou seja, a "caixa" pela qual a imagem será cortada 
-\item "confiança" com a qual o servidor conseguiu classificar a imagem, isto é, de 0 a 1, sendo 1 o valor máximo, a certeza de que a imagem foi classificada corretamente. 
+\item \textit{bounding box}, ou seja, a área onde a classe se verifica
+\item "confiança" com a qual o servidor conseguiu classificar a imagem, isto é, de 0 a 1, sendo 1 o valor máximo, a certeza de que a imagem foi classificada corretamente
 \end{itemize}
 
 \paragraph{add}
-Este método adiciona cada imagem que foi adicionada até agora à base de dados. É de notar que se uma imagem tiver várias classes, isto é, se uma imagem tiver mais do que um objeto que consta na lista, então a imagem ficará replicada na base de dados, cada uma da base de dados tendo uma classe diferente. Assim, a base de dados terá os seguintes dados para cada objeto:
+Este método adiciona cada imagem à base de dados. Se uma imagem tiver várias classes será  cortada, tendo cada parte  uma classe, diferente, sendo também guardada a original. A base de dados terá a seguinte informação para cada objeto:
 \begin{itemize}
 \item nome
 \item altura
 \item largura
-\item quantidade de vermelho
-\item quantidade de verde
-\item quantidade de azul
+\item quantidade média de vermelho
+\item quantidade média de verde
+\item quantidade média de azul
 \item \textit{boundig box}
-\item chance, de 0 a 1, da imagem ter sido classificada corretamente
+\item confiança, de 0 a 1, da imagem ter sido classificada corretamente
 \end{itemize}
-É de notar que alguns destes dados são guardados no seu formato original e num formato \textit{cropped}, sendo este \textit{cropping} feito com uma codificação em md5 e um \textit{digest}.
 
 \paragraph{remove}
-Ao executar este método, uma imagem dada será removida da base de dados.
+Ao executar este método, uma dada imagem será removida da base de dados e todas as suas imagens associadas. É de notar que a imagem apenas poderá ser removida da base de dados se esta existir.
 
 \paragraph{get}
-Este método devolte uma imagem baseado nos dados pelos quais a imagem for procurada. É de notar que a imagem apenas poderá ser removida da base de dados se esta existir.
+Este método devolve uma imagem baseado no id fornecido como parâmetro. 
 
 \paragraph{request}
-Faz com que os dados obtidos no método request\_caracteristics sejam inseridos num \textit{arrray}, sendo que este já não terá nenhum dicionário associado. É importante fazer isto pois será mais fácil adicionar dados via \textit{array} a uma base de dados do que via dicionário.
+Devolve uma string que pode ou não estar formatada com os dados obtidos via GET.
 
-\paragraph{debugging}
-Ambos os métodos \_\_clear\_all\_caution\_\_ e  populate são usados para efeitos de \textit{debugging}, não sendo usados na aplicação em si.
+\paragraph{Setup}
+Ambos os métodos \_\_clear\_all\_caution\_\_ e  populate são usados para efeitos de \textit{setup} inicial.
+
+\subsection{app.py}
+Tudo o que este programa faz é estabelecer a ligação entre as páginas HMTL, também estabelecendo ligação com o servidor e com a base de dados. 
+
+\subsection{put\_example}
+Este programa é um exemplo de como executar o programa, não tendo qualquer efeito na maneira como o \textit{website} funciona.
 
 \chapter{Resultados}
 \label{chap.resultados}
