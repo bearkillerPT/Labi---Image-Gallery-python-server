@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsive CSS Grid Masonry Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/slider.css" />
+    <link rel="stylesheet" href="css/color_picker.css" />
+    <link rel="stylesheet" href="css/custom_radio_button.css" />
+    <link rel="stylesheet" href="css/custom_styles.css" />
+    <link rel="stylesheet" href="css/button.css" />
+    <link rel="stylesheet" href="css/masonry.css" />
+    <script src="js/handlers.js"></script>
+    <script src="js/image_loader.js"></script>
+    <script src="js/color_picker.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    />
+
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata"
+    />
+    <!-- Codigo disponibilizado em https://materializecss.com/getting-started.html -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- TT Bootstrat-->
+  </head>
+
+  <body>
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+          <a href="#team" class="w3-bar-item w3-button"
+            ><i class="fa fa-user"></i> TEAM</a
+          >
+          <a href="#work" class="w3-bar-item w3-button"
+            ><i class="fa fa-th"></i> WORK</a
+          >
+          <a href="#pricing" class="w3-bar-item w3-button"
+            ><i class="fa fa-usd"></i> PRICING</a
+          >
+          <a href="#contact" class="w3-bar-item w3-button"
+            ><i class="fa fa-envelope"></i> CONTACT</a
+          >
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+        <a
+          href="javascript:void(0)"
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+          onclick="w3_open()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+      style="display:none"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-large w3-padding-16"
+        >Close ×</a
+      >
+      <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button"
+        >ABOUT</a
+      >
+      <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button"
+        >TEAM</a
+      >
+      <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button"
+        >WORK</a
+      >
+      <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button"
+        >PRICING</a
+      >
+      <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button"
+        >CONTACT</a
+      >
+    </nav>
+    <canvas id="viewport"></canvas>
+
+    <script src="js/image_inspect.js"></script>
+    <script src="js/header.js"></script>
+  </body>
+</html>

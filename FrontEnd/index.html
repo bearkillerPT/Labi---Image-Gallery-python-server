@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsive CSS Grid Masonry Gallery</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/slider.css" />
+    <link rel="stylesheet" href="css/color_picker.css" />
+    <link rel="stylesheet" href="css/custom_radio_button.css" />
+    <link rel="stylesheet" href="css/custom_styles.css" />
+    <link rel="stylesheet" href="css/button.css" />
+    <link rel="stylesheet" href="css/masonry.css" />
+    <script src="js/handlers.js"></script>
+    <script src="js/image_loader.js"></script>
+    <script src="js/color_picker.js"></script>
+    <link
+      rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    />
+
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata"
+    />
+    <!-- Codigo disponibilizado em https://materializecss.com/getting-started.html -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- TT Bootstrat-->
+  </head>
+
+  <body>
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+          <a href="#team" class="w3-bar-item w3-button"
+            ><i class="fa fa-user"></i> TEAM</a
+          >
+          <a href="#work" class="w3-bar-item w3-button"
+            ><i class="fa fa-th"></i> WORK</a
+          >
+          <a href="#pricing" class="w3-bar-item w3-button"
+            ><i class="fa fa-usd"></i> PRICING</a
+          >
+          <a href="#contact" class="w3-bar-item w3-button"
+            ><i class="fa fa-envelope"></i> CONTACT</a
+          >
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+        <a
+          href="javascript:void(0)"
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+          onclick="w3_open()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+      style="display:none"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-large w3-padding-16"
+        >Close ×</a
+      >
+      <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button"
+        >ABOUT</a
+      >
+      <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button"
+        >TEAM</a
+      >
+      <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button"
+        >WORK</a
+      >
+      <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button"
+        >PRICING</a
+      >
+      <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button"
+        >CONTACT</a
+      >
+    </nav>
+
+    <header class="bgimg w3-display-container w3-grayscale-min" id="home">
+      <div class="w3-row w3-display-middle w3-center" style="width:100%">
+        <div>
+          <h1>Image Repository</h1>
+          <br /><br />
+          <h4>Image Repository with support to image identification !!</h4>
+          <br /><br /><br /><br /><br />
+        </div>
+
+        <div style="display:flex;width:100%">
+          <div class="input-field col s6 header-item">
+            <input
+              value=""
+              id="first_name2"
+              type="text"
+              class="validate"
+              onkeydown="search_handler(this)"
+              onchange="search_handler(this)"
+            />
+            <label class="active" for="first_name2">Search</label>
+          </div>
+          <div class="header-item">
+            <button class="colorButton" id="parent">
+              Pick a color!
+            </button>
+            <br /><br />
+            <label class="header-item-text"
+              >Search With Color
+              <br />
+              <input
+                type="checkbox"
+                id="color-checkbox"
+                onclick="color_checkbox_handler(this)"
+              />
+              <span style="margin-left:14pt" class="checkmark"></span>
+            </label>
+          </div>
+          <div class="header-item">
+            <label class=" " style="text-align:center">
+              <span class="header-item-text">Class Detection Confidence</span
+              ><br />
+              <input
+                type="checkbox"
+                id="class-confidence-checkbox"
+                onclick="class_checkbox_handler(this)"
+              />
+              <span style="margin-left:15pt" class="checkmark"></span>
+            </label>
+            <div class="slidecontainer">
+              <input
+                style="height:50pt; border:0"
+                type="range"
+                min="0"
+                max="1"
+                value=".15"
+                step=".01"
+                class="slider"
+                onchange="class_confidence_slider_handler(this)"
+              />
+            </div>
+          </div>
+          <div class="header-item ">
+            <label class="header-item-text"
+              >Color Confidence
+              <br />
+              <input
+                type="checkbox"
+                id="color-confidence-checkbox"
+                onclick="color_confidence_checkbox_handler(this)"
+              />
+              <span style="margin-left:15pt" class="checkmark"></span>
+            </label>
+            <div class="slidecontainer">
+              <input
+                style="height:50pt; border:0"
+                type="range"
+                min="0"
+                max="1"
+                value=".5"
+                step=".01"
+                class="slider"
+                onchange="color_confidence_slider_handler(this)"
+              />
+            </div>
+          </div>
+
+          <div class="header-item ">
+            <input
+              type="button"
+              class="button"
+              value="Search"
+              onclick="search_button_handler(this)"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <!-- Fim do codigo do w3schools-->
+    <div id="gallery" class="gridywrap"></div>
+    <script>
+      var gallery_div = document.getElementById("gallery");
+    </script>
+  </body>
+
+  <script src="js/index.js"></script>
+  <script src="js/header.js"></script>
+  <script>
+    /*
+            Create a new Picker instance and set the parent element.
+            By default, the color picker is a popup which appears when you click the parent.
+        */
+    var parent = document.querySelector("#parent");
+    var picker = new Picker(parent);
+
+    /*
+            You can do what you want with the chosen color using two callbacks: onChange and onDone.
+        */
+    picker.onDone = function(color) {
+      picker_handler(color);
+    };
+
+    /* onDone is similar to onChange, but only called when you click 'Ok' */
+  </script>
+</html>
