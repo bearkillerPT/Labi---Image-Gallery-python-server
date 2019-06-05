@@ -19,7 +19,7 @@ class_confidence_slider_handler = self => {
   sliders.class_detection_confidence = self.value;
 };
 color_confidence_slider_handler = self => {
-  sliders.color_confidence = self.value;
+  sliders.color_confidence = 1 - self.value;
 };
 search_button_handler = self => {
   search();

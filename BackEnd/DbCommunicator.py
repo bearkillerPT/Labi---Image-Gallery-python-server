@@ -170,7 +170,7 @@ class DbCommunicator:
         request_obj['color']['G'],
         request_obj['color']['B'],
         request_obj['color']['B'],
-        request_obj['color']['tol'] * 195075, #denormalização , numero max 
+        request_obj['color']['tol'] * 195075, #  , numero max 
         per_page,
         (page - 1) * per_page,
       ) 
