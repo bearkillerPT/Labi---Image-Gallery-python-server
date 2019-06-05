@@ -67,10 +67,6 @@ class app(object):
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 config = {
-    '/first.html': {
-        'tools.staticfile.on': True,
-        'tools.staticfile.filename': os.path.join(PATH, "./../FrontEnd/first.html")
-    },
     '/images': {
         'tools.staticdir.on': True,
         'tools.staticdir.dir': os.path.join(PATH, "images")
