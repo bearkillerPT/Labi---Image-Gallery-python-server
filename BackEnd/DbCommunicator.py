@@ -199,13 +199,13 @@ class DbCommunicator:
         
         result = {}
         results = db.execute(
-        "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract limit ? offset ?",
+        "select FKOriginalImageName, FKCroppedImageName,, Confidence, CaractName from RelImgCaract limit ? offset ?",
         (
           per_page,
           (page - 1) * per_page,
         )
         ).fetchall()
-        result = [{'original':i[0],'image':i[1],'confidence':round(i[2] * 100)} for i in results]
+        result = [{'original':i[0],'image':i[1],'confidence':round(i[2] * 100),'class':i[3]} for i in results]
     db.commit()
     db.close()
     return(result)
