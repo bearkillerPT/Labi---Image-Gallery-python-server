@@ -48,21 +48,6 @@ class app(object):
     @cherrypy.expose
     def index(self):
         return open("./../FrontEnd/class_list.html")
-    @cherrypy.expose # provavelmente este metodo pode ser eliminado
-    def class_list(self):
-        return open("./../FrontEnd/images_list.html")
-    @cherrypy.expose
-    def images_list(self):
-        return open("./../FrontEnd/images_list.html")
-    @cherrypy.expose
-    def send_images(self):
-        return open("./../FrontEnd/send_images.html")
-    @cherrypy.expose
-    def search_images(self):
-        return open("./../FrontEnd/search_images.html")
-    @cherrypy.expose
-    def about(self):
-        return open("./../FrontEnd/about.html")
 
 
 PATH = os.path.abspath(os.path.dirname(__file__))

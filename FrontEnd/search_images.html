@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Responsive CSS Grid Masonry Gallery</title>
+    <title>Image Repository</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/slider.css" />
     <link rel="stylesheet" href="css/color_picker.css" />
@@ -13,6 +13,7 @@
     <script src="js/handlers.js"></script>
     <script src="js/image_loader.js"></script>
     <script src="js/color_picker.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
@@ -38,7 +39,7 @@
     <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
     <div class="w3-top">
       <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="/index.html" class="w3-bar-item w3-button w3-wide">Home</a>
+        <a href="index.html" class="w3-bar-item w3-button w3-wide">Home</a>
         <!-- Right-sided navbar links -->
         <div class="w3-right w3-hide-small">
           <a href="class_list.html" class="w3-bar-item w3-button"
@@ -125,11 +126,30 @@
               value=""
               id="first_name2"
               type="text"
-              class="validate"
+              class="validate autocomplete"
               onkeydown="search_handler(this)"
               onchange="search_handler(this)"
             />
-            <label class="active" for="first_name2">Search</label>
+            <label class=" active" for="first_name2">Search</label>
+            <script>
+              document.addEventListener("DOMContentLoaded", function() {
+                var elems = document.querySelectorAll(".autocomplete");
+                var instances = M.Autocomplete.init(elems, { data: {person: ""} });
+
+                let url =
+                  "https://xcoa.av.it.pt/labi2019-p2-g2/list?type=names";
+                fetch(url)
+                  .then(res => res.json())
+                  .then(res => {
+                    let dict_res = {}
+                    for(let i of res)
+                      dict_res[i] = ""
+                    console.log(dict_res)
+                    instances[0].updateData(dict_res);
+                  })
+                  .catch(e => console.log(e));
+              });
+            </script>
           </div>
           <div class="header-item">
             <button class="colorButton" id="parent">
@@ -242,24 +262,24 @@
       let prev_elem = document.getElementById("prev");
       let next_elem = document.getElementById("next");
     </script>
+    <script src="js/header.js"></script>
+
+    <script>
+      /*
+              Create a new Picker instance and set the parent element.
+              By default, the color picker is a popup which appears when you click the parent.
+          */
+      var parent = document.querySelector("#parent");
+      var picker = new Picker(parent);
+
+      /*
+              You can do what you want with the chosen color using two callbacks: onChange and onDone.
+          */
+      picker.onChange = function(color) {
+        picker_handler(color);
+      };
+
+      /* onDone is similar to onChange, but only called when you click 'Ok' */
+    </script>
   </body>
-
-  <script src="js/header.js"></script>
-  <script>
-    /*
-            Create a new Picker instance and set the parent element.
-            By default, the color picker is a popup which appears when you click the parent.
-        */
-    var parent = document.querySelector("#parent");
-    var picker = new Picker(parent);
-
-    /*
-            You can do what you want with the chosen color using two callbacks: onChange and onDone.
-        */
-    picker.onChange = function(color) {
-      picker_handler(color);
-    };
-
-    /* onDone is similar to onChange, but only called when you click 'Ok' */
-  </script>
 </html>
