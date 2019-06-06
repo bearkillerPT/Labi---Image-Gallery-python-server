@@ -56,6 +56,7 @@ class_checkbox_handler = self => {
 };
 window.onload = () => {
   name = getUrlVars().name;
+  if(name == null)name =""
   search();
 };
 function getUrlVars() {
