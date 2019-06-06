@@ -16,7 +16,6 @@ fetch(url)
           master_to_add += '<h4 class="class_list_item_text"><a href="search_images.html?name=' + tmp_name + '" >'+
           capitalize(tmp_name) +
             '</a></h4><div class="gridywrap" style="height:320px">';
-          console.log(res);
           for (let i of res) {
             let to_add = "";
             if (i.image != i.original)
