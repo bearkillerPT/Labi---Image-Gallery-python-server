@@ -28,7 +28,7 @@ search = () => {
             ')">&nbsp;</div>' +
             '    <div class="gridinfo"><br><br>' +
             '      <h4 class="h4">Class: ' +
-            "mudar para i.class" +
+            i.class +
             "</h4>" +
             '      <h4 class="h4">Confidence: ' +
             i.confidence +
