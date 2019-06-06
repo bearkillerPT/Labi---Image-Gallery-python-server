@@ -199,7 +199,7 @@ class DbCommunicator:
         
         result = {}
         results = db.execute(
-        "select FKOriginalImageName, FKCroppedImageName,, Confidence, CaractName from RelImgCaract limit ? offset ?",
+        "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract limit ? offset ?",
         (
           per_page,
           (page - 1) * per_page,
