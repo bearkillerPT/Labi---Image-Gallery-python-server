@@ -14,6 +14,7 @@
     <script src="js/handlers.js"></script>
     <script src="js/image_loader.js"></script>
     <script src="js/color_picker.js"></script>
+    <script src="js/send_image.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link
       rel="stylesheet"
@@ -111,10 +112,22 @@
         ><i class="fa fa-info"></i> ABOUT</a
       >
     </nav>
-    <div style="height: 50px"></div>
-    <canvas id="viewport"></canvas>
+    <header class="bgimg w3-display-container " id="home">
+      <div class="w3-row w3-display-middle w3-center" style="width:100%;">
+        <div>
+          <h1>Image Repository</h1>
+          <br />
+          <h4>Image Repository with support to image identification !!</h4>
+        </div>
+      </div>
+    </header>
 
-    <script src="js/image_inspect.js"></script>
+    <div id="classes"></div>
+
+    <script>
+      var classes_div = document.getElementById("classes");
+    </script>
+    <script src="js/class_list.js"></script>
     <script src="js/header.js"></script>
   </body>
 </html>

@@ -81,28 +81,16 @@
         class="w3-bar-item w3-button w3-large w3-padding-16"
         >Close ×</a
       >
-      <a
-        href="class_list.html"
-        onclick="w3_close()"
-        class="w3-bar-item w3-button"
+      <a href="class_list.html" onclick="w3_close()" class="w3-bar-item w3-button"
         ><i class="fa fa-list"></i> Class List</a
       >
-      <a
-        href="list_images.html"
-        onclick="w3_close()"
-        class="w3-bar-item w3-button"
+      <a href="list_images.html" onclick="w3_close()" class="w3-bar-item w3-button"
         ><i class="fa fa-th"></i> LIST IMAGES</a
       >
-      <a
-        href="send_images.html"
-        onclick="w3_close()"
-        class="w3-bar-item w3-button"
+      <a href="send_images.html" onclick="w3_close()" class="w3-bar-item w3-button"
         ><i class="fa fa-send"></i> SEND IMAGE</a
       >
-      <a
-        href="search_images.html"
-        onclick="w3_close()"
-        class="w3-bar-item w3-button"
+      <a href="search_images.html" onclick="w3_close()" class="w3-bar-item w3-button"
         ><i class="fa fa-search"></i> SEARCH IMAGES</a
       >
       <a href="about.html" onclick="w3_close()" class="w3-bar-item w3-button"
@@ -114,96 +102,8 @@
       <div class="w3-row w3-display-middle w3-center" style="width:100%">
         <div>
           <h1>Image Repository</h1>
-          <br /><br />
+          <br />
           <h4>Image Repository with support to image identification !!</h4>
-          <br /><br /><br /><br /><br />
-        </div>
-
-        <div style="display:flex;width:100%">
-          <div class="input-field col s6 header-item">
-            <input
-              value=""
-              id="first_name2"
-              type="text"
-              class="validate"
-              onkeydown="search_handler(this)"
-              onchange="search_handler(this)"
-            />
-            <label class="active" for="first_name2">Search</label>
-          </div>
-          <div class="header-item">
-            <button class="colorButton" id="parent">
-              Pick a color!
-            </button>
-            <br /><br />
-            <label class="header-item-text"
-              >Search With Color
-              <br />
-              <input
-                type="checkbox"
-                id="color-checkbox"
-                onclick="color_checkbox_handler(this)"
-              />
-              <span style="margin-left:14pt" class="checkmark"></span>
-            </label>
-          </div>
-          <div class="header-item">
-            <label class=" " style="text-align:center">
-              <span class="header-item-text">Class Detection Confidence</span
-              ><br />
-              <input
-                type="checkbox"
-                id="class-confidence-checkbox"
-                onclick="class_checkbox_handler(this)"
-              />
-              <span style="margin-left:15pt" class="checkmark"></span>
-            </label>
-            <div class="slidecontainer">
-              <input
-                style="height:50pt; border:0"
-                type="range"
-                min="0"
-                max="1"
-                value=".15"
-                step=".01"
-                class="slider"
-                onchange="class_confidence_slider_handler(this)"
-              />
-            </div>
-          </div>
-          <div class="header-item ">
-            <label class="header-item-text"
-              >Color Confidence
-              <br />
-              <input
-                type="checkbox"
-                id="color-confidence-checkbox"
-                onclick="color_confidence_checkbox_handler(this)"
-              />
-              <span style="margin-left:15pt" class="checkmark"></span>
-            </label>
-            <div class="slidecontainer">
-              <input
-                style="height:50pt; border:0"
-                type="range"
-                min="0"
-                max="1"
-                value=".5"
-                step=".01"
-                class="slider"
-                onchange="color_confidence_slider_handler(this)"
-              />
-            </div>
-          </div>
-
-          <div class="header-item ">
-            <input
-              type="button"
-              class="button"
-              value="Search"
-              onclick="search_button_handler(this)"
-            />
-          </div>
         </div>
       </div>
     </header>
@@ -213,6 +113,7 @@
     <div id="gallery" class="gridywrap"></div>
     <script>
       var gallery_div = document.getElementById("gallery");
+      window.onload = search
     </script>
     <footer style="height: 190px; display:flex;width:100%">
       <div style="flex: 1 1 5%;"></div>

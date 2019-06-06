@@ -1,4 +1,3 @@
-
 var checkboxes = {
   color: false,
   color_conf: false,
@@ -11,8 +10,21 @@ var sliders = {
 var color = {};
 var name = "";
 var c_page = 1;
+var last_page = false;
+next_handler = self => {
+  if (c_page == 1) prev_elem.style.visibility = "visible";
+  if (last_page) next_elem.style.visibility = "hidden";
+  c_page++;
+  search();
+};
+prev_handler = self => {
+  if (c_page == 2) prev_elem.style.visibility = "hidden";
+  if (last_page) next_elem.style.visibility = "visible";
+  c_page--;
+  search();
+};
 search_handler = self => {
-  name = self.value;  
+  name = self.value.toLowerCase();
   if (event.key == "Enter") search();
 };
 class_confidence_slider_handler = self => {
@@ -31,14 +43,29 @@ picker_handler = _color => {
   if (checkboxes.color) search();
 };
 
-color_checkbox_handler = (self)=>{
-  checkboxes.color = self.checked
-}
+color_checkbox_handler = self => {
+  checkboxes.color = self.checked;
+};
 
-color_confidence_checkbox_handler = (self)=>{
-  checkboxes.color_conf = self.checked
-}
+color_confidence_checkbox_handler = self => {
+  checkboxes.color_conf = self.checked;
+};
 
-class_checkbox_handler = (self)=>{
-  checkboxes.class = self.checked
+class_checkbox_handler = self => {
+  checkboxes.class = self.checked;
+};
+window.onload = () => {
+  name = getUrlVars().name;
+  search();
+};
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
+    m,
+    key,
+    value
+  ) {
+    vars[key] = value;
+  });
+  return vars;
 }
