@@ -4,4 +4,6 @@ backEnd/imadocumento.pdf
 documento.*
 !documento.pdf
 !documento.tex
-.vscode/
+.vscode
+__pycache__
+.pytest_cache
