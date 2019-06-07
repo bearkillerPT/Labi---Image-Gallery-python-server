@@ -1,1 +1,4 @@
 backEnd/images/*
+documento.*
+!documento.pdf
+!documento.tex
