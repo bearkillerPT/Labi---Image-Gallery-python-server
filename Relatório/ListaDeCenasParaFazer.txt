@@ -1,9 +1,9 @@
 confirmar o resumo
 confirmar introdução
 ver se o Patacas aprova do DbCommunicator.py
-escrever a parte do app.py
+ver a parte do app.py
 ver tudo da pasta do FrontEnd
-resultados-- prints do site?
+resultados-- prints do site + consola
 Análise -- se o site funcionou, se a app funcionou
 Conclusões-- overall se correu bem
 Contribuições percentuais

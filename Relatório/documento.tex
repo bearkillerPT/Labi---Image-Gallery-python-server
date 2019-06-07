@@ -177,6 +177,27 @@ Tudo o que este programa faz é estabelecer a ligação entre as páginas HMTL, 
 \subsection{put\_example}
 Este programa é um exemplo de como executar o programa, não tendo qualquer efeito na maneira como o \textit{website} funciona.
 
+\section{Frontend}
+Para uma biblioteca de imagens ser viável, a compatibilidade entre dispositivos é necessária. Por isso, na criação desta, foi sempre tida em conta a usabilidade não só em monitores de computador, mas também em dispositivos móveis. 
+
+\subsection{Home}
+Esta página é a landing page, sendo análoga à página Class List.
+
+\subsection{Class List}
+Estando associada ao ficheiro class\_list.html, esta página informa o utilizador de todas as classes que há nesta biblioteca, mostrando alguns exemplos. Ao carregar no nome de uma classe, entra-se numa página em que todas as imagens da classe estão visíveis. Ao carregar numa imagem, o utilizador abre-a, vendo a imagem original e ainda as \textit{bounding boxes} de cada classe presente.
+
+\subsection{List Images}
+Esta página mostra as imagens cortadas presentes na biblioteca em nenhuma ordem particular. Ao fazer \textit{hover} com o rato, é possível ver qual classe estamos a ver e com quanta confiança foi corretamente categorizada. Ao carregar no botão \textit{more}, abrimos a imagem e temos acesso aos dados acima referidos. Pode ver o código desta página no ficheiro list\_images.html.
+
+\subsection{Send Image}
+Dá a possibilidade ao utilizador de inserir as próprias imagens na biblioteca. Para adicionar estes dados, o utilizador pode arrastar a imagem para a página ou abrir o explorador de ficheiros. Se uma classe for detetada, então a base de dados será atualizada com a informação da nova imagem e esta ficará acessível a todos os utilizadores da biblioteca.
+
+\subsection{Search Images}
+Esta página apresenta o motor de busca da biblioteca. É possível pesquisar por class (ou seja, por objeto) e por cor. A pesquisa por classe é feita a partir de uma caixa de texto em que são introduzidos dados, enquanto que a pesquisa por coir é feita a partir de um seletor de cor, tornando a experiência o mais intuitiva possível para o utilizador. Para além disso, é possível definir a confiança mínima na deteção da classe para a imagem ser relevante na busca e ainda a quantidade média de cor mínima.
+
+\subsection{About}
+Aqui é possível encontrar os dados de todos os membros do grupo(nome, número mecanográfico, e-mail institucional) e a percentagem do trabalho feito por cada um.
+
 \chapter{Resultados}
 \label{chap.resultados}
 Descreve os resultados obtidos.

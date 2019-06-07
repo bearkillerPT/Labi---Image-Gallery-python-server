@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.5.14)  28 MAY 2019 10:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.5.14)  7 JUN 2019 18:40
 entering extended mode
 **./documento.tex
 (documento.tex
@@ -624,7 +624,10 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 16.
 LaTeX Info: Redefining \pageref on input line 16.
 LaTeX Info: Redefining \nameref on input line 16.
- (documento.out) (documento.out)
+ (documento.out) (documento.out
+! I can't write on file `documento.pdf'.
+Please type another file name for output: documento.pdf
+)
 \@outlinefile=\write4
 \openout4 = `documento.out'.
 
@@ -659,7 +662,7 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-<ua.pdf, id=35, 52.195pt x 55.20625pt>
+<ua.pdf, id=71, 52.195pt x 55.20625pt>
 File: ua.pdf Graphic file (type pdf)
 <use ua.pdf>
 Package pdftex.def Info: ua.pdf  used on input line 53.
@@ -716,43 +719,43 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 
 [2
 
-] [3]
+] [3] [4] [5]
 Cap\'{\i }tulo 3.
-[4
+[6
 
 ]
 Cap\'{\i }tulo 4.
-[5
+[7
 
 ]
 Cap\'{\i }tulo 5.
-[6
-
-] [7
-
-]
-
-LaTeX Warning: Empty bibliography on input line 204.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 206.
 [8
 
+] [9
+
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 206.
+
+LaTeX Warning: Empty bibliography on input line 229.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 231.
+[10
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
  (documento.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 206.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 206.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 231.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 231.
 Package rerunfilecheck Info: File `documento.out' has not changed.
-(rerunfilecheck)             Checksum: 8E6DED3B5AB690F74695DCE5B8F17AC3;438.
+(rerunfilecheck)             Checksum: 4032D1679E234317F25238966608FD74;1006.
 Package logreq Info: Writing requests to 'documento.run.xml'.
 \openout1 = `documento.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 13670 strings out of 492945
- 230888 string characters out of 3126252
- 696387 words of memory out of 3000000
- 17380 multiletter control sequences out of 15000+200000
+ 13689 strings out of 492945
+ 231181 string characters out of 3126252
+ 697387 words of memory out of 3000000
+ 17388 multiletter control sequences out of 15000+200000
  15548 words of font info for 35 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,9n,33p,880b,1654s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -769,9 +772,9 @@ pk> <C:\Users\sofas\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen/ec/dpi600
 \ecrm1440.pk> <C:\Users\sofas\AppData\Local\MiKTeX\2.9\fonts/pk/ljfour/jknappen
 /ec/dpi600\ecrm2488.pk><C:/Users/sofas/AppData/Local/Programs/MiKTeX 2.9/fonts/
 type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on documento.pdf (12 pages, 128639 bytes).
+Output written on documento.pdf (14 pages, 145641 bytes).
 PDF statistics:
- 418 PDF objects out of 1000 (max. 8388607)
- 22 named destinations out of 1000 (max. 500000)
- 70 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 500 PDF objects out of 1000 (max. 8388607)
+ 33 named destinations out of 1000 (max. 500000)
+ 142 words of extra memory for PDF output out of 10000 (max. 10000000)
 
