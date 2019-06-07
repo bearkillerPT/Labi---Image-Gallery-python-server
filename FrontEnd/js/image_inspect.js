@@ -25,8 +25,8 @@ fetch("https://xcoa.av.it.pt/labi2019-p2-g2/get?id=" + getUrlVars().id)
         context.fillStyle = "red";
         context.fillText(
           i.class,
-          top_left_x + i.box.x * scale,
-          -5 + i.box.y * scale
+          top_left_x + i.box.x * scale + 5,
+          +20 + i.box.y * scale
         );
         context.lineWidth = "1";
         context.strokeStyle = "blue";

@@ -58,8 +58,11 @@ window.onload = () => {
   t_name = getUrlVars().name;
   if (t_name == null) {
     name = "";
-  }else{
-    name = t_name
+  } else {
+    name = t_name;
+    name_input.value = name;
+    name_input.focus();
+    name_input.blur();
     search();
   }
 };
