@@ -1,0 +1,23 @@
+.header-item{
+ flex: 1 1 20%;
+  height:100pt;
+  width:25vw;
+  margin-left: 50pt;
+}
+.header-item-text{
+  color:#000;
+  text-align: center;
+  font-size: 12pt;
+  width: 300pt;
+}
+.h4{
+  color: #fff
+}
+.footer-item{
+  margin-top: 90px; flex: 1 1 10%; padding:15px;
+}
+.class_list_item_text{
+  margin-left: 1%;
+  margin-top: 20pt;
+  margin-bottom: 20pt;
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Image Repository</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/slider.css" />
+    <link rel="stylesheet" href="css/color_picker.css" />
+    <link rel="stylesheet" href="css/custom_radio_button.css" />
+    <link rel="stylesheet" href="css/custom_styles.css" />
+    <link rel="stylesheet" href="css/button.css" />
+    <link rel="stylesheet" href="css/masonry.css" />
+    <script src="js/handlers.js"></script>
+    <script src="js/image_loader.js"></script>
+    <script src="js/color_picker.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    />
+
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata"
+    />
+    <!-- Codigo disponibilizado em https://materializecss.com/getting-started.html -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- TT Bootstrat-->
+  </head>
+
+  <body>
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="index" class="w3-bar-item w3-button w3-wide">Home</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a href="class_list.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-list"></i> Class List</a
+          >
+          <a href="list_images.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-th"></i> LIST IMAGES</a
+          >
+          <a href="send_images.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-send"></i> SEND IMAGE</a
+          >
+          <a href="search_images.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-search"></i> SEARCH IMAGES
+          </a>
+          <a href="about.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-info"></i> ABOUT</a
+          >
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+        <a
+          href="javascript:void(0)"
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+          onclick="w3_open()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+      style="display:none"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-large w3-padding-16"
+        >Close ×</a
+      >
+      <a
+        href="class_list.html"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        ><i class="fa fa-list"></i> Class List</a
+      >
+      <a
+        href="list_images.html"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        ><i class="fa fa-th"></i> LIST IMAGES</a
+      >
+      <a
+        href="send_images.html"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        ><i class="fa fa-send"></i> SEND IMAGE</a
+      >
+      <a
+        href="search_images.html"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        ><i class="fa fa-search"></i> SEARCH IMAGES</a
+      >
+      <a href="about.html" onclick="w3_close()" class="w3-bar-item w3-button"
+        ><i class="fa fa-info"></i> ABOUT</a
+      >
+    </nav>
+
+    <div>
+      <h1 style="margin-top:40pt; margin-left: 40pt">About</h1>
+      <br />
+      <h4 style="margin-left: 45pt">
+        Project developed by:(percentagens temporarias)
+      </h4>
+      <ul style="margin-left: 55pt">
+        <li>
+          André Patacas, nº mec 93357, email: andrepatacas@ua.pt, 60%
+        </li>
+
+        <li>
+          Gil Teixeira, nº mec 88194, email: gilteixeira@ua.pt, 30%
+        </li>
+
+        <li>
+          Sofia Vaz, nº mec 92968, email: sofiateixeiravaz@ua.pt, 10%
+        </li>
+
+        <li>
+          Luis Nuno, nº mec 93159, email: , 0%
+        </li>
+      </ul>
+    </div>
+
+    <!-- Fim do codigo do w3schools-->
+
+    <script src="js/header.js"></script>
+  </body>
+</html>

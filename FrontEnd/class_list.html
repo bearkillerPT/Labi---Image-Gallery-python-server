@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Image Repository</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/slider.css" />
+    <link rel="stylesheet" href="css/color_picker.css" />
+    <link rel="stylesheet" href="css/custom_radio_button.css" />
+    <link rel="stylesheet" href="css/custom_styles.css" />
+    <link rel="stylesheet" href="css/button.css" />
+    <link rel="stylesheet" href="css/masonry.css" />
+    <script src="js/handlers.js"></script>
+    <script src="js/image_loader.js"></script>
+    <script src="js/color_picker.js"></script>
+    <script src="js/send_image.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+    />
+
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Inconsolata"
+    />
+    <!-- Codigo disponibilizado em https://materializecss.com/getting-started.html -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- TT Bootstrat-->
+  </head>
+
+  <body>
+    <!--Codigo disponibilizado pelo w3schools https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_cafe-->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="index" class="w3-bar-item w3-button w3-wide">Home</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a href="class_list.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-list"></i> Class List</a
+          >
+          <a href="list_images.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-th"></i> LIST IMAGES</a
+          >
+          <a href="send_images.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-send"></i> SEND IMAGE</a
+          >
+          <a href="search_images.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-search"></i> SEARCH IMAGES
+          </a>
+          <a href="about.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-info"></i> ABOUT</a
+          >
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+        <a
+          href="javascript:void(0)"
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+          onclick="w3_open()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+      style="display:none"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-large w3-padding-16"
+        >Close ×</a
+      >
+      <a
+        href="class_list.html"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        ><i class="fa fa-list"></i> Class List</a
+      >
+      <a
+        href="list_images.html"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        ><i class="fa fa-th"></i> LIST IMAGES</a
+      >
+      <a
+        href="send_images.html"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        ><i class="fa fa-send"></i> SEND IMAGE</a
+      >
+      <a
+        href="search_images.html"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        ><i class="fa fa-search"></i> SEARCH IMAGES</a
+      >
+      <a href="about.html" onclick="w3_close()" class="w3-bar-item w3-button"
+        ><i class="fa fa-info"></i> ABOUT</a
+      >
+    </nav>
+    <header class="bgimg w3-display-container " id="home">
+      <div class="w3-row w3-display-middle w3-center" style="width:100%;">
+        <div>
+          <h1>Image Repository</h1>
+          <br />
+          <h4>Image Repository with support to image identification !!</h4>
+        </div>
+      </div>
+    </header>
+
+    <div id="classes"></div>
+
+    <script>
+      var classes_div = document.getElementById("classes");
+    </script>
+    <script src="js/class_list.js"></script>
+    <script src="js/header.js"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+BackEnd/images/*
+!BackEnd/images/fileParaOGitNaoApagar
+backEnd/imadocumento.pdf
+!documento.backEnd/images/*
+documento.*
+!documento.pdf
+!documento.tex
+.vscode
+__pycache__
+.pytest_cache
+.idea
