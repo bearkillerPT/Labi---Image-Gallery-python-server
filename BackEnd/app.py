@@ -8,6 +8,9 @@ comm = DbCommunicator('app_db.db')
 
 """This class will not be documented because it's pretty self explanatory"""
 class app(object):
+    """O teste deste metodo é muito semelhante ao do request na outra classe, só tens de o fazer na forma de GET
+    e POST request em vez de chamada a uma função python diretamente, depois da explicação no discord em principio
+    entendes exatamente o que fazer aqui"""
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def list(self, type = None, name = None, color = None, thr = None, page = None, per_page = None):
@@ -28,6 +31,7 @@ class app(object):
         print(result)
         return result
 
+    """Muito parecido com o teste à funcção add/request/get da outra classe só que via POST request"""
     @cherrypy.tools.json_out()
     @cherrypy.expose
     def put(self, image):
@@ -38,6 +42,9 @@ class app(object):
         result.append(comm.get(name))
         return result
 
+    """
+        Igual ao da função get mas via GET request
+    """
     @cherrypy.tools.json_out()
     @cherrypy.expose
     def get(self, id):
@@ -45,6 +52,7 @@ class app(object):
         print(result)
         return result
 
+    """Testar se recebes uma file quando acedes ao site.name/index"""
     @cherrypy.expose
     def index(self):
         return open("./../FrontEnd/class_list.html")
