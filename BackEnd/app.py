@@ -5,7 +5,7 @@ import os
 from DbCommunicator import DbCommunicator 
 import json
 comm = DbCommunicator('app_db.db')
-
+"""A maioria dos testes à funções desta class são um teste direto à API"""
 """This class will not be documented because it's pretty self explanatory"""
 class app(object):
     """O teste deste metodo é muito semelhante ao do request na outra classe, só tens de o fazer na forma de GET
