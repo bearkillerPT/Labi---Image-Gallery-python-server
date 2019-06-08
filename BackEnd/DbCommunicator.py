@@ -8,6 +8,20 @@ from os import remove
 from urllib.request import urlretrieve 
 import os
 import random
+""" função de conversão de rgb para HUE se quiseres podes testar, é facil, mas n é mandatorio"""
+def hueFromRBG(R,G,B):
+  r = float(R) / 255
+  g = float(G) / 255
+  b = float(b) / 255
+  Cmax = r if r > g and r > b else g if g > b else b
+  Cmin = r if r < g and r < b else g if g < b else b
+  if(Cmax == r):
+    return 60 * (((g - b)/Cmax - Cmin) % 6)
+  if(Cmax == g):
+    return 60 * (((b - r)/Cmax - Cmin) + 2)
+  if(Cmax == b):
+    return 60 * (((r - g)/Cmax - Cmin) + 4)
+
 class DbCommunicator:
   """Convém que todos os testes sejam parametrizaveis em numero e randomicos em conteudo
   ou seja, as imagens escolhidas para o teste são aleatorias e o numero de imagens escolhidas é 
@@ -23,8 +37,7 @@ class DbCommunicator:
     self.db_name = db_name
 
   """O teste consiste em enviar algumas imagens para a função e verificar 
-  o tipo e coerencia dos outputs, com coerencia refiro me às avg_colors que deverão 
-  ser cada uma delas um numero entre 0 e 255"""
+  o tipo e coerencia dos outputs, com coerencia refiro me à HUE que deve ser entre 0 e 360"""
   def get_dims_and_color(self, image_path: str) -> tuple:
     """Collects image average color and dimensions that will be added to the database"""
     img = Image.open(image_path)
@@ -33,7 +46,7 @@ class DbCommunicator:
     img2 = img.resize((1, 1))
     color = img2.getpixel((0, 0))
     avg_color = {'r':color[0],'g':color[1],'b':color[2]}
-    return (height, width, (avg_color['r'], avg_color['g'], avg_color['b']))
+    return (height, width, hueFromRBG(avg_color['r'], avg_color['g'], avg_color['b']))
 
 
   """Igual à função de cima, passas um bytearray para a função, podes obter um bytearray a 
@@ -89,7 +102,7 @@ class DbCommunicator:
     f1.write(image)
     f1.close()
     height, width, color = self.get_dims_and_color("./images/" + name)
-    db.execute("insert into Imagens values (?, ?, ?, ?, ?, ?);", (name, height, width, color[0],color[1],color[2],))
+    db.execute("insert into Imagens values (?, ?, ?);", (name, height, width, color))
     cropper = Image.open(io.BytesIO(image))
     for i in caracts:
       cropped = cropper.crop((
@@ -104,8 +117,8 @@ class DbCommunicator:
       f.write(imgByteArr)
       f.close()
       cropped_width, cropped_height, cropped_color = self.get_dims_and_color("./images/" + cropped_name)
-      db.execute("insert into Imagens values (?, ?, ?, ?, ?, ?);",
-                (cropped_name, cropped_height, cropped_width, cropped_color[0],cropped_color[1],cropped_color[2],))
+      db.execute("insert into Imagens values (?, ?, ?, ?);",
+                (cropped_name, cropped_height, cropped_width, cropped_color))
       db.execute('insert into RelImgCaract (FKOriginalImageName, FKCroppedImageName,'+ 
                 'CaractName , Box, Confidence) values (?,?,?,?,?);'
                 ,(name, cropped_name, i['class'],
@@ -192,20 +205,17 @@ class DbCommunicator:
     elif('type' in request_obj and 'name' in request_obj and 'color' in request_obj and request_obj['type'] == 'detected'):
       if ('thr' in request_obj): thr = request_obj['thr'];  
       else: thr = 0
+      request_hue = hueFromRBG(request_obj['color']['R'],request_obj['color']['G'],request_obj['color']['B'])
       results = db.execute(
       "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract "+
       "inner join Imagens on RelImgCaract.FKCroppedImageName = Imagens.image_path where CaractName = ? and Confidence > ? and "+
-      "(R - ?) * (R - ?) + (G - ?) * (G - ?) + (B - ?) * (B - ?) < ? limit ? offset ?" ,
+      "min((abs(HUE - ?) % 360), (abs(? - HUE) % 360)) < ? limit ? offset ?" ,
       (
         request_obj['name'],
         thr,
-        request_obj['color']['R'],
-        request_obj['color']['R'],
-        request_obj['color']['G'],
-        request_obj['color']['G'],
-        request_obj['color']['B'],
-        request_obj['color']['B'],
-        request_obj['color']['tol'] * 195075, #  , numero max 
+        request_hue,
+        request_hue,
+        request_obj['color']['tol'] * 360, #  , numero max 
         per_page,
         (page - 1) * per_page,
       ) 
@@ -275,4 +285,3 @@ if __name__ == '__main__':
     __clear_all_caution__()
   elif(sys.argv[1] == 'p'):
     populate(DbCommunicator('app_db.db'))
-  #populate(DbCommunicator('app_db.db'))
