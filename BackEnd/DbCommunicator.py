@@ -156,7 +156,7 @@ class DbCommunicator:
   """
     Testar coerencia dos resultados mais uma vez
   """
-  def get(self, id: str):-> 
+  def get(self, id: str):
     """Retrieves an image based on an id specified on the request"""
     db = sqlite3.connect(self.db_name)
     db_request = db.execute("select FKOriginalImageName, FKCroppedImageName, CaractName , Box, Confidence from RelImgCaract"+
