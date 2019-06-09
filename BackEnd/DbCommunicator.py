@@ -21,18 +21,18 @@ class DbCommunicator:
 
 
 """ função de conversão de rgb para HUE se quiseres podes testar, é facil, mas n é mandatorio"""
-  def hueFromRBG(R, G, B):
-        r = float(R) / 255
-        g = float(G) / 255
-        b = float(B) / 255
-        Cmax = r if r > g and r > b else g if g > b else b
-        Cmin = r if r < g and r < b else g if g < b else b
-        if(Cmax == r):
-            return 60 * (((g - b)/Cmax - Cmin) % 6)
-        if(Cmax == g):
-            return 60 * (((b - r)/Cmax - Cmin) + 2)
-        if(Cmax == b):
-            return 60 * (((r - g)/Cmax - Cmin) + 4)
+    def hueFromRBG(R, G, B):
+      r = float(R) / 255
+      g = float(G) / 255
+      b = float(B) / 255
+      Cmax = r if r > g and r > b else g if g > b else b
+      Cmin = r if r < g and r < b else g if g < b else b
+      if(Cmax == r):
+          return 60 * (((g - b)/Cmax - Cmin) % 6)
+      if(Cmax == g):
+          return 60 * (((b - r)/Cmax - Cmin) + 2)
+      if(Cmax == b):
+          return 60 * (((r - g)/Cmax - Cmin) + 4)
 
     """Na maioria dos metodos é uma boa ideia testar casos com chamadas errada, tipo passar uma chamada errada para a função"""
 
