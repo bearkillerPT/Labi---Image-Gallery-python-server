@@ -12,7 +12,7 @@ import random
 def hueFromRBG(R,G,B):
   r = float(R) / 255
   g = float(G) / 255
-  b = float(b) / 255
+  b = float(B) / 255
   Cmax = r if r > g and r > b else g if g > b else b
   Cmin = r if r < g and r < b else g if g < b else b
   if(Cmax == r):
@@ -102,7 +102,7 @@ class DbCommunicator:
     f1.write(image)
     f1.close()
     height, width, color = self.get_dims_and_color("./images/" + name)
-    db.execute("insert into Imagens values (?, ?, ?);", (name, height, width, color))
+    db.execute("insert into Imagens values (?, ?, ?, ?);", (name, height, width, color))
     cropper = Image.open(io.BytesIO(image))
     for i in caracts:
       cropped = cropper.crop((
