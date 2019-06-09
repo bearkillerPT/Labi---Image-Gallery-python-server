@@ -268,7 +268,8 @@ class DbCommunicator:
                     request_hue = hueFromRBG(
                         request_obj['color']['R'], request_obj['color']['G'], request_obj['color']['B'])
                     results = db.execute(
-                        "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract" +
+                        "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract " +
+                        "inner join Imagens on RelImgCaract.FKCroppedImageName = Imagens.image_path "+
                         "where min((abs(HUE - ?) % 360), (abs(? - HUE) % 360)) < ? limit ? offset ?",
                         (
                             request_hue,
