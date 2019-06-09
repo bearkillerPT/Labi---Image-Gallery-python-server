@@ -80,16 +80,15 @@
 
 %%%%%% RESUMO %%%%%%
 \begin{abstract}
-Este relatório pretende descrever uma biblioteca de imagens pesquisável desenvolvida. 
-Nesta, insere-se o tipo de imagem que se procura, que por sua vez é um dos dados da base de dados que tem todas as imagens. Depois, as imagens pedidas pelo utilizador são apresentadas por ordem de relevância.
+Este relatório pretende descrever como uma biblioteca de imagens pesquisável foi desenvolvida no âmbito da cadeira de Laboratório de Informática. Esta biblioteca de imagens foi feita com base em Python 3, CSS, JavaScript e HTML. Neste relatório incluímos a divisão geral do trabalho, a explicação geral de métodos criados no \textit{backend} e \textit{frontend} e imagens dos resultados. 
 \end{abstract}
 
 %%%%%% Agradecimentos %%%%%%
 % Segundo glisc deveria aparecer após conclusão...
 
 \tableofcontents
- %\listoftables     % descomentar se necessário
-% \listoffigures    % descomentar se necessário
+ \listoftables     % descomentar se necessário
+ \listoffigures    % descomentar se necessário
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -117,7 +116,6 @@ Esta fase consistiu em, antes de começar sequer a trabalhar, definir quais memb
 \begin{table}[h!]
 \begin{center}
 \caption{Divisão geral de tarefas}
-\label{tab:table1}
 \begin{tabular}{l|l}
 \hline
 \multicolumn{1}{|l|}{Aluno} & \multicolumn{1}{l|}{Tarefa Atribuída} \\ \hline
@@ -126,6 +124,7 @@ Esta fase consistiu em, antes de começar sequer a trabalhar, definir quais memb
             Sofia Vaz         & relatório                                \\
             Luis Andrade    & testes unitários e funcionais                     
 \end{tabular}
+\label{tab:table1}
 \end{center}
 \end{table}
 
@@ -135,7 +134,7 @@ Esta fase consistiu em, antes de começar sequer a trabalhar, definir quais memb
 Este método inicializa o objeto que será conectado à base de dados.
 
 \paragraph{get\_dims\_and\_color}
-Este método devolve os dados da imagem, a cor média e as dimensões. 
+Este método devolve os dados da imagem, a cor média e as dimensões. A cor média é calculada via VSL.
 
 \paragraph{request\_caracteristics}
 Este método liga-se ao \textit{website} fornecido pelos docentes, devolvendo um array em que cada elemento é um json com:
@@ -180,27 +179,86 @@ Este programa envia uma imagem para a base de dados, não tendo qualquer efeito 
 \section{Frontend}
 Para uma biblioteca de imagens ser viável, a compatibilidade entre dispositivos é necessária. Por isso, na criação desta, foi sempre tida em conta a usabilidade não só em monitores de computador, mas também em dispositivos móveis. 
 
-\subsection{Home}
-Esta página é a landing page, também a página Class List.
-
-\subsection{Class List}
-Esta página informa o utilizador de todas as classes já detetadas nesta biblioteca, mostrando alguns exemplos. Ao carregar no nome de uma classe, entra-se numa página em que todas as imagens da classe estão visíveis. Ao carregar numa imagem, o utilizador abre-a, vendo a imagem original e ainda as \textit{bounding boxes} de cada classe presente.
+\subsection{Home/Class List}
+Esta página informa o utilizador de todas as classes já detetadas nesta biblioteca, mostrando alguns exemplos. Ao carregar no nome de uma classe, entra-se numa página em que todas as imagens da classe estão visíveis. Ao carregar numa imagem, o utilizador abre-a, vendo a imagem original e ainda as \textit{bounding boxes} de cada classe presente. A página de JS associada é:
+\paragraph{class\_list} 
+Lista as classes já detetadas e apresenta imagens com exemplos.
 
 \subsection{List Images}
-Esta página mostra as imagens cortadas presentes na biblioteca em nenhuma ordem particular. Ao fazer \textit{hover} com o rato, é possível ver qual classe estamos a ver e com quanta confiança foi corretamente categorizada. Ao carregar no botão \textit{more}, abrimos a imagem e temos acesso aos dados acima referidos. Pode ver o código desta página no ficheiro list\_images.html.
+Esta página mostra as imagens cortadas presentes na biblioteca em nenhuma ordem particular. Ao fazer \textit{hover} com o rato, é possível ver qual classe estamos a ver e com quanta confiança foi corretamente categorizada. Ao carregar no botão \textit{more}, abrimos a imagem e temos acesso aos dados acima referidos. Pode ver o código desta página no ficheiro list\_images.html. A página de JS associada é:
+\paragraph{image\_inspect}
+Quando uma imagem é aberta, esta função mostra ao utilizador as \textit{bounding boxes} de cada classe e informação sobre estas. 
 
-\subsection{Send Image}
-Dá a possibilidade ao utilizador de inserir as próprias imagens na biblioteca. Para adicionar estes dados, o utilizador pode arrastar a imagem para a página ou abrir o explorador de ficheiros. Se uma classe for detetada, então a base de dados será atualizada com a informação da nova imagem e esta ficará acessível a todos os utilizadores da biblioteca.
+\subsection{SendImage}
+Dá a possibilidade ao utilizador de inserir as próprias imagens na biblioteca. Para adicionar estes dados, o utilizador pode arrastar a imagem para a página ou abrir o explorador de ficheiros. Se uma classe for detetada, então a base de dados será atualizada com a informação da nova imagem e esta ficará acessível a todos os utilizadores da biblioteca. A página de JS associada é:
+\paragraph{send\_image}
+Envia a imagem via POST request para o \textit{backend} do \textit{website}. Quando no backend, será tratada como se fizesse parte dos dados locais.
 
 \subsection{Search Images}
-Esta página apresenta o motor de busca da biblioteca. É possível pesquisar por class (ou seja, por objeto) e por cor. A pesquisa por classe é feita a partir de uma caixa de texto em que são introduzidos dados, enquanto que a pesquisa por coir é feita a partir de um seletor de cor, tornando a experiência o mais intuitiva possível para o utilizador. Para além disso, é possível definir a confiança mínima na deteção da classe para a imagem ser relevante na busca e ainda a quantidade média de cor mínima.
+Esta página apresenta o motor de busca da biblioteca. É possível pesquisar por classe (ou seja, por objeto) e por cor. A pesquisa por classe é feita a partir de uma caixa de texto em que são introduzidos dados, enquanto que a pesquisa por coir é feita a partir de um seletor de cor, tornando a experiência o mais intuitiva possível para o utilizador. Para além disso, é possível definir a confiança mínima na deteção da classe para a imagem ser relevante na busca e ainda a quantidade média de cor mínima. A página de JS associada é:
+\paragraph{image\_loader}
+Mostra as imagens segundo os dados inseridos pelo utilizador. Pesquisará segundo a classe se dados forem inseridos dados na caixa de texto. Se a caixa de \textit{Class Detection Confidence} estiver \textit{ticked}, então apenas serão mostradas imagens com uma confiança igual ou superior à selecionada. Se a caixa \textit{Search with color} estiver ativa, então as imagens surgirão segundo a sua proximidade com a cor selecionada. A caixa \textit{Color Confidence} tem funcionamento parecido com a \textit{Class Detection Confidence}.
 
 \subsection{About}
 Aqui é possível encontrar os dados de todos os membros do grupo(nome, número mecanográfico, e-mail institucional) e a percentagem do trabalho feito por cada um.
 
+
 \chapter{Resultados}
 \label{chap.resultados}
-Descreve os resultados obtidos.
+Nesta parte do relatório estão colocadas várias capturas de ecrã do \textit{website} e da consola deste.
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{HomeTOP.png}
+\caption{Topo da página Home/Class List}
+\label{Fig1}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{HomeBOTTOM.png}
+\caption{Página Home/Class List com as imagens e classes visíveis}
+\label{Fig2}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{dataImage.png}
+\caption{Dados de uma imagem aberta}
+\label{Fig3}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{ExemploHOVER.png}
+\caption{Efeito \textit{hover} numa imagem}
+\label{Fig4}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{ListImages.png}
+\caption{Página em que todas as imagens estão listadas}
+\label{Fig5}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{SearchDefault.png}
+\caption{Página de pesquisa sem dados inseridos}
+\label{Fig6}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{SearchWithColor.png}
+\caption{Página de pesquisa por cor}
+\label{Fig7}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{Send.png}
+\caption{Página de submissão de imagens}
+\label{Fig8}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{ResultadosInspect.png}
+\caption{Página de inspeção de uma imagem com os vários GET requests}
+\label{Fig9}
+\end{figure}
 
 \chapter{Análise}
 \label{chap.analise}
