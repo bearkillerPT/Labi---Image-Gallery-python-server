@@ -8,6 +8,19 @@ from os import remove
 from urllib.request import urlretrieve
 import os
 import random
+""" função de conversão de rgb para HUE se quiseres podes testar, é facil, mas n é mandatorio"""
+def hueFromRBG(R, G, B):
+    r = float(R) / 255
+    g = float(G) / 255
+    b = float(B) / 255
+    Cmax = r if r > g and r > b else g if g > b else b
+    Cmin = r if r < g and r < b else g if g < b else b
+    if(Cmax == r):
+        return 60 * (((g - b)/Cmax - Cmin) % 6)
+    if(Cmax == g):
+        return 60 * (((b - r)/Cmax - Cmin) + 2)
+    if(Cmax == b):
+        return 60 * (((r - g)/Cmax - Cmin) + 4)
 
 
 class DbCommunicator:
@@ -18,21 +31,6 @@ class DbCommunicator:
     escolhes uma imagem aleatoria, recomendo que cries uma lista com todas as imagens possiveis
     e uses a função random.choice(listaDeImages) para aleatorizar a imagem do current test  """
     """Esta função não precisa de testes"""
-
-
-""" função de conversão de rgb para HUE se quiseres podes testar, é facil, mas n é mandatorio"""
-    def hueFromRBG(R, G, B):
-      r = float(R) / 255
-      g = float(G) / 255
-      b = float(B) / 255
-      Cmax = r if r > g and r > b else g if g > b else b
-      Cmin = r if r < g and r < b else g if g < b else b
-      if(Cmax == r):
-          return 60 * (((g - b)/Cmax - Cmin) % 6)
-      if(Cmax == g):
-          return 60 * (((b - r)/Cmax - Cmin) + 2)
-      if(Cmax == b):
-          return 60 * (((r - g)/Cmax - Cmin) + 4)
 
     """Na maioria dos metodos é uma boa ideia testar casos com chamadas errada, tipo passar uma chamada errada para a função"""
 
@@ -50,7 +48,7 @@ class DbCommunicator:
         total_pixel_count = width * height
         img2 = img.resize((1, 1))
         color = img2.getpixel((0, 0))
-        avg_color = {'r': color[0], 'g': color[1],'b':color[2]}
+        avg_color = {'r': color[0], 'g': color[1], 'b': color[2]}
         return (height, width, hueFromRBG(avg_color['r'], avg_color['g'], avg_color['b']))
 
     """Igual à função de cima, passas um bytearray para a função, podes obter um bytearray a 
@@ -130,7 +128,8 @@ class DbCommunicator:
                        (cropped_name, cropped_height, cropped_width, cropped_color))
             db.execute('insert into RelImgCaract (FKOriginalImageName, FKCroppedImageName,' +
                        'CaractName , Box, Confidence) values (?,?,?,?,?);', (name, cropped_name, i['class'],
-                                                                                                    str(i['box']['x']) + "," + str(i['box']['y']) + "," + str(i['box']['x1']) + "," + str(i['box']['y1']),
+                                                                             str(i['box']['x']) + "," + str(i['box']['y']) + "," + str(
+                           i['box']['x1']) + "," + str(i['box']['y1']),
                            i['confidence']))
         db.commit()
         db.close()
@@ -181,13 +180,13 @@ class DbCommunicator:
             result = [{
                 'original': i[0],
                 'image':i[1],
-              'class':i[2],
-              'box':{
-                  'x': i[3].split(',')[0],
+                'class':i[2],
+                'box':{
+                    'x': i[3].split(',')[0],
                     'y':i[3].split(',')[1],
                     'x1':i[3].split(',')[2],
                     'y1':i[3].split(',')[3]
-                    },
+                },
                 'confidence':round(i[4]*100)} for i in db_request]
         db.commit()
         db.close()
@@ -222,7 +221,8 @@ class DbCommunicator:
                 thr = request_obj['thr']
             else:
                 thr = 0
-            request_hue = hueFromRBG(request_obj['color']['R'], request_obj['color']['G'], request_obj['color']['B'])
+            request_hue = hueFromRBG(
+                request_obj['color']['R'], request_obj['color']['G'], request_obj['color']['B'])
             results = db.execute(
                 "select FKOriginalImageName, FKCroppedImageName, Confidence from RelImgCaract " +
                 "inner join Imagens on RelImgCaract.FKCroppedImageName = Imagens.image_path where CaractName = ? and Confidence > ? and " +
@@ -237,7 +237,8 @@ class DbCommunicator:
                     (page - 1) * per_page,
                 )
             ).fetchall()
-            result = {request_obj['name']: [{'original': i[0], 'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
+            result = {request_obj['name']: [
+                {'original': i[0], 'image':i[1], 'confidence':round(i[2] * 100)} for i in results]}
 
         elif('type' in request_obj and 'name' in request_obj and request_obj['type'] == 'detected'):
             if ('thr' in request_obj):
@@ -253,7 +254,8 @@ class DbCommunicator:
                     (page - 1) * per_page,
                 ))
             results = results.fetchall()
-            result = {request_obj['name']: [{'original': i[0], 'image':i[1],'confidence':round(i[2] * 100)} for i in results]}
+            result = {request_obj['name']: [
+                {'original': i[0], 'image':i[1], 'confidence':round(i[2] * 100)} for i in results]}
 
         elif('type' in request_obj):
             if(request_obj['type'] == 'names'):
@@ -263,26 +265,28 @@ class DbCommunicator:
             elif(request_obj['type'] == 'detected'):
                 result = {}
                 if('color' in request_obj):
-                  request_hue = hueFromRBG(request_obj['color']['R'], request_obj['color']['G'], request_obj['color']['B'])
-                  results = db.execute(
-                    "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract"+
-                    "min((abs(HUE - ?) % 360), (abs(? - HUE) % 360)) < ? limit ? offset ?",
-                    (
-                        request_hue,
-                        request_hue
-                        per_page,
-                        (page - 1) * per_page,
-                    )
-                  ).fetchall()
+                    request_hue = hueFromRBG(
+                        request_obj['color']['R'], request_obj['color']['G'], request_obj['color']['B'])
+                    results = db.execute(
+                        "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract" +
+                        "min((abs(HUE - ?) % 360), (abs(? - HUE) % 360)) < ? limit ? offset ?",
+                        (
+                            request_hue,
+                            request_hue,
+                            per_page,
+                            (page - 1) * per_page,
+                        )
+                    ).fetchall()
                 else:
-                  results = db.execute(
-                    "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract limit ? offset ?",
-                    (
-                        per_page,
-                        (page - 1) * per_page,
-                    )
-                ).fetchall()
-                result = [{'original': i[0], 'image':i[1], 'confidence':round(i[2] * 100),'class':i[3]} for i in results]
+                    results = db.execute(
+                        "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract limit ? offset ?",
+                        (
+                            per_page,
+                            (page - 1) * per_page,
+                        )
+                    ).fetchall()
+                result = [{'original': i[0], 'image':i[1], 'confidence':round(
+                    i[2] * 100), 'class':i[3]} for i in results]
         db.commit()
         db.close()
         return(result)
