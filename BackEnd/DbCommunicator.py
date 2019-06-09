@@ -232,7 +232,7 @@ class DbCommunicator:
                     thr,
                     request_hue,
                     request_hue,
-                    request_obj['color']['tol'] * 360,  # , numero max
+                    int(request_obj['color']['tol'] * 360),  # , numero max
                     per_page,
                     (page - 1) * per_page,
                 )
@@ -268,11 +268,13 @@ class DbCommunicator:
                     request_hue = hueFromRBG(
                         request_obj['color']['R'], request_obj['color']['G'], request_obj['color']['B'])
                     results = db.execute(
-                        "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract" +
-                        "min((abs(HUE - ?) % 360), (abs(? - HUE) % 360)) < ? limit ? offset ?",
+                        "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract " +
+                        "inner join Imagens on RelImgCaract.FKCroppedImageName = Imagens.image_path "+
+                        "where min((abs(HUE - ?) % 360), (abs(? - HUE) % 360)) < ? limit ? offset ?",
                         (
                             request_hue,
                             request_hue,
+                            int(request_obj['color']['tol'] * 360),
                             per_page,
                             (page - 1) * per_page,
                         )
