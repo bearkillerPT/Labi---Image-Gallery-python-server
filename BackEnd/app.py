@@ -57,6 +57,7 @@ class app(object):
     def index(self):
         return open("./../FrontEnd/class_list.html")
 
+    
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 config = {
@@ -77,8 +78,11 @@ config = {
         'tools.staticdir.dir': os.path.join(PATH, "./../FrontEnd/css")
     }
 }
-
+def error_page_404(status, message, traceback, version):
+    print(message)
+    return open("./../FrontEnd/404_not_found.html", 'rb')
 cherrypy.config.update({'server.socket_host': '127.0.0.1',
                         'server.socket_port': 10002,
                        })
+cherrypy.config.update({'error_page.404': error_page_404})
 cherrypy.quickstart(app(),'/',config=config)

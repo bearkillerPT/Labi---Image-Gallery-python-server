@@ -2,14 +2,14 @@ search = () => {
   next_elem.style.visibility = "visible";
   let url = "https://xcoa.av.it.pt/labi2019-p2-g2/list?type=detected";
   let b_color = color;
-  b_color["tol"] = 0.5;
+  b_color["tol"] = 0.9;
   if (checkboxes.color_conf) b_color["tol"] = sliders.color_confidence;
-  else b_color["tol"] = 0.5;
+  else b_color["tol"] = 0.9;
   if (name != "") url += "&name=" + name;
   if (checkboxes.class) url += "&thr=" + sliders.class_detection_confidence;
   if (checkboxes.color) url += "&color=" + JSON.stringify(b_color);
   url += "&page=" + c_page + "&per_page=24";
-  console.log(url);
+  //console.log(url);
   fetch(url)
     .then(res => res.json())
     .then(res => {

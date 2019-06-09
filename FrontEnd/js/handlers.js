@@ -5,7 +5,7 @@ var checkboxes = {
 };
 var sliders = {
   class_detection_confidence: 0.15,
-  color_confidence: 0.5
+  color_confidence: 0.9
 };
 var color = {};
 var name = "";

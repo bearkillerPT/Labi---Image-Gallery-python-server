@@ -37,12 +37,13 @@ fetch("https://xcoa.av.it.pt/labi2019-p2-g2/get?id=" + getUrlVars().id)
             i.box.y1 * scale - i.box.y * scale
           );
         context.stroke();
-        console.log(top_left_x + i.box.x * scale);
       }
     };
   })
   .catch(e => console.log(e));
 
+  /*Obtem os parametro passados no url*/
+  /*função copiada do stack overflow*/
 function getUrlVars() {
   var vars = {};
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(

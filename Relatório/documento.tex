@@ -159,13 +159,13 @@ Este método adiciona cada imagem à base de dados. Se uma imagem tiver várias 
 \end{itemize}
 
 \paragraph{remove}
-Ao executar este método, uma dada imagem e todas as suas associadas serão removida da base de dados. É de notar que a imagem apenas poderá ser removida da base de dados se esta existir.
+Ao executar este método, uma dada imagem e todas as suas associadas serão removidas da base de dados. É de notar que a imagem apenas poderá ser removida da base de dados se existir.
 
 \paragraph{get}
-Este método devolve uma imagem baseada no id fornecido como parâmetro. 
+Este método devolve informação sobre uma imagem indentificada pelo id fornecido como parâmetro. 
 
 \paragraph{request}
-Devolve uma string com os dados obtidos via GET.
+Devolve uma string com os dados pedidos no argumento. O funcionamento é analogo ao do enunciado.
 
 \paragraph{Setup}
 Ambos os métodos \_\_clear\_all\_caution\_\_ e  populate são usados para efeitos de \textit{setup} inicial.
@@ -185,19 +185,30 @@ Esta página informa o utilizador de todas as classes já detetadas nesta biblio
 Lista as classes já detetadas e apresenta imagens com exemplos.
 
 \subsection{List Images}
-Esta página mostra as imagens cortadas presentes na biblioteca em nenhuma ordem particular. Ao fazer \textit{hover} com o rato, é possível ver qual classe estamos a ver e com quanta confiança foi corretamente categorizada. Ao carregar no botão \textit{more}, abrimos a imagem e temos acesso aos dados acima referidos. Pode ver o código desta página no ficheiro list\_images.html. A página de JS associada é:
+Esta página mostra as imagens cortadas presentes na biblioteca sem nenhuma ordem em particular. Ao fazer 
+\textit{hover} com o rato, é dada a informação sobre a classe detetada e a confiança com que foi classificada.
+Ao carregar no botão \textit{more}, é aberta a imagem numa nova pagina. 
+Pode ver o código desta página no ficheiro list\_images.html. A página de JS associada é:
 \paragraph{image\_inspect}
 Quando uma imagem é aberta, esta função mostra ao utilizador as \textit{bounding boxes} de cada classe e informação sobre estas. 
 
 \subsection{SendImage}
 Dá a possibilidade ao utilizador de inserir as próprias imagens na biblioteca. Para adicionar estes dados, o utilizador pode arrastar a imagem para a página ou abrir o explorador de ficheiros. Se uma classe for detetada, então a base de dados será atualizada com a informação da nova imagem e esta ficará acessível a todos os utilizadores da biblioteca. A página de JS associada é:
 \paragraph{send\_image}
-Envia a imagem via POST request para o \textit{backend} do \textit{website}. Quando no backend, será tratada como se fizesse parte dos dados locais.
+Envia a imagem via POST request para o \textit{backend} do \textit{website}. 
 
 \subsection{Search Images}
-Esta página apresenta o motor de busca da biblioteca. É possível pesquisar por classe (ou seja, por objeto) e por cor. A pesquisa por classe é feita a partir de uma caixa de texto em que são introduzidos dados, enquanto que a pesquisa por coir é feita a partir de um seletor de cor, tornando a experiência o mais intuitiva possível para o utilizador. Para além disso, é possível definir a confiança mínima na deteção da classe para a imagem ser relevante na busca e ainda a quantidade média de cor mínima. A página de JS associada é:
+Esta página apresenta o motor de busca da biblioteca. É possível pesquisar por classe e por cor. 
+A pesquisa por classe é feita a partir de uma caixa de texto em que são introduzidos dados e 
+a pesquisa por cor é feita a partir de um seletor de cor, tornando a experiência o mais intuitiva 
+possível para o utilizador. Para além disso, é possível definir a confiança mínima na deteção da classe 
+e cor. A página de JS associada é:
 \paragraph{image\_loader}
-Mostra as imagens segundo os dados inseridos pelo utilizador. Pesquisará segundo a classe se dados forem inseridos dados na caixa de texto. Se a caixa de \textit{Class Detection Confidence} estiver \textit{ticked}, então apenas serão mostradas imagens com uma confiança igual ou superior à selecionada. Se a caixa \textit{Search with color} estiver ativa, então as imagens surgirão segundo a sua proximidade com a cor selecionada. A caixa \textit{Color Confidence} tem funcionamento parecido com a \textit{Class Detection Confidence}.
+Mostra as imagens segundo os dados inseridos pelo utilizador. Se a caixa de \textit{Class Detection Confidence} 
+estiver \textit{ticked}, 
+então apenas serão mostradas imagens com uma confiança igual ou superior à selecionada. Se a caixa 
+\textit{Search with color} estiver ativa, então as imagens surgirão segundo a sua proximidade com a cor selecionada. 
+A caixa \textit{Color Confidence} tem funcionamento parecido com a \textit{Class Detection Confidence}.
 
 \subsection{About}
 Aqui é possível encontrar os dados de todos os membros do grupo(nome, número mecanográfico, e-mail institucional) e a percentagem do trabalho feito por cada um.
