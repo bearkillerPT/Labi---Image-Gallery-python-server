@@ -21,7 +21,7 @@ class DbCommunicator:
 
 
 """ função de conversão de rgb para HUE se quiseres podes testar, é facil, mas n é mandatorio"""
-   def hueFromRBG(R, G, B):
+  def hueFromRBG(R, G, B):
         r = float(R) / 255
         g = float(G) / 255
         b = float(B) / 255
