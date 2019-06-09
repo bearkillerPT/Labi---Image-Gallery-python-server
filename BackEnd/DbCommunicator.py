@@ -232,7 +232,7 @@ class DbCommunicator:
                     thr,
                     request_hue,
                     request_hue,
-                    request_obj['color']['tol'] * 360,  # , numero max
+                    int(request_obj['color']['tol'] * 360),  # , numero max
                     per_page,
                     (page - 1) * per_page,
                 )
@@ -274,6 +274,7 @@ class DbCommunicator:
                         (
                             request_hue,
                             request_hue,
+                            int(request_obj['color']['tol'] * 360),
                             per_page,
                             (page - 1) * per_page,
                         )
