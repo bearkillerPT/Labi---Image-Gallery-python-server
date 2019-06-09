@@ -7,3 +7,4 @@ documento.*
 __pycache__
 .pytest_cache
 .idea
+app_db.db
