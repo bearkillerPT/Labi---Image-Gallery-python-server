@@ -269,7 +269,7 @@ class DbCommunicator:
                         request_obj['color']['R'], request_obj['color']['G'], request_obj['color']['B'])
                     results = db.execute(
                         "select FKOriginalImageName, FKCroppedImageName, Confidence, CaractName from RelImgCaract" +
-                        "min((abs(HUE - ?) % 360), (abs(? - HUE) % 360)) < ? limit ? offset ?",
+                        "where min((abs(HUE - ?) % 360), (abs(? - HUE) % 360)) < ? limit ? offset ?",
                         (
                             request_hue,
                             request_hue,
