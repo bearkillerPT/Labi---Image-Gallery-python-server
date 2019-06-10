@@ -1,19 +1,19 @@
-import unittest
-import sys
-import os
+import pytest
+from BackEnd import DbCommunicator
 
-sys.path.append("..")
-from PastaOndeOLuisFazTestes.DbCommunicator import DbCommunicator
+def test_add(self):
+      open('')
+      imglist=[]
+      imglist.append('./images_to_populate_db/')
+      print('./images_to_populate_db/'+'a')
+      NUMTEST=len(imglist)
+      for i in range(NUMTEST):
+            result = {'image': open('./images_to_populate_db/KKs5uvvCPSw.jpg', 'rb')}
+            self.assertIs(result,'./images_to_populate_initial_db/' + "random image")
+      "delete added stuff"
 
-class TestDb(unittest.TestCase):
 
-    def test_add(self):
-      for filename in os.listdir("./images_to_populate_db"):
-        
-        result =DbCommunicator.add(open('./images_to_populate_db/' + filename, 'rb').read())
-        self.assertIs(result,'./images_to_populate_initial_db/' + filename)
-if __name__ == '__main__':
-        unittest.main()
+
 
 
 
