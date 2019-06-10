@@ -16,11 +16,16 @@ def test_put():
     r = requests.post(url, files=files)
     res = json.loads(r.text)
     if(res[0] == "Image Added Successfully"):
-      assert 'original' in res[1] and 'image' in res[1] and 'box' in res[1] and 'confidence' in res[1] and 'class' in res[1]
-      assert isinstance(res[1]['original']  , str)
-      assert isinstance(res[1]['image']     , str)
-      assert isinstance(res[1]['box']       , dict)
-      assert isinstance(res[1]['confidence'], int)
-      assert isinstance(res[1]['class']     , str)
+      for i in res[1]:
+        assert 'original' in i and 'image' in i and 'box' in i and 'confidence' in i and 'class' in i
+        assert isinstance(i['original']  , str)
+        assert isinstance(i['image']     , str)
+        assert isinstance(i['box']       , dict)
+        assert isinstance(i['confidence'], int)
+        assert isinstance(i['class']     , str)
   files = {'image': open("./TestImages/Screenshot_2019-06-09-20-28-38.png", 'rb').read()}
-    print(r.text)
+  r = requests.post(url, files=files)
+  res = json.loads(r.text)
+  assert res[0] == "Any class detected"
+
+# todos os outros testes funcionais são analogos aos testes das funções respetivas
