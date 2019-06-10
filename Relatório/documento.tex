@@ -100,7 +100,7 @@ Este relatório pretende descrever como uma biblioteca de imagens pesquisável f
 \label{chap.introducao}
 
 O frontend da aplicação foi feito em \ac{HTML}, \ac{CSS} e JavaScript e o backend foi feito em Python 3. Esta aplicação foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
-A adicionar às especificações básicas pedidas no o guião sobre regras do segundo projeto, construiu-se ainda suporte para pydocs, para haja uma explicação mais detalhada de cada classe e método do nosso projeto.
+A adicionar às especificações básicas pedidas no o guião sobre regras do segundo projeto, construiu-se ainda suporte para pydocs e um sistema de pesquisa de imagens por qualquer cor do espectro rgb.
 Este documento está dividido em quatro capítulos.
 Depois desta introdução,
 no \autoref{chap.metodologia} é apresentada a metodologia seguida, tendo em conta o trabalho faseado de cada um, 
@@ -139,14 +139,16 @@ Este método devolve os dados da imagem, a HUE da cor média e as dimensões.
 \paragraph{request\_caracteristics}
 Este método liga-se ao \textit{website} fornecido pelos docentes, devolvendo um array em que cada elemento é um \ac{json} com:
 \begin{itemize}
-\item nome,que é o resultado do \textit{hashing} do conteúdo das imagens para evitar imagens replicadas
+\item nome, que é o resultado do \textit{hashing} do conteúdo das imagens para evitar imagens replicadas
 \item classe
 \item \textit{bounding box}, ou seja, a área onde a classe se verifica
 \item "confiança" com a qual o servidor conseguiu classificar a imagem
 \end{itemize}
 
 \paragraph{add}
-Este método adiciona cada imagem à base de dados. Se uma imagem tiver várias classes será  cortada, tendo cada parte  uma classe diferente, sendo também guardada a original. A base de dados terá a seguinte informação para cada objeto:
+Este método adiciona uma imagem à base de dados. Se uma imagem tiver várias classes será cortada, 
+tendo cada parte uma classe diferente, sendo também guardada a original. A base de dados terá a 
+seguinte informação para cada objeto:
 \begin{itemize}
 \item nome
 \item altura
@@ -159,14 +161,14 @@ Este método adiciona cada imagem à base de dados. Se uma imagem tiver várias 
 \end{itemize}
 
 \paragraph{remove}
-Ao executar este método, uma dada imagem e todas as suas associadas serão removidas da base de dados. É de notar que a imagem apenas poderá ser removida da base de dados se existir.
+Ao executar este método, uma dada imagem e todas as suas associadas serão removidas da base de dados.
 
 \paragraph{get}
 Este método devolve informação sobre uma imagem indentificada pelo id fornecido como parâmetro.
 
 \paragraph{request}
 
-Devolve uma string com os dados pedidos no argumento. O funcionamento é analogo ao do enunciado.
+Devolve uma string com os dados pedidos no argumento. O funcionamento é analogo ao descrito no enunciado.
 
 
 \paragraph{Setup}
@@ -215,8 +217,9 @@ Este ficheiro foi explicado na \autoref{listimages}.
 \subsection{About}
 Aqui é possível encontrar os dados de todos os membros do grupo(nome, número mecanográfico, e-mail institucional) e a percentagem do trabalho feito por cada um.
 
-\subsection{Indexs}
-Esta página é mostrada quando ocorre um erro ao nível de REQUESTS não encontrados. Uma maneira de invocar um erro deste tipo é tentar aceder a imagens ou páginas que não existem. 
+\subsection{Pagina de Erro}
+Esta página é mostrada quando ocorre um erro, desde tentativa de acesso a paginas que nao existem até erros internos.
+Uma maneira de invocar um erro deste tipo é tentar aceder a imagens ou páginas que não existem. 
 
 
 \chapter{Resultados}

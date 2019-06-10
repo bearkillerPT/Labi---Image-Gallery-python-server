@@ -132,7 +132,7 @@ class DbCommunicator:
                            i['confidence']))
         db.commit()
         db.close()
-        return("Image Added successfully")
+        return("Image Added Successfully")
     """
   O teste deste metodo é parecido com o do add mas neste caso o teste têm sucesso caso nada seja encontrado na db
   quando pesquisas pelo hash md5 do conteudo das imagens
@@ -142,6 +142,7 @@ class DbCommunicator:
         """Removes an item from the database, either a child image or a parent, if it is a parent image all childs will be deleted"""
         db = sqlite3.connect(self.db_name)
         img_name = ""
+        if(type(img_object) != dict): return("Bad Call");
         if('image' in img_object):
             img_name = md5(img_object['image']).hexdigest()
         elif('image_name' in img_object):
@@ -150,7 +151,7 @@ class DbCommunicator:
             return("Bad Call")
         r = db.execute("delete from Imagens where image_path = ?;",
                        (img_name,)).fetchall()
-        if(r):
+        if(r == []):
             return("Image does not exist in database")
         remove("./images/" + img_name)
         files_to_delete_name = db.execute(
@@ -161,7 +162,7 @@ class DbCommunicator:
             remove("./images/" + i[0])
         db.commit()
         db.close()
-        return("Image removed successfully")
+        return("Image removed Successfully")
 
     """
     Testar coerencia dos resultados mais uma vez
@@ -195,7 +196,6 @@ class DbCommunicator:
 
     def request(self, request_obj: dict):
         """Parses the request made via GET and retrieves the asked data"""
-        data = []
         db = sqlite3.connect(self.db_name)
         result = "Bad Call"
         per_page = 10
@@ -296,9 +296,9 @@ class DbCommunicator:
 """Both functions bellow are for debugging purposes and will not be exported to app.py"""
 
 
-def __clear_all_caution__():
+def __clear_all_caution__(name):
     """Clears database, used for upload size purposes"""
-    db = sqlite3.connect('app_db.db')
+    db = sqlite3.connect(name)
     db.execute('delete from RelImgCaract')
     db.execute('delete from Imagens')
     db.commit()
@@ -320,6 +320,6 @@ def populate(comm):
 """Deploy code"""
 if __name__ == '__main__':
     if(sys.argv[1] == 'c'):
-        __clear_all_caution__()
+        __clear_all_caution__('app_db.db')
     elif(sys.argv[1] == 'p'):
         populate(DbCommunicator('app_db.db'))
