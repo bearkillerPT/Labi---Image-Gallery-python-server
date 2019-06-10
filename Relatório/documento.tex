@@ -80,7 +80,7 @@
 
 %%%%%% RESUMO %%%%%%
 \begin{abstract}
-Este relatório pretende descrever como uma biblioteca de imagens pesquisável foi desenvolvida no âmbito da cadeira de Laboratório de Informática. Esta biblioteca de imagens foi feita com base em Python 3, CSS, JavaScript e HTML. Neste relatório incluímos a divisão geral do trabalho, a explicação geral de métodos criados no \textit{backend} e \textit{frontend} e imagens dos resultados. 
+Este relatório pretende descrever como uma biblioteca de imagens pesquisável foi desenvolvida no âmbito da cadeira de Laboratório de Informática. Esta biblioteca de imagens foi feita com base em Python 3, \ac{CSS}, JavaScript e \ac{HTML}. Neste relatório incluímos a divisão geral do trabalho, a explicação geral de métodos criados no \textit{backend} e \textit{frontend} e imagens dos resultados. 
 \end{abstract}
 
 %%%%%% Agradecimentos %%%%%%
@@ -99,7 +99,7 @@ Este relatório pretende descrever como uma biblioteca de imagens pesquisável f
 \chapter{Introdução}
 \label{chap.introducao}
 
-O frontend da aplicação foi feito em HMTL, CSS e JavaScript e o backend foi feito em Python 3. Esta aplicação foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
+O frontend da aplicação foi feito em \ac{HTML}, \ac{CSS} e JavaScript e o backend foi feito em Python 3. Esta aplicação foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
 A adicionar às especificações básicas pedidas no o guião sobre regras do segundo projeto, construiu-se ainda suporte para pydocs, para haja uma explicação mais detalhada de cada classe e método do nosso projeto.
 Este documento está dividido em quatro capítulos.
 Depois desta introdução,
@@ -112,7 +112,7 @@ as conclusões do trabalho.
 \chapter{Metodologia}
 \label{chap.metodologia}
 \section{Definição de tarefas}
-Esta fase consistiu em, antes de começar sequer a trabalhar, definir quais membros do grupo fariam o quê, o que pode ser consultado na table seguinte: 
+Esta fase consistiu em, antes de começar a trabalhar, definir quais membros do grupo fariam o quê, o que pode ser consultado na tabela \ref{tab:table1}: 
 \begin{table}[h!]
 \begin{center}
 \caption{Divisão geral de tarefas}
@@ -131,13 +131,13 @@ Esta fase consistiu em, antes de começar sequer a trabalhar, definir quais memb
 \section{Backend}
 \subsection{DbCommunicator.py}
 \paragraph{\_\_init\_\_}
-Este método inicializa o objeto que será conectado à base de dados.
+Este método inicializa o objeto que comunica com a base de dados.
 
 \paragraph{get\_dims\_and\_color}
-Este método devolve os dados da imagem, a cor média e as dimensões. A cor média é calculada via VSL.
+Este método devolve os dados da imagem, a HUE da cor média e as dimensões. 
 
 \paragraph{request\_caracteristics}
-Este método liga-se ao \textit{website} fornecido pelos docentes, devolvendo um array em que cada elemento é um json com:
+Este método liga-se ao \textit{website} fornecido pelos docentes, devolvendo um array em que cada elemento é um \ac{json} com:
 \begin{itemize}
 \item nome,que é o resultado do \textit{hashing} do conteúdo das imagens para evitar imagens replicadas
 \item classe
@@ -159,19 +159,19 @@ Este método adiciona cada imagem à base de dados. Se uma imagem tiver várias 
 \end{itemize}
 
 \paragraph{remove}
-Ao executar este método, uma dada imagem e todas as suas associadas serão removidas da base de dados. É de notar que a imagem apenas poderá ser removida da base de dados se existir.
+Ao executar este método, uma dada imagem e todas as suas associadas serão removida da base de dados. É de notar que a imagem apenas poderá ser removida da base de dados se esta existir.
 
 \paragraph{get}
-Este método devolve informação sobre uma imagem indentificada pelo id fornecido como parâmetro. 
+Este método devolve uma imagem baseada no id fornecido como parâmetro. 
 
 \paragraph{request}
-Devolve uma string com os dados pedidos no argumento. O funcionamento é analogo ao do enunciado.
+Devolve uma string com os dados obtidos via GET.
 
 \paragraph{Setup}
 Ambos os métodos \_\_clear\_all\_caution\_\_ e  populate são usados para efeitos de \textit{setup} inicial.
 
 \subsection{app.py}
-Este programa serve os conteúdos estáticos HTML, JavaScript e CSS e cria uma API transformando os GET e POST requests em chamadas de funções comunicantes com a base de dados. 
+Este programa serve os conteúdos estáticos \ac{HTML}, JavaScript e \ac{CSS} e cria uma API transformando os GET e POST requests em chamadas de funções comunicantes com a base de dados. 
 
 \subsection{put\_example}
 Este programa envia uma imagem para a base de dados, não tendo qualquer efeito na maneira como o \textit{website} funciona.
@@ -180,43 +180,46 @@ Este programa envia uma imagem para a base de dados, não tendo qualquer efeito 
 Para uma biblioteca de imagens ser viável, a compatibilidade entre dispositivos é necessária. Por isso, na criação desta, foi sempre tida em conta a usabilidade não só em monitores de computador, mas também em dispositivos móveis. 
 
 \subsection{Home/Class List}
-Esta página informa o utilizador de todas as classes já detetadas nesta biblioteca, mostrando alguns exemplos. Ao carregar no nome de uma classe, entra-se numa página em que todas as imagens da classe estão visíveis. Ao carregar numa imagem, o utilizador abre-a, vendo a imagem original e ainda as \textit{bounding boxes} de cada classe presente. A página de JS associada é:
+Esta página informa o utilizador de todas as classes já detetadas nesta biblioteca, mostrando alguns exemplos. Ao carregar no nome de uma classe, entra-se numa página em que todas as imagens da classe estão visíveis. Ao carregar numa imagem, o utilizador abre-a, vendo a imagem original e ainda as \textit{bounding boxes} de cada classe presente. O ficheiro de \ac{JS} associado é:
 \paragraph{class\_list} 
 Lista as classes já detetadas e apresenta imagens com exemplos.
 
 \subsection{List Images}
-Esta página mostra as imagens cortadas presentes na biblioteca sem nenhuma ordem em particular. Ao fazer 
-\textit{hover} com o rato, é dada a informação sobre a classe detetada e a confiança com que foi classificada.
-Ao carregar no botão \textit{more}, é aberta a imagem numa nova pagina. 
-Pode ver o código desta página no ficheiro list\_images.html. A página de JS associada é:
+\label{listimages}
+Esta página mostra as imagens cortadas presentes na biblioteca em nenhuma ordem particular. Ao fazer \textit{hover} com o rato, é possível ver qual classe estamos a ver e com quanta confiança foi corretamente categorizada. Ao carregar no botão \textit{more}, abrimos a imagem e temos acesso aos dados acima referidos. Pode ver o código desta página no ficheiro list\_images.html. O ficheiro de \ac{JS} associado é:
+\paragraph{image\_loader}
+Mostra as imagens segundo os dados inseridos pelo utilizador. Pesquisará segundo a classe se dados forem inseridos dados na caixa de texto. Se a caixa de \textit{Class Detection Confidence} estiver \textit{ticked}, então apenas serão mostradas imagens com uma confiança igual ou superior à selecionada. Se a caixa \textit{Search with color} estiver ativa, então as imagens surgirão segundo a sua proximidade com a cor selecionada. A caixa \textit{Color Confidence} tem funcionamento parecido com a \textit{Class Detection Confidence}. Nesta página, como não há pesquisa integrada, apenas mostra as imagens.
+
+
+\subsection{Send Image}
+Dá a possibilidade ao utilizador de inserir as próprias imagens na biblioteca. Para adicionar estes dados, o utilizador pode abrir o explorador de ficheiros a partir do botão da página ou arrastar uma para o \textit{form}. Se uma classe for detetada, então a base de dados será atualizada com a informação da nova imagem e esta ficará acessível a todos os utilizadores da biblioteca. O ficheiro de \ac{JS} associado é:
+\paragraph{send\_image}
+Envia a imagem via POST request para o \textit{backend} do \textit{website}. Quando no backend, será tratada como se fizesse parte dos dados locais.
+
+\subsection{Inspect Image}
+Esta página mostra a imagem  com as \textit{bounding boxes} de cada classe, informando o utilizador o que cada caixa é. O ficheiro de \ac{JS} associado é:
 \paragraph{image\_inspect}
 Quando uma imagem é aberta, esta função mostra ao utilizador as \textit{bounding boxes} de cada classe e informação sobre estas. 
 
-\subsection{SendImage}
-Dá a possibilidade ao utilizador de inserir as próprias imagens na biblioteca. Para adicionar estes dados, o utilizador pode arrastar a imagem para a página ou abrir o explorador de ficheiros. Se uma classe for detetada, então a base de dados será atualizada com a informação da nova imagem e esta ficará acessível a todos os utilizadores da biblioteca. A página de JS associada é:
-\paragraph{send\_image}
-Envia a imagem via POST request para o \textit{backend} do \textit{website}. 
 
 \subsection{Search Images}
-Esta página apresenta o motor de busca da biblioteca. É possível pesquisar por classe e por cor. 
-A pesquisa por classe é feita a partir de uma caixa de texto em que são introduzidos dados e 
-a pesquisa por cor é feita a partir de um seletor de cor, tornando a experiência o mais intuitiva 
-possível para o utilizador. Para além disso, é possível definir a confiança mínima na deteção da classe 
-e cor. A página de JS associada é:
+Esta página apresenta o motor de busca da biblioteca. É possível pesquisar por classe (ou seja, por objeto) e por cor. A pesquisa por classe é feita a partir de uma caixa de texto em que são introduzidos dados e a pesquisa por cor é feita a partir de um seletor de cor, tornando a experiência o mais intuitiva possível para o utilizador. Para além disso, é possível definir a confiança mínima na deteção da classe para a imagem ser relevante na busca e ainda a quantidade média de cor mínima. Os ficheiros de \ac{JS} associados são:
+\paragraph{handlers}
+Faz com que a página tenha uma seta no fundo para passar à página seguinte. Para além disso, faz com que o ficheiro image\_loader faça a procura segundo as caixas que estão \textit{ticked}.
 \paragraph{image\_loader}
-Mostra as imagens segundo os dados inseridos pelo utilizador. Se a caixa de \textit{Class Detection Confidence} 
-estiver \textit{ticked}, 
-então apenas serão mostradas imagens com uma confiança igual ou superior à selecionada. Se a caixa 
-\textit{Search with color} estiver ativa, então as imagens surgirão segundo a sua proximidade com a cor selecionada. 
-A caixa \textit{Color Confidence} tem funcionamento parecido com a \textit{Class Detection Confidence}.
+Este ficheiro foi explicado na \autoref{listimages}.
 
 \subsection{About}
 Aqui é possível encontrar os dados de todos os membros do grupo(nome, número mecanográfico, e-mail institucional) e a percentagem do trabalho feito por cada um.
 
+\subsection{Indexs}
+Esta página é mostrada quando ocorre um erro ao nível de REQUESTS não encontrados. Uma maneira de invocar um erro deste tipo é tentar aceder a imagens ou páginas que não existem. 
+
 
 \chapter{Resultados}
 \label{chap.resultados}
-Nesta parte do relatório estão colocadas várias capturas de ecrã do \textit{website} e da consola deste.
+Nas imagens \ref{Fig1} e \ref{Fig2} é possível ver a página Class List, onde as classes detetadas até agora são listadas com alguns exemplos. Na imagem \ref{Fig3} é possível ver uma imagem aberta com as \textit{bounding boxes} (a azul) e a classe de cada \textit{bounding box} (a vermelho). Na imagem \ref{Fig4} é possível ver os dados que uma imagem mostra quando é feito \textit{hover} com o rato, sendo estes dados a classe da imagem e a confiança. Na imagem \ref{Fig5} vê-se a página List Images, sendo esta a página que lista todas as imagens sem nenhum critério de organização. Nas imagens \ref{Fig6}, \ref{Fig7} e \ref{Fig8} vê-se a página de pesquisa. Na primeira imagem a pesquisa não tem dados inseridos e na segunda procura-se por uma cor específica (preto). Na terceira procura-se uma classe específica (cão). Na imagem \ref{Fig9} está representada a página de sumbissão de imagens, sendo esta a página que possibilita a inserção de imagens por cada utilizador. Na figura \ref{Fig10} vê-se a página de inspeção de uma imagem com alguns GET requests associados.
+
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{HomeTOP.png}
 \caption{Topo da página Home/Class List}
@@ -247,6 +250,7 @@ Nesta parte do relatório estão colocadas várias capturas de ecrã do \textit{
 \label{Fig5}
 \end{figure}
 
+
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{SearchDefault.png}
 \caption{Página de pesquisa sem dados inseridos}
@@ -260,15 +264,21 @@ Nesta parte do relatório estão colocadas várias capturas de ecrã do \textit{
 \end{figure}
 
 \begin{figure}[h]
+\includegraphics[width=\textwidth]{ClassSearch.png}
+\caption{Página de pesquisa por classe}
+\label{Fig8}
+\end{figure}
+
+\begin{figure}[h]
 \includegraphics[width=\textwidth]{Send.png}
 \caption{Página de submissão de imagens}
-\label{Fig8}
+\label{Fig9}
 \end{figure}
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{ResultadosInspect.png}
 \caption{Página de inspeção de uma imagem com os vários GET requests}
-\label{Fig9}
+\label{Fig10}
 \end{figure}
 
 \chapter{Análise}
@@ -292,6 +302,10 @@ No fim indicar a percentagem de contribuição de cada autor.
 \acro{miect}[MIECT]{Mestrado Integrado em Engenharia de Computadores e Telemática}
 \acro{lei}[LEI]{Licenciatura em Engenharia Informática}
 \acro{glisc}[GLISC]{Grey Literature International Steering Committee}
+\acro{HTML}[HTML]{HyperText Markup Language}
+\acro{JS}[JS]{JavaScript}
+\acro{CSS}[CSS]{Cascading Style Sheets}
+\acro{json}[JSON]{JavaScript Object Notation}
 \end{acronym}
 
 
