@@ -45,7 +45,6 @@ class DbCommunicator:
         """Collects image average color and dimensions that will be added to the database"""
         img = Image.open(image_path)
         width, height = img.size
-        total_pixel_count = width * height
         img2 = img.resize((1, 1))
         color = img2.getpixel((0, 0))
         avg_color = {'r': color[0], 'g': color[1], 'b': color[2]}
