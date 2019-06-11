@@ -100,8 +100,12 @@ Este relatório pretende descrever como uma biblioteca de imagens pesquisável f
 \chapter{Introdução}
 \label{chap.introducao}
 
-O frontend da aplicação foi feito em \ac{HTML}, \ac{CSS} e JavaScript e o backend foi feito em Python 3. A base de dados usada foi SQLite3. Esta aplicação foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
-A adicionar às especificações básicas pedidas no o guião sobre regras do segundo projeto, construiu-se ainda suporte para para pydocs e um sistema de pesquisa de imagens por qualquer cor do espectro rgb.
+O frontend da aplicação foi feito em \ac{HTML}, \ac{CSS} e JavaScript e o
+backend foi feito em Python 3. A base de dados usada foi SQLite3. Esta aplicação 
+foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
+A adicionar às especificações básicas pedidas no o guião sobre regras do segundo projeto, 
+construiu-se ainda suporte para para pydocs e um sistema de pesquisa de imagens por qualquer 
+cor do espectro rgb.
 Este documento está dividido em quatro capítulos.
 Depois desta introdução,
 no \autoref{chap.metodologia} é apresentada a metodologia seguida, tendo em conta o trabalho faseado de cada um, 
@@ -216,7 +220,13 @@ Esta página é mostrada quando ocorre um erro ao nível de REQUESTS não encont
 \paragraph{class\_list}  Lista as classes já detetadas e apresenta imagens com exemplos.
 \paragraph{handlers} Faz com que a página tenha uma seta no fundo para passar à página seguinte. Para além disso, faz com que o ficheiro image\_loader faça a procura segundo as caixas que estão \textit{ticked}.
 \paragraph{class\_list}  Lista as classes já detetadas e apresenta imagens com exemplos.
-\paragraph{image\_loader}Mostra as imagens segundo os dados inseridos pelo utilizador. Pesquisará segundo a classe se dados forem inseridos dados na caixa de texto. Se a caixa de \textit{Class Detection Confidence} estiver \textit{ticked}, então apenas serão mostradas imagens com uma confiança igual ou superior à selecionada. Se a caixa \textit{Search with color} estiver ativa, então as imagens surgirão segundo a sua proximidade com a cor selecionada. A caixa \textit{Color Confidence} tem funcionamento parecido com a \textit{Class Detection Confidence}. 
+\paragraph{image\_loader}Mostra as imagens segundo os dados inseridos pelo utilizador. 
+Pesquisará segundo a classe se dados forem inseridos dados na caixa de texto. 
+Se a caixa de \textit{Class Detection Confidence} estiver \textit{ticked}, então 
+apenas serão mostradas imagens com uma confiança igual ou superior à selecionada. 
+Se a caixa \textit{Search with color} estiver ativa, então as imagens surgirão segundo a 
+sua proximidade com a cor selecionada. A caixa \textit{Color Confidence} tem funcionamento 
+parecido com a \textit{Class Detection Confidence}. 
 \paragraph{send\_image} Envia a imagem via POST request para o \textit{backend} do \textit{website}.
 \paragraph{image\_inspect} Quando uma imagem é aberta, esta função mostra ao utilizador as \textit{bounding boxes} de cada classe e informação sobre estas. 
 
