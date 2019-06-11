@@ -133,6 +133,15 @@ Esta fase consistiu em, antes de começar a trabalhar, definir quais membros do 
 \end{table}
 
 \section{Backend}
+Lista de fontes usadas nesta parte do projeto:
+\begin{itemize}
+\item \cite[\textit{Guião prático sobre CherryPy}]{guiãoCherryPy}
+\item \cite[\textit{Guião prático sobre Bases de Dados}]{guiãoDB}
+\item \cite[\textit{Guião prático sobre tratamento de imagem}]{guiãoIm}
+\item \cite[\textit{Guião prático sobre aplicações móveis}]{guiãoMobi}
+\item \cite[\textit{StackOverflow}]{SOvf}
+\item \cite[\textit{Documentação relativa a CherryPy}]{CherryPy}
+\end{itemize}
 \subsection{DbCommunicator.py}
 \paragraph{\_\_init\_\_}
 Este método inicializa o objeto que comunica com a base de dados.
@@ -186,6 +195,14 @@ Este programa envia uma imagem para a base de dados, não tendo qualquer efeito 
 
 \section{Frontend}
 Para uma biblioteca de imagens ser viável, a compatibilidade entre dispositivos é necessária. Por isso, na criação desta, foi sempre tida em conta a usabilidade não só em monitores de computador, mas também em dispositivos móveis. 
+Lista de fontes usadas nesta parte do projeto:
+\begin{itemize}
+\item \cite[\textit{W3 Schools}]{W3}
+\item \cite[\textit{StackOverflow}]{SOvf}
+\item \cite[\textit{Documentação de JavaScript}]{JS}
+\item \cite[\textit{Primeira fonte de imagens}]{Im1}
+\item \cite[\textit{Segunda fonte de imagens}]{Im2}
+\end{itemize}
 
 \subsection{Home/Class List}
 Esta página informa o utilizador de todas as classes já detetadas nesta biblioteca, mostrando alguns exemplos. Ao carregar no nome de uma classe, entra-se numa página em que todas as imagens da classe estão visíveis. Ao carregar numa imagem, o utilizador abre-a, vendo a imagem original e ainda as \textit{bounding boxes} de cada classe presente. O ficheiro \ac{JS} associado é class\_list.js.
@@ -207,14 +224,10 @@ A pesquisa por classe é feita a partir de uma caixa de texto em que são introd
 \subsection{About}
 Aqui é possível encontrar os dados de todos os membros do grupo(nome, número mecanográfico, e-mail institucional) e a percentagem do trabalho feito por cada um.
 
-<<<<<<< HEAD
 \subsection{Pagina de Erro}
 Esta página é mostrada quando ocorre um erro, desde tentativa de acesso a paginas que nao existem até erros internos.
 Uma maneira de invocar um erro deste tipo é tentar aceder a imagens ou páginas que não existem. 
-=======
-\subsection{Página de erro}
-Esta página é mostrada quando ocorre um erro ao nível de REQUESTS não encontrados. Uma maneira de invocar um erro deste tipo é tentar aceder a imagens ou páginas que não existem. 
->>>>>>> b97466c90b025da91db81372610fdb1754070d98
+
 
 \subsection{Ficheiros .js}
 \paragraph{class\_list}  Lista as classes já detetadas e apresenta imagens com exemplos.
