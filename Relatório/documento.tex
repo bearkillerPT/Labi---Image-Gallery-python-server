@@ -218,7 +218,7 @@ Esta página é mostrada quando ocorre um erro ao nível de REQUESTS não encont
 
 \subsection{Ficheiros .js}
 \paragraph{class\_list}  Lista as classes já detetadas e apresenta imagens com exemplos.
-\paragraph{handlers} Faz com que a página tenha uma seta no fundo para passar à página seguinte. Para além disso, faz com que o ficheiro image\_loader faça a procura segundo as caixas que estão \textit{ticked}.
+\paragraph{handlers} Transforma os dados inseridos pelo utilizador sejam convertidos em dados utilizáveis pelos outros ficheiros de \ac{js}
 \paragraph{class\_list}  Lista as classes já detetadas e apresenta imagens com exemplos.
 \paragraph{image\_loader}Mostra as imagens segundo os dados inseridos pelo utilizador. 
 Pesquisará segundo a classe se dados forem inseridos dados na caixa de texto. 
@@ -233,7 +233,7 @@ parecido com a \textit{Class Detection Confidence}.
 
 \chapter{Resultados}
 \label{chap.resultados}
-Nas imagens \ref{Fig1} e \ref{Fig2} é possível ver a página Class List, onde as classes detetadas até agora são listadas com alguns exemplos.  
+Nas imagens \ref{Fig1} e \ref{Fig2} é possível ver a página Class List, onde as classes detetadas até agora são listadas com alguns exemplos. 
 
 \begin{figure}[H]
 \includegraphics[width=\textwidth]{HomeTOP.png}
@@ -302,23 +302,35 @@ Na imagem \ref{Fig9} está representada a página de sumbissão de imagens, send
 
 \chapter{Análise}
 \label{chap.analise}
-Como é possível ver nas imagens \ref{Fig7} e \ref{Fig8} é possível pesquisar por cor e por classe da imagem. Para além disso, na figura \ref{Fig3} vê-se que as classes foram corretamente identificadas. Também é possível ver que foram feitos GET requests na consola do \textit{website}, o que significa que, mais uma vez, tudo funciona corretamente (figura \ref{Fig10}).
+Segundo as figuras \ref{Fig1} e \ref{Fig2} é possível concluir que a lista de classes é feita corretamente e os exemplos de imagens também são satisfatórios.
+Para além disso, na figura \ref{Fig3} é de notar que as \textit{bounding boxes} estão colocadas corretamente e a legenda de cada uma também. Por vezes há erros na classificação de classes, mas é de notar que são erros vindos do API disponibilizado pelos professores.
+Cruzando os dados da figura \ref{Fig3} e \ref{Fig4} é de ver que o efeito \textit{hover} mostra os mesmos dados que a página de inspeção de imagem, portanto, os dados são congruentes.
+Na figura \ref{Fig7} é possível ver a pesquisa por cor. Apesar desta ter uma implementação que nem sempre tem os dados corretos, é uma implementação satisfatória na maioria das vezes.
+No que toca à pesquisa por classe (figura \ref{Fig8}) é de notar que as imagens mostradas têm, de facto, a classe correta associada  (sendo esta a classe visível na inspeção de imagens). Mais uma vez, poderá haver erros na classificação de imagens mas, mais uma vez, isso são erros vindos do API disponibilizado.
+Para além disto, temos também que a submissão de imagens por utilizadores também funciona satisfatoriamente. 
 
-\begin{figure}[H]
-\includegraphics[width=\textwidth]{ConsolaInspect.png}
-\caption{Alguns GET requests feitos quando se abre uma imagem}
-\label{Fig10}
-\end{figure}
 
 \chapter{Conclusões}
 \label{chap.conclusao}
-O resultado final deste projeto é um \textit{website} completamente funcional com conexão a uma base de dados. Para além disso, a utilização é extremamente intuitiiva para o utilizador e, com a compatibilidade de ecrâs é, acima de tudo, útil.
+O resultado final deste projeto é um \textit{website} funcional como pedido no guião. Para além disso, a utilização é extremamente intuitiiva para o utilizador e, com a compatibilidade de ecrâs é, acima de tudo, útil. Com isto, podemos dizer que o projeto foi bem suceiddo.
 
 \chapter*{Contribuições dos autores}
-Resumir aqui o que cada autor fez no trabalho.
-Usar abreviaturas para identificar os autores,
-por exemplo AS para António Silva.
-No fim indicar a percentagem de contribuição de cada autor.
+A componente \textit{backend} foi feita por \ac{AP}. O\textit{frontend} foi feito por \ac{AP} e \ac{GT}. O relatório foi escrito por \ac{SV} e revisto por \ac{AP}.
+As contribuições percentuais são visíveis na tabela \ref{tab2}.
+\begin{table}[h!]
+\begin{center}
+\caption{Contribuições percentuais por aluno}
+\begin{tabular}{l|l}
+\hline
+\multicolumn{1}{|l|}{Aluno} & \multicolumn{1}{l|}{Contribuição percentual} \\ \hline
+            \ac{AP}   & 50\%                               \\ 
+            \ac{GT}     & 25\%                               \\
+            \ac{SV}         & 25\%                                
+\end{tabular}
+\label{tab2}
+\end{center}
+\end{table}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Acrónimos}
@@ -331,6 +343,9 @@ No fim indicar a percentagem de contribuição de cada autor.
 \acro{JS}[JS]{JavaScript}
 \acro{CSS}[CSS]{Cascading Style Sheets}
 \acro{json}[JSON]{JavaScript Object Notation}
+\acro{AP}[AP]{André Patacas}
+\acro{GT}[GT]{Gil Teixeira}
+\acro{SV}[SV]{Sofia Vaz}
 \end{acronym}
 
 
