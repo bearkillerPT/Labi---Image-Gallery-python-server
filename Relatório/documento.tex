@@ -105,7 +105,7 @@ backend foi feito em Python 3. A base de dados usada foi SQLite3. Esta aplicaç�
 foi feita no âmbito de Laboratórios de Informática no ano letivo 2018/2019.
 A adicionar às especificações básicas pedidas no o guião sobre regras do segundo projeto, 
 construiu-se ainda suporte para para pydocs e um sistema de pesquisa de imagens por qualquer 
-cor do espectro rgb.
+cor do espetro RGB.
 Este documento está dividido em quatro capítulos.
 Depois desta introdução,
 no \autoref{chap.metodologia} é apresentada a metodologia seguida, tendo em conta o trabalho faseado de cada um, 
@@ -135,10 +135,10 @@ Esta fase consistiu em, antes de começar a trabalhar, definir quais membros do 
 \section{Backend}
 Lista de fontes usadas nesta parte do projeto:
 \begin{itemize}
-\item \cite[\textit{Guião prático sobre CherryPy}]{guiãoCherryPy}
-\item \cite[\textit{Guião prático sobre Bases de Dados}]{guiãoDB}
-\item \cite[\textit{Guião prático sobre tratamento de imagem}]{guiãoIm}
-\item \cite[\textit{Guião prático sobre aplicações móveis}]{guiãoMobi}
+%\item \cite[\textit{Guião prático sobre CherryPy}]{guiãoCherryPy}
+%\item \cite[\textit{Guião prático sobre Bases de Dados}]{guiãoDB}
+%\item \cite[\textit{Guião prático sobre tratamento de imagem}]{guiãoIm}
+%\item \cite[\textit{Guião prático sobre aplicações móveis}]{guiãoMobi}
 \item \cite[\textit{StackOverflow}]{SOvf}
 \item \cite[\textit{Documentação relativa a CherryPy}]{CherryPy}
 \end{itemize}
@@ -181,7 +181,7 @@ Este método devolve informação sobre uma imagem indentificada pelo id forneci
 
 \paragraph{request}
 
-Devolve uma string com os dados pedidos no argumento. O funcionamento é analogo ao descrito no enunciado.
+Devolve uma string com os dados pedidos no argumento. O funcionamento é análogo ao descrito no enunciado.
 
 
 \paragraph{Setup}
@@ -208,7 +208,7 @@ Lista de fontes usadas nesta parte do projeto:
 Esta página informa o utilizador de todas as classes já detetadas nesta biblioteca, mostrando alguns exemplos. Ao carregar no nome de uma classe, entra-se numa página em que todas as imagens da classe estão visíveis. Ao carregar numa imagem, o utilizador abre-a, vendo a imagem original e ainda as \textit{bounding boxes} de cada classe presente. O ficheiro \ac{JS} associado é class\_list.js.
 
 \subsection{List Images}
-Esta página mostra as imagens cortadas presentes na biblioteca sem nenhuma ordem em particular. Ao fazer \textit{hover} com o rato, é dada a informação sobre a classe detetada e a confiança com que foi classificada. Ao carregar no botão \textit{more}, é aberta a imagem numa nova pagina. Pode consultar o código desta página no ficheiro list\_images.html. O ficheiro \ac{JS} associado é image\_loader.js.
+Esta página mostra as imagens cortadas presentes na biblioteca sem nenhuma ordem em particular. Ao fazer \textit{hover} com o rato, é dada a informação sobre a classe detetada e a confiança com que foi classificada. Ao carregar no botão \textit{more}, é aberta a imagem numa nova pÁgina. Pode consultar o código desta página no ficheiro list\_images.html. O ficheiro \ac{JS} associado é image\_loader.js.
 
 
 \subsection{Send Image}
@@ -225,13 +225,13 @@ A pesquisa por classe é feita a partir de uma caixa de texto em que são introd
 Aqui é possível encontrar os dados de todos os membros do grupo(nome, número mecanográfico, e-mail institucional) e a percentagem do trabalho feito por cada um.
 
 \subsection{Pagina de Erro}
-Esta página é mostrada quando ocorre um erro, desde tentativa de acesso a paginas que nao existem até erros internos.
+Esta página é mostrada quando ocorre um erro, desde tentativa de acesso a páginas que não existem até erros internos.
 Uma maneira de invocar um erro deste tipo é tentar aceder a imagens ou páginas que não existem. 
 
 
 \subsection{Ficheiros .js}
 \paragraph{class\_list}  Lista as classes já detetadas e apresenta imagens com exemplos.
-\paragraph{handlers} Transforma os dados inseridos pelo utilizador sejam convertidos em dados utilizáveis pelos outros ficheiros de \ac{js}
+\paragraph{handlers} Transforma os dados inseridos pelo utilizador sejam convertidos em dados utilizáveis pelos outros ficheiros de \ac{JS}
 \paragraph{class\_list}  Lista as classes já detetadas e apresenta imagens com exemplos.
 \paragraph{image\_loader}Mostra as imagens segundo os dados inseridos pelo utilizador. 
 Pesquisará segundo a classe se dados forem inseridos dados na caixa de texto. 
@@ -315,17 +315,17 @@ Na imagem \ref{Fig9} está representada a página de sumbissão de imagens, send
 
 \chapter{Análise}
 \label{chap.analise}
-Segundo as figuras \ref{Fig1} e \ref{Fig2} é possível concluir que a lista de classes é feita corretamente e os exemplos de imagens também são satisfatórios.
-Para além disso, na figura \ref{Fig3} é de notar que as \textit{bounding boxes} estão colocadas corretamente e a legenda de cada uma também. Por vezes há erros na classificação de classes, mas é de notar que são erros vindos do API disponibilizado pelos professores.
-Cruzando os dados da figura \ref{Fig3} e \ref{Fig4} é de ver que o efeito \textit{hover} mostra os mesmos dados que a página de inspeção de imagem, portanto, os dados são congruentes.
+Segundo as figuras \ref{Fig1} e \ref{Fig2} é possível concluir que a lista de classes é feita corretamente e os exemplos de imagens também estão corretos.
+Para além disso, na figura \ref{Fig3} as \textit{bounding boxes} estão colocadas corretamente e a legenda de cada uma também. Por vezes há erros na classificação de classes vindos do API disponibilizado pelos professores.
+Cruzando os dados da figura \ref{Fig3} e \ref{Fig4} conclui-se que o efeito \textit{hover} mostra os mesmos dados que a página de inspeção de imagem, portanto, os dados são congruentes.
 Na figura \ref{Fig7} é possível ver a pesquisa por cor. Apesar desta ter uma implementação que nem sempre tem os dados corretos, é uma implementação satisfatória na maioria das vezes.
-No que toca à pesquisa por classe (figura \ref{Fig8}) é de notar que as imagens mostradas têm, de facto, a classe correta associada  (sendo esta a classe visível na inspeção de imagens). Mais uma vez, poderá haver erros na classificação de imagens mas, mais uma vez, isso são erros vindos do API disponibilizado.
-Para além disto, temos também que a submissão de imagens por utilizadores também funciona satisfatoriamente. 
+No que toca à pesquisa por classe (figura \ref{Fig8}) as imagens mostradas têm, de facto, a classe correta associada  (sendo esta a classe visível na inspeção de imagens). Mais uma vez, poderá haver erros vindos do API disponibilizado.
+Para além disto, temos também que a submissão de imagens por utilizadores também funciona corretamente. 
 
 
 \chapter{Conclusões}
 \label{chap.conclusao}
-O resultado final deste projeto é um \textit{website} funcional como pedido no guião. Para além disso, a utilização é extremamente intuitiiva para o utilizador e, com a compatibilidade de ecrâs é, acima de tudo, útil. Com isto, podemos dizer que o projeto foi bem suceiddo.
+O resultado final deste projeto é um \textit{website} funcional com todas as especificações do guião. Para além disso, a utilização é extremamente intuitiiva para o utilizador e, com a compatibilidade de ecrâs é, acima de tudo, útil. Com isto, podemos dizer que o projeto foi bem suceiddo.
 
 \chapter*{Contribuições dos autores}
 A componente \textit{backend} foi feita por \ac{AP}. O\textit{frontend} foi feito por \ac{AP} e \ac{GT}. O relatório foi escrito por \ac{SV} e revisto por \ac{AP}.
