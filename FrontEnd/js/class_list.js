@@ -13,7 +13,7 @@ fetch(url)
           let tmp_name = Object.keys(res)[0];
           res = res[Object.keys(res)[0]];
           let master_to_add = "";
-          master_to_add += '<h4 class="class_list_item_text"><a href="search_images.html?name=' + tmp_name + '" >'+
+          master_to_add += '<h4 class="class_list_item_text"><a href="https://xcoa.av.it.pt/labi2019-p2-g2/search_images.html?name=' + tmp_name + '" >'+
           capitalize(tmp_name) +
             '</a></h4><div class="gridywrap" style="height:320px">';
           for (let i of res) {
