@@ -1,5 +1,4 @@
 send_image = self => {
-  let arrayBuffer = this.result;
   let data = new FormData();
   data.append("image", self.files[0]);
   fetch("https://xcoa.av.it.pt/labi2019-p2-g2/put", {
