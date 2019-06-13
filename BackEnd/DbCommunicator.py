@@ -8,7 +8,6 @@ from os import remove
 from urllib.request import urlretrieve
 import os
 import random
-""" função de conversão de rgb para HUE se quiseres podes testar, é facil, mas n é mandatorio"""
 def hueFromRBG(R, G, B):
     r = float(R) / 255
     g = float(G) / 255
@@ -24,22 +23,10 @@ def hueFromRBG(R, G, B):
 
 
 class DbCommunicator:
-    """Convém que todos os testes sejam parametrizaveis em numero e randomicos em conteudo
-    ou seja, as imagens escolhidas para o teste são aleatorias e o numero de imagens escolhidas é
-    parametrizavel. Exemplo, defines variavel de quantidade de testes assim 'NUMTESTS = int(numero qlquer)'
-    e a chamada às funções de teste começa com um 'for i in range(NUMTESTS):'. No interior dos testes
-    escolhes uma imagem aleatoria, recomendo que cries uma lista com todas as imagens possiveis
-    e uses a função random.choice(listaDeImages) para aleatorizar a imagem do current test  """
-    """Esta função não precisa de testes"""
-
-    """Na maioria dos metodos é uma boa ideia testar casos com chamadas errada, tipo passar uma chamada errada para a função"""
-
+    
     def __init__(self, db_name: str) -> None:
         """Initializes the object that will connect to the given database"""
         self.db_name = db_name
-
-    """O teste consiste em enviar algumas imagens para a função e verificar 
-  o tipo e coerencia dos outputs, com coerencia refiro me à HUE que deve ser entre 0 e 360"""
 
     def get_dims_and_color(self, image_path: str) -> tuple:
         """Collects image average color and dimensions that will be added to the database"""
@@ -49,12 +36,6 @@ class DbCommunicator:
         color = img2.getpixel((0, 0))
         avg_color = {'r': color[0], 'g': color[1], 'b': color[2]}
         return (height, width, hueFromRBG(avg_color['r'], avg_color['g'], avg_color['b']))
-
-    """Igual à função de cima, passas um bytearray para a função, podes obter um bytearray a 
-  partir de um path desta maneira open(path,'rb').read(). Depois verificas os tipos dos outputs
-  e a sua coerencia, o output é uma lista de dicionarios, em cada dicionario o name é uma string com
-  comprimento igual ao de um hash md5, a class é uma string, a box é um dicionario com 4 atributos inteiros
-  x,x1,y,y1 e a confiança é real um valor entre 0 e 1 """
 
     def request_caracteristics(self, image: bytearray, name: str) -> list:
         """Requests caracteristics of image from the given api"""
@@ -74,19 +55,6 @@ class DbCommunicator:
                             'box': (i['box']),
                             'confidence': i['confidence']})
         return caracts
-    """
-  Neste metodos os testes são algo complexos, envias uma imagem como bytearray e depois testas se
-  O output é: 
-  'Image Already in Database', neste caso procedes para os testes à database,
-  'Any class detecter', neste caso paras o teste por aqui,
-  'Image Added Successfully', neste caso procedes para os testes à db,
-  Os testes à db consiste em ligares à db e procurares com o comando 
-  Select * from RelImgCaracts where FKOriginalImage = ?, hashMd5DoConteudoDaImages
-  caso nada seja encontrado, o teste falha, caso seja encontrado, o teste prossegue
-  depois pegas no resultado, nas FKOriginalImage e nas FKCroppedImage (<- not rly sure se 
-  é exatamente este o nome, vê o schema da table)
-  e pesquisas por ela na tabela Imagens da db, se existir sempre resultado, há sucesso no teste
-  """
 
     def add(self, image: bytearray):
         """Adds a new item item to database collection of images, the image provided can generate multiple new images stored
@@ -133,16 +101,12 @@ class DbCommunicator:
         db.commit()
         db.close()
         return("Image Added Successfully")
-    """
-  O teste deste metodo é parecido com o do add mas neste caso o teste têm sucesso caso nada seja encontrado na db
-  quando pesquisas pelo hash md5 do conteudo das imagens
-  """
 
     def remove(self, img_object: dict):
         """Removes an item from the database, either a child image or a parent, if it is a parent image all childs will be deleted"""
         db = sqlite3.connect(self.db_name)
         img_name = ""
-        if(type(img_object) != dict): return("Bad Call");
+        if(type(img_object) != dict): return("Bad Call")
         if('image' in img_object):
             img_name = md5(img_object['image']).hexdigest()
         elif('image_name' in img_object):
@@ -163,10 +127,6 @@ class DbCommunicator:
         db.commit()
         db.close()
         return("Image removed Successfully")
-
-    """
-    Testar coerencia dos resultados mais uma vez
-  """
 
     def get(self, id: str):
         """Retrieves an image based on an id specified on the request"""
@@ -191,9 +151,7 @@ class DbCommunicator:
         db.commit()
         db.close()
         return(result)
-    """Este metodo provavelmente é mais simples explicar por discord isto é um bocado code heavy principalmente se n
-  estás à vontade com GET e POST requests nem com python no geral"""
-
+   
     def request(self, request_obj: dict):
         """Parses the request made via GET and retrieves the asked data"""
         db = sqlite3.connect(self.db_name)
@@ -294,7 +252,6 @@ class DbCommunicator:
 
 
 """Both functions bellow are for debugging purposes and will not be exported to app.py"""
-
 
 def __clear_all_caution__(name):
     """Clears database, used for upload size purposes"""
