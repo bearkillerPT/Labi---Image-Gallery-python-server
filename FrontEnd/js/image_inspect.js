@@ -30,20 +30,20 @@ fetch("https://xcoa.av.it.pt/labi2019-p2-g2/get?id=" + getUrlVars().id)
         );
         context.lineWidth = "1";
         context.strokeStyle = "blue";
-          context.rect(
-            top_left_x + i.box.x * scale,
-            i.box.y * scale,
-            i.box.x1 * scale - i.box.x * scale,
-            i.box.y1 * scale - i.box.y * scale
-          );
+        context.rect(
+          top_left_x + i.box.x * scale,
+          i.box.y * scale,
+          i.box.x1 * scale - i.box.x * scale,
+          i.box.y1 * scale - i.box.y * scale
+        );
         context.stroke();
       }
     };
   })
   .catch(e => console.log(e));
 
-  /*Obtem os parametro passados no url*/
-  /*função copiada do stack overflow*/
+/*Obtem os parametro passados no url*/
+/*função copiada do stack overflow*/
 function getUrlVars() {
   var vars = {};
   var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(

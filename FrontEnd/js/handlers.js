@@ -75,5 +75,8 @@ function getUrlVars() {
   ) {
     vars[key] = value;
   });
+  console.log(vars)
+  vars.name = vars.name.replace("%20", " ");
+  console.log(vars)
   return vars;
 }
